@@ -1,157 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="sq">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agoni Barber</title>
-
-<style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#f5f5f5;
-}
-.header{
-  background:#0d1b2a;
-  color:white;
-  padding:40px 20px;
-  text-align:center;
-}
-.card{
-  background:white;
-  margin:20px;
-  padding:20px;
-  border-radius:15px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.1);
-}
-input, select{
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-}
-button{
-  background:#e63946;
-  color:white;
-  border:none;
-  padding:12px;
-  width:100%;
-  border-radius:10px;
-  margin-top:15px;
-  font-size:16px;
-}
-.success{
-  color:green;
-}
-.error{
-  color:red;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agoni Barber - Rezervimet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #f3f4f6; font-family: sans-serif; }
+        .app-bg { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'); background-size: cover; background-position: center; height: 200px; }
+        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s; cursor: pointer; }
+        .card:active { transform: scale(0.95); }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .time-slot { border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; text-align: center; cursor: pointer; }
+        .time-slot.selected { background: #1f2937; color: white; border-color: #1f2937; }
+        .gold-btn { background: #f59e0b; color: white; width: 100%; padding: 15px; border-top-left-radius: 20px; border-top-right-radius: 20px; font-weight: bold; }
+    </style>
 </head>
-
 <body>
 
-<div class="header">
-<h1>AGONI BARBER</h1>
-<p>Rezervo Termin Online</p>
-</div>
+    <div class="app-bg flex flex-col items-center justify-center text-white text-center">
+        <h1 class="text-3xl font-bold tracking-wider">AGONI BARBER</h1>
+        <p class="text-sm opacity-90">Rezervo termin pa pritje</p>
+    </div>
 
-<div class="card">
-<h3>Rezervo Termin</h3>
+    <div class="p-6 grid grid-cols-2 gap-4 -mt-10">
+        <div class="card p-6 flex flex-col items-center justify-center space-y-3" onclick="openModal('bookingModal')">
+            <i class="fa-regular fa-calendar-check text-3xl text-gray-700"></i>
+            <span class="font-medium text-gray-800 text-sm">Rezervo Termin</span>
+        </div>
+        <div class="card p-6 flex flex-col items-center justify-center space-y-3">
+            <i class="fa-solid fa-star text-3xl text-red-500"></i>
+            <span class="font-medium text-gray-800 text-sm">Membership</span>
+        </div>
+        <div class="card p-6 flex flex-col items-center justify-center space-y-3">
+            <i class="fa-solid fa-cart-shopping text-3xl text-emerald-500"></i>
+            <span class="font-medium text-gray-800 text-sm">Produktet</span>
+        </div>
+    </div>
 
-<label>Shërbimi</label>
-<select id="service">
-<option>Qethje - 5€</option>
-<option>Qethje + Rroje - 6€</option>
-<option>Styler - 2€</option>
-</select>
+    <div class="px-6 py-4">
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+            <div>
+                <p class="text-xs text-gray-500 uppercase">Statusi Juaj</p>
+                <p class="font-bold text-gray-800">Mergim Dakaj</p>
+            </div>
+            <i class="fa-solid fa-circle-check text-emerald-500"></i>
+        </div>
+    </div>
 
-<label>Data</label>
-<input type="date" id="date">
+    <div class="fixed bottom-0 left-0 right-0">
+        <button class="gold-btn uppercase tracking-widest">
+            <i class="fa-solid fa-star mr-2"></i> Ju jeni GOLD MEMBER
+        </button>
+    </div>
 
-<label>Ora</label>
-<select id="time">
-<option>09:00</option>
-<option>09:30</option>
-<option>10:00</option>
-<option>10:30</option>
-<option>11:00</option>
-<option>11:30</option>
-<option>12:00</option>
-<option>13:00</option>
-<option>14:00</option>
-<option>15:00</option>
-<option>16:00</option>
-</select>
+    <div id="bookingModal" class="modal px-4">
+        <div class="bg-white w-full max-w-md rounded-2xl overflow-hidden shadow-2xl">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h2 class="font-bold text-lg">Rezervo Termin</h2>
+                <button onclick="closeModal('bookingModal')" class="text-gray-500 text-2xl">&times;</button>
+            </div>
+            
+            <div class="p-4 space-y-4">
+                <p class="text-sm font-semibold text-gray-600">Zgjidh Datën dhe Orën:</p>
+                
+                <div class="flex space-x-2 overflow-x-auto pb-2">
+                    <div class="bg-slate-800 text-white p-3 rounded-lg text-center min-w-[60px]">
+                        <p class="text-xs uppercase">Hën</p>
+                        <p class="font-bold">23</p>
+                    </div>
+                    <div class="bg-gray-100 p-3 rounded-lg text-center min-w-[60px]">
+                        <p class="text-xs uppercase text-gray-500">Mar</p>
+                        <p class="font-bold">24</p>
+                    </div>
+                    <div class="bg-gray-100 p-3 rounded-lg text-center min-w-[60px]">
+                        <p class="text-xs uppercase text-gray-500">Mër</p>
+                        <p class="font-bold">25</p>
+                    </div>
+                </div>
 
-<input type="text" id="name" placeholder="Emri juaj">
-<input type="text" id="phone" placeholder="Numri i telefonit">
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="time-slot" onclick="selectSlot(this)">09:00</div>
+                    <div class="time-slot selected" onclick="selectSlot(this)">09:30</div>
+                    <div class="time-slot" onclick="selectSlot(this)">10:00</div>
+                    <div class="time-slot" onclick="selectSlot(this)">10:30</div>
+                    <div class="time-slot" onclick="selectSlot(this)">11:00</div>
+                    <div class="time-slot" onclick="selectSlot(this)">11:30</div>
+                </div>
 
-<button onclick="reserve()">Rezervo Tani</button>
+                <div class="space-y-3 pt-4">
+                    <input type="text" placeholder="Emri juaj" class="w-full border p-3 rounded-xl outline-none focus:ring-2 focus:ring-slate-800">
+                    <input type="tel" placeholder="Numri i telefonit" class="w-full border p-3 rounded-xl outline-none focus:ring-2 focus:ring-slate-800">
+                    <button onclick="confirmBooking()" class="w-full bg-emerald-500 text-white font-bold py-4 rounded-xl shadow-lg">Konfirmo Terminin</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<p id="message"></p>
-</div>
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
 
-<script type="module">
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        function selectSlot(el) {
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+            el.classList.add('selected');
+        }
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAvOR7GVNRjoSHwRlmiJsMptnodnlhTL-k",
-  authDomain: "agonibarber.firebaseapp.com",
-  projectId: "agonibarber",
-  storageBucket: "agonibarber.firebasestorage.app",
-  messagingSenderId: "195737259673",
-  appId: "1:195737259673:web:a129ea0024d0802e173208"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-window.reserve = async function(){
-
-  const service = document.getElementById("service").value;
-  const date = document.getElementById("date").value;
-  const time = document.getElementById("time").value;
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const message = document.getElementById("message");
-
-  if(!date || !name || !phone){
-    message.innerHTML = "Plotëso të gjitha fushat!";
-    message.className="error";
-    return;
-  }
-
-  const q = query(
-    collection(db,"appointments"),
-    where("date","==",date),
-    where("time","==",time)
-  );
-
-  const querySnapshot = await getDocs(q);
-
-  if(!querySnapshot.empty){
-    message.innerHTML="Kjo orë është e zënë!";
-    message.className="error";
-    return;
-  }
-
-  await addDoc(collection(db,"appointments"),{
-    service,
-    date,
-    time,
-    name,
-    phone,
-    createdAt: new Date()
-  });
-
-  message.innerHTML="Rezervimi u krye me sukses!";
-  message.className="success";
-
-}
-
-</script>
-
+        function confirmBooking() {
+            alert("Sukses! Termini u rezervua me sukses.");
+            closeModal('bookingModal');
+        }
+    </script>
 </body>
 </html>
