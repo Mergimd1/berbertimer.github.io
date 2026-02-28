@@ -58,7 +58,7 @@
         .video-header { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074'); background-size: cover; background-position: center; height: 240px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
         .home-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; margin-top: -30px; }
         .home-card { background: white; border-radius: 20px; padding: 25px 10px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; }
-        .gold-card { background: linear-gradient(135deg, #111827 0%, #1f2937 100%); color: #fbbf24; border-radius: 25px; padding: 25px; margin-bottom: 25px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); border: 1px solid rgba(251, 191, 36, 0.3); }
+        .gold-card { background: linear-gradient(135deg, #111827 0%, #1f2937 100%); color: #fbbf24; border-radius: 25px; padding: 25px; margin-bottom: 25px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); border: 1px solid rgba(251, 191, 36, 0.3); position: relative; }
         .member-input { width: 100%; padding: 15px; border: 1px solid #e5e7eb; border-radius: 15px; margin-bottom: 12px; outline: none; background: white; font-weight: bold; }
         .berber-select { border: 1px solid #e5e7eb; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer; text-align: center; background: white; transition: 0.2s; }
         .berber-select.selected { border-color: #fbbf24; background: #fffbeb; color: #b45309; box-shadow: 0 0 0 2px #fbbf24; }
@@ -83,31 +83,32 @@
         .band-2 { background: #fbbf24; color: #111827; }
         .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
         .m-item { margin: 0 30px; }
-        
-        /* Ribbons Style (E vjetra) */
-        .insta-ribbon, .location-ribbon { position: relative; overflow: hidden; transition: 0.3s; }
-        .insta-ribbon { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
-        .location-ribbon { background: linear-gradient(45deg, #4285F4 0%, #34A853 100%); }
-        .insta-ribbon::after, .location-ribbon::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent); transform: rotate(30deg); animation: shimmer 3s infinite; }
-        @keyframes shimmer { 0% { transform: translateX(-100%) rotate(30deg); } 100% { transform: translateX(100%) rotate(30deg); } }
 
-        /* Stili për Rrotullo & Fito */
+        /* Stili për Rrotullo & Fito (Baneri) */
         .spin-win-banner { background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); color: white; border-radius: 25px; padding: 20px 25px; margin: 20px 20px 80px 20px; position: relative; overflow: hidden; box-shadow: 0 15px 30px rgba(234, 88, 12, 0.3); cursor: pointer; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255, 255, 255, 0.2); transition: transform 0.2s; }
         .spin-win-banner:active { transform: scale(0.95); }
         .spin-win-banner::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent); transform: rotate(30deg); animation: shimmer 3s infinite; }
         .spin-icon-wrapper { background: rgba(255, 255, 255, 0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); animation: pulse-spin 4s infinite linear; }
         @keyframes pulse-spin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.1); } 100% { transform: rotate(360deg) scale(1); } }
 
-        /* RROTULLA E RE RADIALE (FORMA E PICËS) */
-        #wheel-container { position: relative; width: 280px; height: 280px; margin: 20px auto; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2)); }
-        #wheel { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #111827; position: relative; overflow: hidden; transition: transform 5s cubic-bezier(0.15, 0.1, 0.15, 1); background: #ffffff; box-shadow: inset 0 0 15px rgba(0,0,0,0.1); }
-        #wheel::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background: white; border-radius: 50%; border: 4px solid #111827; z-index: 20; }
-        .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 16px solid transparent; border-right: 16px solid transparent; border-top: 35px solid #ef4444; z-index: 30; filter: drop-shadow(0 3px 3px rgba(0,0,0,0.3)); }
-        .segment { position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; display: flex; align-items: center; justify-content: center; clip-path: polygon(0 0, 100% 0, 100% 100%); border: 1px solid rgba(0,0,0,0.05); }
-        .segment-content { position: absolute; width: 100px; height: 100%; transform-origin: center bottom; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 15px; text-align: center; }
-        .segment-content span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; font-weight: 900; text-transform: uppercase; color: #111827; }
+        /* RROTULLA 3D E RE */
+        #wheel-container { position: relative; width: 280px; height: 280px; margin: 30px auto; filter: drop-shadow(0 20px 15px rgba(0,0,0,0.3)); }
+        #wheel { width: 100%; height: 100%; border-radius: 50%; border: 8px solid #1f2937; position: relative; overflow: hidden; transition: transform 5s cubic-bezier(0.15, 0.1, 0.15, 1); background: #ffffff; box-shadow: inset 0 0 25px rgba(0,0,0,0.4), 0 12px 0 #111827; /* Efekti i trashësisë 3D poshtë */ }
+        
+        /* Qendra 3D */
+        #wheel::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #f3f4f6 0%, #d1d5db 100%); border-radius: 50%; border: 4px solid #111827; z-index: 20; box-shadow: 0 5px 10px rgba(0,0,0,0.5); }
+        
+        /* Shigjeta 3D */
+        .wheel-pointer { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 45px solid #ef4444; z-index: 30; filter: drop-shadow(0 6px 5px rgba(0,0,0,0.4)); }
+        .wheel-pointer::after { content: ''; position: absolute; top: -45px; left: -20px; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 45px solid rgba(0,0,0,0.2); z-index: 31; clip-path: polygon(50% 0, 100% 0, 50% 100%); /* Efekti i dritë-hijes për ta bërë si piramidë */ }
 
-        /* Stil i ri 3D për Shiritat e Kontaktit */
+        .segment { position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; display: flex; align-items: center; justify-content: center; clip-path: polygon(0 0, 100% 0, 100% 100%); border: 1px solid rgba(0,0,0,0.08); }
+        
+        /* Rregullimi i tekstit për tu dukur qartë */
+        .segment-content { position: absolute; width: 100px; height: 100%; transform-origin: center bottom; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 25px; /* Shtyjmë poshtë që mos të pritet */ text-align: center; }
+        .segment-content span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 11px; font-weight: 900; text-transform: uppercase; color: #111827; letter-spacing: 0.5px; text-shadow: 1px 1px 0px rgba(255,255,255,0.9); /* Hije e bardhë për dukshmëri mbi ngjyra */ max-height: 90px; overflow: hidden; }
+
+        /* Stili 3D për Shiritat e Kontaktit */
         .contact-ribbon-3d { display: flex; align-items: center; padding: 16px 20px; border-radius: 20px; margin-bottom: 15px; position: relative; overflow: hidden; transition: all 0.2s ease; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 0 rgb(0, 0, 0, 0.15), 0 15px 20px rgba(0,0,0,0.1); cursor: pointer; }
         .contact-ribbon-3d:active { transform: translateY(4px); box-shadow: 0 2px 0 rgb(0, 0, 0, 0.2); }
         .insta-3d { background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%); color: white; }
@@ -186,7 +187,9 @@
 
     <div id="view-membership" class="hidden p-6 bg-gray-50 min-h-screen">
         <div class="gold-card text-center">
-            <i class="fa-solid fa-crown text-4xl mb-2"></i>
+            <div class="absolute top-4 right-4 bg-amber-400 text-slate-900 font-black px-3 py-1 rounded-xl text-sm shadow-md border border-amber-300">25€</div>
+            
+            <i class="fa-solid fa-crown text-4xl mb-2 mt-2"></i>
             <h2 class="text-2xl font-black uppercase italic tracking-widest">Gold Member</h2>
             <div class="grid grid-cols-2 gap-2 text-[10px] font-bold uppercase text-left mt-4 opacity-90">
                 <div class="flex items-center space-x-2"><i class="fa-solid fa-check text-amber-400"></i><span>3 Qethje / muaj</span></div>
@@ -211,7 +214,7 @@
                 <div class="flex space-x-3 overflow-x-auto mb-4 pb-2 no-scrollbar" id="m-cal-days"></div>
                 <div class="grid grid-cols-3 gap-2" id="m-time-grid"></div>
             </div>
-            <button onclick="confirmGold()" class="w-full bg-amber-500 text-white py-5 rounded-2xl font-black mt-6 uppercase tracking-widest shadow-lg">Bëhu Gold Member</button>
+            <button onclick="confirmGold()" class="w-full bg-amber-500 text-white py-5 rounded-2xl font-black mt-6 uppercase tracking-widest shadow-lg">Bëhu Gold Member (25€)</button>
         </div>
     </div>
 
@@ -292,7 +295,7 @@
 
     <div id="bookingModal" class="modal-overlay">
         <div class="modal-body">
-            <div class="flex justify-between items-center mb-6"><h2 id="modalTitle" class="font-black text-xl uppercase italic">Zgjedh Shërbimin</h2><button onclick="closeModal()" class="text-3xl text-gray-300">&times;</button></div>
+            <div class="flex justify-between items-center mb-6"><h2 id="modalTitle" class="font-black text-xl uppercase italic">Zgjedh Shërbimin</h2><button onclick="closeModal()" class="text-3xl text-gray-300">×</button></div>
             <div id="step1">
                 <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s1" onclick="setService('Qethje', 's1')"><div><span class="font-bold block">Qethje</span><span class="text-[10px] font-bold text-gray-400 uppercase">30 MIN</span></div><span class="font-black">5€</span></div>
                 <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s2" onclick="setService('Qethje + Rroje', 's2')"><div><span class="font-bold block">Qethje + Rroje</span><span class="text-[10px] font-bold text-gray-400 uppercase">35 MIN</span></div><span class="font-black">6€</span></div>
@@ -339,7 +342,7 @@
             <div id="winDisplay" class="hidden mt-6 p-4 bg-emerald-50 border-2 border-emerald-500 rounded-2xl">
                 <p class="text-emerald-600 font-black uppercase tracking-tighter" id="winText"></p>
             </div>
-            <p class="text-[10px] text-red-600 mt-4 font-black uppercase text-center tracking-wide">⚠️ VËREJTJE: Nese je fitusi duhet patjeter kur ta fitoni shperblimin ate dite te vini per te qethur</p>
+            <p class="text-[10px] text-red-600 mt-4 font-black uppercase text-center tracking-wide">⚠️ VËREJTJE: Nëse je fituesi duhet patjetër kur ta fitoni shpërblimin atë ditë të vini për të qethur</p>
         </div>
     </div>
 
@@ -443,10 +446,10 @@
         async function confirmGold() {
             let n = document.getElementById('mName').value; let p = document.getElementById('mPhone').value;
             if(!n || !mBooking.t) return alert("Plotësoni të dhënat!");
-            const success = await window.saveToFirebase({ ...mBooking, name: n, phone: p, type: 'GOLD' });
+            const success = await window.saveToFirebase({ ...mBooking, name: n, phone: p, type: 'GOLD', price: '25€' });
             if(success) {
                 const token = "8608115004:AAE-jHShbQbGGI1L7Z8qYFdS-J77rsX51OY"; const chatid = "5802987116";
-                const msgGold = `👑 *ANËTAR I RI GOLD*\n──────────────\n👤 *Klienti:* ${n}\n📞 *Tel:* ${p}\n🧔 *Berberi Preferuar:* ${mBooking.b}\n📅 *Termini i parë:* ${mBooking.d} në ${mBooking.t}`;
+                const msgGold = `👑 *ANËTAR I RI GOLD*\n──────────────\n👤 *Klienti:* ${n}\n📞 *Tel:* ${p}\n🧔 *Berberi Preferuar:* ${mBooking.b}\n📅 *Termini i parë:* ${mBooking.d} në ${mBooking.t}\n💰 *Pagesa:* 25€`;
                 fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}&text=${encodeURIComponent(msgGold)}&parse_mode=Markdown`);
                 alert("Urime! Tani jeni Gold Member."); location.reload();
             }
