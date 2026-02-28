@@ -1,61 +1,45 @@
-// script.js
+let booking = { s: '', b: '', d: '', t: '' };
 
-// 1. Ndërrimi i faqeve
-function switchPage(page) {
-    const views = ['home', 'membership', 'terminet', 'kontakt'];
-    views.forEach(v => {
+function switchPage(p) {
+    ['home', 'membership', 'kontakt'].forEach(v => {
         const el = document.getElementById('view-' + v);
         if(el) el.classList.add('hidden');
     });
-    const target = document.getElementById('view-' + page);
-    if(target) target.classList.remove('hidden');
-    
-    document.getElementById('main-header').style.display = (page === 'home') ? 'flex' : 'none';
+    document.getElementById('view-' + p).classList.remove('hidden');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    if(document.getElementById('nav-' + p)) document.getElementById('nav-' + p).classList.add('active');
+    document.getElementById('main-header').style.display = (p === 'home') ? 'flex' : 'none';
 }
 
-// 2. Hapja/Mbyllja e modalit të rezervimit
-function openBooking() {
-    const modal = document.getElementById('bookingModal');
-    modal.classList.add('active');
-    goStep(1);
-}
-
-function closeModal() {
-    document.getElementById('bookingModal').classList.remove('active');
-}
-
-// 3. Hapat e rezervimit
-let bookingData = { s: '', b: '', d: '', t: '' };
+function openBooking() { document.getElementById('bookingModal').classList.add('active'); goStep(1); }
+function closeModal() { document.getElementById('bookingModal').classList.remove('active'); }
 
 function goStep(n) {
-    document.getElementById('step1').classList.add('hidden');
-    document.getElementById('step2').classList.add('hidden');
-    document.getElementById('step3').classList.add('hidden');
+    ['step1', 'step2', 'step3'].forEach(s => document.getElementById(s).classList.add('hidden'));
     document.getElementById('step' + n).classList.remove('hidden');
-    
     if(n === 3) buildSchedule();
 }
 
-function setService(name, el) {
-    bookingData.s = name;
-    document.querySelectorAll('.service-opt').forEach(opt => opt.style.borderColor = '#e5e7eb');
-    el.style.borderColor = '#111827';
+function setService(s, id) {
+    booking.s = s;
+    document.querySelectorAll('#step1 .border-2').forEach(d => d.style.borderColor = '#e5e7eb');
+    document.getElementById(id).style.borderColor = '#111827';
     document.getElementById('v1').classList.add('active');
 }
 
-function setB(name, el) {
-    bookingData.b = name;
-    document.querySelectorAll('.barber-opt').forEach(opt => opt.style.borderColor = '#e5e7eb');
-    el.style.borderColor = '#111827';
+function setB(b, id) {
+    booking.b = b;
+    document.querySelectorAll('#step2 .border-2').forEach(d => d.style.borderColor = '#e5e7eb');
+    document.getElementById(id).style.borderColor = '#111827';
     document.getElementById('v2').classList.add('active');
 }
 
-// 4. Rrotulla
+// Logjika e Rrotulles
 const prizes = [
-    { text: "Qethje Falas", win: true }, { text: "Pa Fat", win: false },
-    { text: "Wax Falas", win: true }, { text: "Pa Fat", win: false },
-    { text: "Kafe Gratis", win: true }, { text: "Pa Fat", win: false },
-    { text: "Mjekerr Falas", win: true }, { text: "Pa Fat", win: false }
+    { text: "Qethje Falas", win: true }, { text: "Pa Fat Sot", win: false },
+    { text: "Wax Nishman", win: true }, { text: "Provoni Neser", win: false },
+    { text: "Kafe Falas", win: true }, { text: "Pa Fat Sot", win: false },
+    { text: "Mjekerr Falas", win: true }, { text: "Provoni Neser", win: false }
 ];
 
 function initWheel() {
@@ -75,25 +59,17 @@ function initWheel() {
     });
 }
 
-function openWheel() {
-    document.getElementById('wheelModal').classList.add('active');
-    initWheel();
-}
-
-function closeWheel() {
-    document.getElementById('wheelModal').classList.remove('active');
-}
+function openWheel() { document.getElementById('wheelModal').classList.add('active'); initWheel(); }
+function closeWheel() { document.getElementById('wheelModal').classList.remove('active'); }
 
 function spinWheel() {
-    const btn = document.getElementById('spinBtn');
-    btn.disabled = true;
     const prizeIndex = Math.floor(Math.random() * prizes.length);
     const degrees = (3600 + (360 - (prizeIndex * 45)) - 22.5);
     document.getElementById('wheel').style.transform = `rotate(${degrees}deg)`;
-    
     setTimeout(() => {
-        const display = document.getElementById('winDisplay');
-        display.classList.remove('hidden');
-        display.innerText = prizes[prizeIndex].win ? "FITOVE: " + prizes[prizeIndex].text : "Provo herën tjetër!";
+        if(prizes[prizeIndex].win) {
+            document.getElementById('winDisplay').classList.remove('hidden');
+            document.getElementById('winText').innerText = "FITOVE: " + prizes[prizeIndex].text;
+        } else { alert("Me shume fat neser!"); }
     }, 5000);
 }
