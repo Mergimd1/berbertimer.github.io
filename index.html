@@ -3,378 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agoni Barber | App Premium</title>
+    <title>Agoni Barber | 10 Vite Eksperiencë</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
     
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, doc, onSnapshot, query, where, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDd6wjVvh-28PODRDJ9bkSf8KKnVhmmf2A",
-            authDomain: "agonicrew-app.firebaseapp.com",
-            projectId: "agonicrew-app",
-            storageBucket: "agonicrew-app.firebasestorage.app",
-            messagingSenderId: "304023532430",
-            appId: "1:304023532430:web:5914d16317835914d1631783"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        window.saveToFirebase = async function(data) {
-            try { await addDoc(collection(db, "appointments"), data); return true; } 
-            catch (e) { console.error(e); return false; }
-        };
-
-        window.getTerminetRealTime = function(barberName, callback) {
-            const q = query(collection(db, "appointments"), where("b", "==", barberName));
-            onSnapshot(q, (snapshot) => {
-                const docs = [];
-                snapshot.forEach(d => docs.push({ ...d.data(), id: d.id }));
-                callback(docs);
-            });
-        };
-
-        window.deleteTerminFirebase = async function(id) { await deleteDoc(doc(db, "appointments", id)); };
-
-        window.getTerminePerBllokim = async function(barberName, data) {
-            const q = query(collection(db, "appointments"), where("b", "==", barberName), where("d", "==", data));
-            const snapshot = await getDocs(q);
-            const docs = [];
-            snapshot.forEach(d => docs.push(d.data()));
-            return docs;
-        };
-    </script>
-
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
-        
-        body { background-color: #0f172a; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; }
-        
-        /* 6D EFFECT - WHEEL CONTAINER */
-        #wheel-container { 
-            position: relative; 
-            width: 320px; 
-            height: 320px; 
-            margin: 40px auto; 
-            perspective: 1000px;
+        body {
+            background-color: #0f172a;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            scroll-behavior: smooth;
         }
 
-        /* The '6D' Outer Ring with Glow */
-        .wheel-outer-ring {
-            position: absolute;
-            inset: -15px;
-            background: linear-gradient(145deg, #1e293b, #0f172a);
-            border-radius: 50%;
-            box-shadow: 
-                0 0 30px rgba(0,0,0,0.8),
-                inset 0 0 15px rgba(255,255,255,0.1),
-                0 0 20px #fbbf24;
-            z-index: 1;
+        /* 3D Glass Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
         }
 
-        #wheel { 
-            width: 100%; 
-            height: 100%; 
-            border-radius: 50%; 
-            border: 10px solid #111827; 
-            position: relative; 
-            overflow: hidden; 
-            transition: transform 5s cubic-bezier(0.15, 0.1, 0.15, 1); 
-            background: #fff;
-            z-index: 5;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+        .glass-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            border: 1px solid rgba(251, 191, 36, 0.5);
+            box-shadow: 0 35px 60px -15px rgba(251, 191, 36, 0.2);
         }
 
-        /* Center Hub 3D */
-        .wheel-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: radial-gradient(circle, #fcd34d 0%, #b45309 100%);
-            border-radius: 50%;
-            border: 4px solid #111827;
-            z-index: 20;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 -4px 4px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Hero Background */
+        .hero-bg {
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.3), #0f172a), 
+                        url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070'); /* KETU VENDOSET FOTOJA JOTE */
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
         }
 
-        /* 3D Pointer */
-        .wheel-pointer { 
-            position: absolute; 
-            top: -30px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            width: 40px; 
-            height: 50px; 
-            background: #ef4444; 
-            z-index: 30; 
-            clip-path: polygon(50% 100%, 0 0, 100% 0);
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
-            border-top: 5px solid #b91c1c;
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
         }
 
-        .segment { 
-            position: absolute; 
-            width: 50%; 
-            height: 50%; 
-            transform-origin: 100% 100%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            clip-path: polygon(0 0, 100% 0, 100% 100%);
+        .float-icon {
+            animation: float 4s ease-in-out infinite;
         }
 
-        .segment-content { 
-            position: absolute; 
-            width: 120px; 
-            height: 100%; 
-            transform-origin: center bottom; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: flex-start; 
-            padding-top: 25px; 
-            text-align: center;
+        /* 3D Buttons */
+        .btn-3d {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            box-shadow: 0 4px 0 #92400e, 0 8px 15px rgba(0,0,0,0.4);
+            transition: all 0.1s ease;
         }
 
-        /* Clear Text with Hearts */
-        .segment-content span { 
-            writing-mode: vertical-rl; 
-            transform: rotate(180deg); 
-            font-size: 13px; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            color: #111827; 
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .btn-3d:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #92400e;
         }
 
-        .heart-icon { color: #ef4444; font-size: 14px; margin-bottom: 5px; }
-
-        /* UI Elements */
-        .video-header { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074'); background-size: cover; background-position: center; height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-bottom: 4px solid #fbbf24; }
-        .home-card { background: #1e293b; border-radius: 24px; padding: 20px; display: flex; flex-direction: column; align-items: center; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
-        .home-card:active { transform: scale(0.95); }
-        .gold-card { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); color: #111827; border-radius: 30px; padding: 30px; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        
-        .price-badge { 
-            position: absolute; 
-            top: 20px; 
-            right: -30px; 
-            background: #ef4444; 
-            color: white; 
-            padding: 8px 40px; 
-            transform: rotate(45deg); 
-            font-weight: 900; 
-            font-size: 18px; 
-            box-shadow: 0 5px 10px rgba(0,0,0,0.2); 
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            background: linear-gradient(to right, #fbbf24, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; display: flex; justify-content: space-around; padding: 15px; border-top: 2px solid #334155; z-index: 100; }
-        .nav-item { color: #94a3b8; text-align: center; font-size: 10px; font-weight: bold; }
-        .nav-item.active { color: #fbbf24; }
-
-        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
-        .modal-overlay.active { display: flex; }
-        .modal-body { background: #1e293b; width: 100%; max-width: 400px; border-radius: 35px; padding: 30px; position: relative; border: 1px solid #334155; max-height: 90vh; overflow-y: auto; }
-
-        input { background: #0f172a !important; color: white !important; border: 1px solid #334155 !important; padding: 15px; border-radius: 15px; width: 100%; margin-bottom: 10px; font-weight: bold; }
-        .time-slot { background: #0f172a; padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #334155; font-weight: bold; }
-        .time-slot.selected { background: #fbbf24; color: #111827; }
-        .time-slot.busy { opacity: 0.3; text-decoration: line-through; }
     </style>
 </head>
-<body class="pb-24">
+<body class="overflow-x-hidden">
 
-    <header id="main-header" class="video-header">
-        <h1 class="text-4xl font-black italic tracking-tighter uppercase text-white">AGONI BARBER</h1>
-        <div class="h-1 w-20 bg-yellow-400 mt-2"></div>
-    </header>
+    <section id="home" class="hero-bg flex flex-col items-center justify-center text-center p-6">
+        <div class="float-icon bg-yellow-400 text-black px-4 py-1 rounded-full font-bold text-sm mb-4">
+            EST. 2014 - 10 VITE EKSPERIENCË
+        </div>
+        <h1 class="text-6xl md:text-8xl font-black uppercase italic leading-none mb-4">
+            AGONI<br><span class="text-yellow-400">BARBER</span>
+        </h1>
+        <p class="text-gray-300 max-w-md text-lg font-light mb-8">
+            Arti i qethjes i transformuar në eksperiencë premium. Mbi 10 vite mjeshtëri në çdo detaj.
+        </p>
+        <a href="#booking" class="btn-3d text-black px-10 py-4 rounded-2xl font-black uppercase tracking-widest">
+            CAKTO TERMININ
+        </a>
+    </section>
 
-    <main id="view-home" class="p-6">
-        <div class="grid grid-cols-2 gap-4">
-            <div class="home-card" onclick="openBooking()">
-                <div class="w-14 h-14 bg-yellow-400/10 rounded-full flex items-center justify-center text-yellow-400 mb-3 text-2xl">
-                    <i class="fa-solid fa-calendar-check"></i>
+    <section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <div class="glass-card p-2">
+            <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=2070" class="rounded-2xl" alt="Barber at work">
+        </div>
+        <div>
+            <h2 class="section-title mb-6">Mjeshtri im</h2>
+            <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                Me një karrierë që filloi para 1 dekade, unë kam dedikuar çdo ditë për të perfeksionuar stilin dhe teknikat moderne. Nuk është thjesht një qethje, është vizioni juaj i jetësuar përmes gërshërëve të mia.
+            </p>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glass-card p-4 text-center">
+                    <h4 class="text-3xl font-black text-yellow-400">10k+</h4>
+                    <p class="text-xs uppercase font-bold text-gray-500">Klientë të kënaqur</p>
                 </div>
-                <span class="text-[11px] font-black uppercase">Rezervo</span>
-            </div>
-            <div class="home-card" onclick="switchPage('membership')">
-                <div class="w-14 h-14 bg-red-400/10 rounded-full flex items-center justify-center text-red-400 mb-3 text-2xl">
-                    <i class="fa-solid fa-crown"></i>
-                </div>
-                <span class="text-[11px] font-black uppercase">Membership</span>
-            </div>
-        </div>
-
-        <div class="mt-6 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-[30px] p-6 flex justify-between items-center shadow-2xl" onclick="openWheel()">
-            <div>
-                <h3 class="text-2xl font-black uppercase italic leading-none">Rrotullo<br>& Fito</h3>
-                <p class="text-[10px] font-bold mt-2 bg-black/20 px-2 py-1 rounded-lg inline-block">❤️ PROVO FATIN TËND</p>
-            </div>
-            <div class="text-5xl animate-bounce">🎁</div>
-        </div>
-    </main>
-
-    <div id="view-membership" class="hidden p-6">
-        <div class="gold-card shadow-2xl">
-            <div class="price-badge">25€</div>
-            <h2 class="text-3xl font-black uppercase italic mb-2">Gold Member</h2>
-            <ul class="text-sm font-bold space-y-2 opacity-90">
-                <li><i class="fa-solid fa-heart mr-2"></i> 3 Qethje në muaj</li>
-                <li><i class="fa-solid fa-heart mr-2"></i> Pa pritje fare</li>
-                <li><i class="fa-solid fa-heart mr-2"></i> Kafe falas</li>
-            </ul>
-        </div>
-        <div class="mt-6 space-y-4">
-            <input type="text" id="mName" placeholder="Emri Mbiemri">
-            <input type="tel" id="mPhone" placeholder="Nr. Telefonit">
-            <button onclick="confirmGold()" class="w-full bg-yellow-400 text-black h-16 rounded-2xl font-black uppercase text-lg shadow-xl">BËHU ANËTAR (25€)</button>
-        </div>
-    </div>
-
-    <div id="view-kontakt" class="hidden p-6 text-center">
-        <div class="bg-white/5 p-8 rounded-[40px] border border-white/10">
-            <i class="fa-solid fa-location-dot text-4xl text-red-500 mb-4"></i>
-            <h2 class="text-2xl font-black uppercase mb-2">Lokacioni</h2>
-            <p class="text-gray-400 font-bold mb-6 italic">Agonicrew, Pejë, 30000</p>
-            <a href="tel:+38349721735" class="block w-full bg-green-500 text-white p-4 rounded-2xl font-black mb-3">THIRR TANI</a>
-            <a href="https://instagram.com/agonibarber" class="block w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 rounded-2xl font-black">INSTAGRAM</a>
-        </div>
-    </div>
-
-    <div id="wheelModal" class="modal-overlay">
-        <div class="modal-body text-center">
-            <button onclick="closeWheel()" class="absolute top-4 right-6 text-2xl opacity-50">×</button>
-            <h2 class="text-2xl font-black uppercase italic mb-2">Rrotulla 6D ❤️</h2>
-            <p class="text-[10px] text-gray-400 font-bold uppercase mb-4">Fituesi duhet të vijë sot!</p>
-
-            <div id="wheel-container">
-                <div class="wheel-outer-ring"></div>
-                <div class="wheel-pointer"></div>
-                <div id="wheel"></div>
-                <div class="wheel-center">
-                    <i class="fa-solid fa-scissors text-white text-xl"></i>
+                <div class="glass-card p-4 text-center">
+                    <h4 class="text-3xl font-black text-yellow-400">10</h4>
+                    <p class="text-xs uppercase font-bold text-gray-500">Vite Përvojë</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <button id="spinBtn" onclick="spinWheel()" class="w-full bg-yellow-400 text-black h-16 rounded-2xl font-black uppercase tracking-widest text-xl mt-4 shadow-2xl">RROTULLO TANI</button>
-            
-            <div id="winDisplay" class="hidden mt-6 p-4 bg-green-500 rounded-2xl animate-pulse">
-                <p class="font-black text-white uppercase" id="winText"></p>
+    <section class="py-20 bg-[#0a0f1d] px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title text-center mb-16">Shërbimet & Çmimet</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 text-center relative overflow-hidden group">
+                    <div class="absolute -right-4 -top-4 text-8xl opacity-10 group-hover:opacity-20 transition-all">✂️</div>
+                    <i class="fa-solid fa-cut text-5xl text-yellow-400 mb-6"></i>
+                    <h3 class="text-2xl font-black mb-2 uppercase">Qethje Klasike</h3>
+                    <p class="text-gray-500 text-sm mb-6 uppercase font-bold">Stili që nuk vdes kurrë</p>
+                    <div class="text-4xl font-black text-white">5€</div>
+                </div>
+
+                <div class="glass-card p-8 text-center relative overflow-hidden group border-yellow-400/30">
+                    <div class="absolute -right-4 -top-4 text-8xl opacity-10 group-hover:opacity-20 transition-all">👑</div>
+                    <i class="fa-solid fa-crown text-5xl text-yellow-400 mb-6"></i>
+                    <h3 class="text-2xl font-black mb-2 uppercase">Full Service</h3>
+                    <p class="text-gray-500 text-sm mb-6 uppercase font-bold">Qethje + Mjekërr + Maskë</p>
+                    <div class="text-4xl font-black text-white">10€</div>
+                </div>
+
+                <div class="glass-card p-8 text-center relative overflow-hidden group">
+                    <div class="absolute -right-4 -top-4 text-8xl opacity-10 group-hover:opacity-20 transition-all">🔥</div>
+                    <i class="fa-solid fa-fire text-5xl text-yellow-400 mb-6"></i>
+                    <h3 class="text-2xl font-black mb-2 uppercase">Mjekërr & Lineup</h3>
+                    <p class="text-gray-500 text-sm mb-6 uppercase font-bold">Konturim perfekt</p>
+                    <div class="text-4xl font-black text-white">3€</div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div id="bookingModal" class="modal-overlay">
-        <div class="modal-body">
-            <h2 class="text-xl font-black uppercase mb-4">Zgjedh Shërbimin</h2>
-            <div class="space-y-2">
-                <div class="p-4 bg-white/5 rounded-xl flex justify-between font-bold border border-white/10" onclick="setService('Qethje', 5)">
-                    <span>Qethje</span><span>5€</span>
-                </div>
-                </div>
-            <input type="text" id="cName" placeholder="Emri juaj" class="mt-6">
-            <button onclick="alert('Te dhënat po ruhen...')" class="w-full bg-blue-600 text-white p-4 rounded-xl font-black mt-4">KONFIRMO</button>
-            <button onclick="closeModal()" class="w-full mt-2 text-sm opacity-50">Mbyll</button>
+    <section class="py-20 px-6">
+        <h2 class="section-title text-center mb-16">Galeria e Punimeve</h2>
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="glass-card overflow-hidden h-64 h-80">
+                <img src="https://images.unsplash.com/photo-1599351431247-f10b216981ad?q=80&w=1974" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Work 1">
+            </div>
+            <div class="glass-card overflow-hidden h-64 mt-8">
+                <img src="https://images.unsplash.com/photo-1622286332618-f28016a50463?q=80&w=2070" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Work 2">
+            </div>
+            <div class="glass-card overflow-hidden h-64">
+                <img src="https://images.unsplash.com/photo-1532710093739-9470acff878f?q=80&w=2070" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Work 3">
+            </div>
+            <div class="glass-card overflow-hidden h-64 mt-8">
+                <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=1974" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Work 4">
+            </div>
         </div>
-    </div>
+    </section>
 
-    <nav class="bottom-nav">
-        <div onclick="switchPage('home')" class="nav-item active"><i class="fa-solid fa-house text-xl"></i><p>Ballina</p></div>
-        <div onclick="openBooking()" class="nav-item"><i class="fa-solid fa-cut text-xl"></i><p>Rezervo</p></div>
-        <div onclick="switchPage('kontakt')" class="nav-item"><i class="fa-solid fa-map-pin text-xl"></i><p>Kontakt</p></div>
+    <section id="booking" class="py-20 px-6 bg-gradient-to-t from-yellow-400/10 to-transparent">
+        <div class="max-w-4xl mx-auto glass-card p-10">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-4xl font-black uppercase mb-6 italic">Cakto Termin</h2>
+                    <p class="text-gray-400 mb-8 font-bold">Rezervo vendin tënd tani dhe evito pritjen.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <i class="fa-solid fa-phone text-yellow-400 text-xl"></i>
+                            <span class="font-bold">+383 49 721 735</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <i class="fa-solid fa-location-dot text-yellow-400 text-xl"></i>
+                            <span class="font-bold">Qendra, Pejë, Kosovë</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <input type="text" placeholder="Emri Mbiemri" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-yellow-400 font-bold">
+                    <input type="tel" placeholder="Nr. Telefonit" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-yellow-400 font-bold">
+                    <button class="btn-3d w-full py-4 text-black font-black uppercase rounded-xl">KONFIRMO REZERVIMIN</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 glass-card px-8 py-4 flex gap-8 z-50">
+        <a href="#home" class="text-yellow-400"><i class="fa-solid fa-house"></i></a>
+        <a href="#booking" class="text-white hover:text-yellow-400"><i class="fa-solid fa-calendar-days"></i></a>
+        <a href="https://instagram.com" class="text-white hover:text-yellow-400"><i class="fa-brands fa-instagram"></i></a>
     </nav>
 
     <script>
-        const prizes = [
-            { text: "Qethje Falas", color: "#fbbf24", icon: "❤️" },
-            { text: "Pa Fat Sot", color: "#ffffff", icon: "💔" },
-            { text: "Wax Falas", color: "#fbbf24", icon: "❤️" },
-            { text: "Provoni Nesër", color: "#ffffff", icon: "💔" },
-            { text: "Kafe Falas", color: "#fbbf24", icon: "❤️" },
-            { text: "Pa Fat Sot", color: "#ffffff", icon: "💔" },
-            { text: "Mjekërr Falas", color: "#fbbf24", icon: "❤️" },
-            { text: "Provoni Nesër", color: "#ffffff", icon: "💔" }
-        ];
-
-        function initWheel() {
-            const wheel = document.getElementById('wheel');
-            wheel.innerHTML = '';
-            prizes.forEach((p, i) => {
-                const seg = document.createElement('div');
-                seg.className = 'segment';
-                seg.style.backgroundColor = p.color;
-                seg.style.transform = `rotate(${i * 45}deg)`;
-                
-                const content = document.createElement('div');
-                content.className = 'segment-content';
-                content.style.transform = `rotate(22.5deg)`;
-                
-                const textSpan = document.createElement('span');
-                textSpan.innerHTML = `<i class="heart-icon">${p.icon}</i> ${p.text}`;
-                
-                content.appendChild(textSpan);
-                seg.appendChild(content);
-                wheel.appendChild(seg);
-            });
-        }
-
-        function switchPage(p) {
-            ['home', 'membership', 'kontakt'].forEach(v => {
-                document.getElementById('view-'+v).classList.add('hidden');
-            });
-            document.getElementById('view-'+p).classList.remove('hidden');
-            if(p === 'home') document.getElementById('main-header').style.display = 'flex';
-            else document.getElementById('main-header').style.display = 'none';
-        }
-
-        function openWheel() { document.getElementById('wheelModal').classList.add('active'); initWheel(); }
-        function closeWheel() { document.getElementById('wheelModal').classList.remove('active'); }
-        function openBooking() { document.getElementById('bookingModal').classList.add('active'); }
-        function closeModal() { document.getElementById('bookingModal').classList.remove('active'); }
-
-        let spinning = false;
-        function spinWheel() {
-            if(spinning) return;
-            spinning = true;
-            const btn = document.getElementById('spinBtn');
-            btn.style.opacity = "0.5";
-            
-            let prizeIndex = Math.floor(Math.random() * prizes.length);
-            const degrees = (3600 + (360 - (prizeIndex * 45)) - 22.5); 
-            
-            document.getElementById('wheel').style.transform = `rotate(${degrees}deg)`;
-            
-            setTimeout(() => {
-                spinning = false;
-                const winText = prizes[prizeIndex].text;
-                if(!winText.includes("Pa Fat") && !winText.includes("Nesër")) {
-                    document.getElementById('winDisplay').classList.remove('hidden');
-                    document.getElementById('winText').innerText = "URIME! FITOVE: " + winText;
-                } else {
-                    alert("Më shumë fat herën tjetër!");
+        // Efekt i thjeshtë për të lëvizur kartat me miun (3D Tilt)
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                let x = (window.innerWidth / 2 - e.pageX) / 25;
+                let y = (window.innerHeight / 2 - e.pageY) / 25;
+                // Vetëm për ekranet e mëdha
+                if(window.innerWidth > 768) {
+                    card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
                 }
-            }, 5000);
-        }
-
-        async function confirmGold() {
-            let n = document.getElementById('mName').value;
-            if(!n) return alert("Shkruaj emrin!");
-            alert("U dërgua kërkesa për Membership Gold 25€!");
-            location.reload();
-        }
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            });
+        });
     </script>
 </body>
 </html>
