@@ -3,120 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agoni Barber - Rezervimet</title>
+    <title>Agoni Barber | App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { background-color: #f3f4f6; font-family: sans-serif; }
-        .app-bg { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'); background-size: cover; background-position: center; height: 200px; }
-        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s; cursor: pointer; }
-        .card:active { transform: scale(0.95); }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; align-items: center; justify-content: center; }
-        .modal.active { display: flex; }
-        .time-slot { border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; text-align: center; cursor: pointer; }
-        .time-slot.selected { background: #1f2937; color: white; border-color: #1f2937; }
-        .gold-btn { background: #f59e0b; color: white; width: 100%; padding: 15px; border-top-left-radius: 20px; border-top-right-radius: 20px; font-weight: bold; }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" href="style.css">
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, doc, onSnapshot, query, where, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    <div class="app-bg flex flex-col items-center justify-center text-white text-center">
-        <h1 class="text-3xl font-bold tracking-wider">AGONI BARBER</h1>
-        <p class="text-sm opacity-90">Rezervo termin pa pritje</p>
-    </div>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDd6wjVvh-28PODRDJ9bkSf8KKnVhmmf2A",
+            authDomain: "agonicrew-app.firebaseapp.com",
+            projectId: "agonicrew-app",
+            storageBucket: "agonicrew-app.firebasestorage.app",
+            messagingSenderId: "304023532430",
+            appId: "1:304023532430:web:5914d16317835914d1631783"
+        };
 
-    <div class="p-6 grid grid-cols-2 gap-4 -mt-10">
-        <div class="card p-6 flex flex-col items-center justify-center space-y-3" onclick="openModal('bookingModal')">
-            <i class="fa-regular fa-calendar-check text-3xl text-gray-700"></i>
-            <span class="font-medium text-gray-800 text-sm">Rezervo Termin</span>
-        </div>
-        <div class="card p-6 flex flex-col items-center justify-center space-y-3">
-            <i class="fa-solid fa-star text-3xl text-red-500"></i>
-            <span class="font-medium text-gray-800 text-sm">Membership</span>
-        </div>
-        <div class="card p-6 flex flex-col items-center justify-center space-y-3">
-            <i class="fa-solid fa-cart-shopping text-3xl text-emerald-500"></i>
-            <span class="font-medium text-gray-800 text-sm">Produktet</span>
-        </div>
-    </div>
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-    <div class="px-6 py-4">
-        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
-            <div>
-                <p class="text-xs text-gray-500 uppercase">Statusi Juaj</p>
-                <p class="font-bold text-gray-800">Mergim Dakaj</p>
-            </div>
-            <i class="fa-solid fa-circle-check text-emerald-500"></i>
-        </div>
-    </div>
-
-    <div class="fixed bottom-0 left-0 right-0">
-        <button class="gold-btn uppercase tracking-widest">
-            <i class="fa-solid fa-star mr-2"></i> Ju jeni GOLD MEMBER
-        </button>
-    </div>
-
-    <div id="bookingModal" class="modal px-4">
-        <div class="bg-white w-full max-w-md rounded-2xl overflow-hidden shadow-2xl">
-            <div class="p-4 border-b flex justify-between items-center">
-                <h2 class="font-bold text-lg">Rezervo Termin</h2>
-                <button onclick="closeModal('bookingModal')" class="text-gray-500 text-2xl">&times;</button>
-            </div>
-            
-            <div class="p-4 space-y-4">
-                <p class="text-sm font-semibold text-gray-600">Zgjidh Datën dhe Orën:</p>
-                
-                <div class="flex space-x-2 overflow-x-auto pb-2">
-                    <div class="bg-slate-800 text-white p-3 rounded-lg text-center min-w-[60px]">
-                        <p class="text-xs uppercase">Hën</p>
-                        <p class="font-bold">23</p>
-                    </div>
-                    <div class="bg-gray-100 p-3 rounded-lg text-center min-w-[60px]">
-                        <p class="text-xs uppercase text-gray-500">Mar</p>
-                        <p class="font-bold">24</p>
-                    </div>
-                    <div class="bg-gray-100 p-3 rounded-lg text-center min-w-[60px]">
-                        <p class="text-xs uppercase text-gray-500">Mër</p>
-                        <p class="font-bold">25</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-3 gap-2">
-                    <div class="time-slot" onclick="selectSlot(this)">09:00</div>
-                    <div class="time-slot selected" onclick="selectSlot(this)">09:30</div>
-                    <div class="time-slot" onclick="selectSlot(this)">10:00</div>
-                    <div class="time-slot" onclick="selectSlot(this)">10:30</div>
-                    <div class="time-slot" onclick="selectSlot(this)">11:00</div>
-                    <div class="time-slot" onclick="selectSlot(this)">11:30</div>
-                </div>
-
-                <div class="space-y-3 pt-4">
-                    <input type="text" placeholder="Emri juaj" class="w-full border p-3 rounded-xl outline-none focus:ring-2 focus:ring-slate-800">
-                    <input type="tel" placeholder="Numri i telefonit" class="w-full border p-3 rounded-xl outline-none focus:ring-2 focus:ring-slate-800">
-                    <button onclick="confirmBooking()" class="w-full bg-emerald-500 text-white font-bold py-4 rounded-xl shadow-lg">Konfirmo Terminin</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-        }
-
-        function selectSlot(el) {
-            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
-        function confirmBooking() {
-            alert("Sukses! Termini u rezervua me sukses.");
-            closeModal('bookingModal');
-        }
+        window.db = db;
+        window.saveToFirebase = async (data) => await addDoc(collection(db, "appointments"), data);
+        window.getTerminetRealTime = (barberName, callback) => {
+            const q = query(collection(db, "appointments"), where("b", "==", barberName));
+            onSnapshot(q, (snapshot) => {
+                const docs = [];
+                snapshot.forEach(d => docs.push({ ...d.data(), id: d.id }));
+                callback(docs);
+            });
+        };
     </script>
+</head>
+<body class="pb-40">
+
+    <header id="main-header" class="video-header">
+        <h1 class="text-4xl font-black italic tracking-tighter uppercase">AGONI BARBER</h1>
+        <p class="text-[10px] tracking-[5px] opacity-90 uppercase mt-2">Pejë, Kosovë</p>
+    </header>
+
+    <main id="view-home">
+        <div class="home-grid">
+            <div class="home-card" onclick="openBooking()">
+                <div class="bg-blue-50 p-4 rounded-full mb-3 text-blue-600"><i class="fa-regular fa-calendar-check text-2xl"></i></div>
+                <span class="text-xs font-bold uppercase">Rezervo</span>
+            </div>
+            <div class="home-card" onclick="switchPage('membership')">
+                <div class="bg-amber-50 p-4 rounded-full mb-3 text-amber-500"><i class="fa-solid fa-crown text-2xl"></i></div>
+                <span class="text-xs font-bold uppercase">Membership</span>
+            </div>
+        </div>
+
+        <div class="spin-win-banner" onclick="openWheel()">
+            <div><h3 class="font-black text-xl uppercase italic">Rrotullo & Fito</h3><p class="text-[10px] font-bold">Provojeni fatin sot!</p></div>
+            <i class="fa-solid fa-dharmachakra text-3xl"></i>
+        </div>
+    </main>
+
+    <div id="wheelModal" class="modal-overlay">
+        <div class="modal-body text-center">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-black text-xl uppercase italic">Rrotullo & Fito</h2>
+                <button onclick="closeWheel()" class="text-3xl">×</button>
+            </div>
+            <div id="wheel-container">
+                <div class="wheel-pointer"></div>
+                <div id="wheel"></div>
+            </div>
+            <button id="spinBtn" onclick="spinWheel()" class="w-full bg-orange-500 text-white py-4 rounded-2xl font-black uppercase mt-4">Rrotullo</button>
+            <div id="winDisplay" class="hidden mt-6 p-4 bg-emerald-50 border-2 border-emerald-500 rounded-2xl text-emerald-600 font-black"></div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div onclick="switchPage('home')" class="nav-item active"><i class="fa-solid fa-house text-xl mb-1"></i><span>Ballina</span></div>
+        <div onclick="openBooking()" class="nav-item"><i class="fa-solid fa-scissors text-xl mb-1"></i><span>Rezervo</span></div>
+        <div onclick="switchPage('kontakt')" class="nav-item"><i class="fa-solid fa-address-card text-xl mb-1"></i><span>Kontakt</span></div>
+    </nav>
+
+    <script src="script.js"></script>
 </body>
 </html>
+
