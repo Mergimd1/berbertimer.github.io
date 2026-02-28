@@ -7,8 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <link rel="stylesheet" href="style.css">
-    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, doc, onSnapshot, query, where, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -54,6 +52,61 @@
             return docs;
         };
     </script>
+
+    <style>
+        body { background-color: #f3f4f6; font-family: -apple-system, system-ui, sans-serif; -webkit-tap-highlight-color: transparent; margin: 0; }
+        .video-header { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074'); background-size: cover; background-position: center; height: 240px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
+        .home-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; margin-top: -30px; }
+        .home-card { background: white; border-radius: 20px; padding: 25px 10px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; }
+        .gold-card { background: linear-gradient(135deg, #111827 0%, #1f2937 100%); color: #fbbf24; border-radius: 25px; padding: 25px; margin-bottom: 25px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); border: 1px solid rgba(251, 191, 36, 0.3); }
+        .member-input { width: 100%; padding: 15px; border: 1px solid #e5e7eb; border-radius: 15px; margin-bottom: 12px; outline: none; background: white; font-weight: bold; }
+        .berber-select { border: 1px solid #e5e7eb; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer; text-align: center; background: white; transition: 0.2s; }
+        .berber-select.selected { border-color: #fbbf24; background: #fffbeb; color: #b45309; box-shadow: 0 0 0 2px #fbbf24; }
+        .time-slot { padding: 12px; border: 1px solid #e5e7eb; border-radius: 12px; text-align: center; font-weight: bold; cursor: pointer; background: white; }
+        .time-slot.selected { background: #111827; color: white; border-color: #111827; }
+        .time-slot.busy { background: #fee2e2 !important; color: #ef4444 !important; border-color: #fecaca !important; text-decoration: line-through; opacity: 0.6; pointer-events: none; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 5px; border-top: 1px solid #eee; z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #9ca3af; font-size: 10px; font-weight: bold; cursor: pointer; flex: 1; }
+        .nav-item.active { color: #111827; }
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: flex-end; justify-content: center; }
+        .modal-overlay.active { display: flex; }
+        .modal-body { background: white; width: 100%; max-width: 500px; border-radius: 30px 30px 0 0; padding: 25px; max-height: 90vh; overflow-y: auto; }
+        .vazhdo-btn { background: #111827; color: white; width: 100%; padding: 18px; border-radius: 15px; font-weight: bold; margin-top: 10px; opacity: 0.3; pointer-events: none; }
+        .vazhdo-btn.active { opacity: 1; pointer-events: auto; background: #ef4444; }
+        .hidden { display: none !important; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee-fixed-bottom { position: fixed; bottom: 65px; left: 0; right: 0; z-index: 90; }
+        .marquee-gold { overflow: hidden; white-space: nowrap; padding: 8px 0; font-weight: 900; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
+        .band-1 { background: #111827; color: #fbbf24; border-top: 1px solid rgba(251, 191, 36, 0.3); }
+        .band-2 { background: #fbbf24; color: #111827; }
+        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
+        .m-item { margin: 0 30px; }
+        
+        /* Ribbons Style */
+        .insta-ribbon, .location-ribbon { position: relative; overflow: hidden; transition: 0.3s; }
+        .insta-ribbon { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .location-ribbon { background: linear-gradient(45deg, #4285F4 0%, #34A853 100%); }
+        .insta-ribbon::after, .location-ribbon::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent); transform: rotate(30deg); animation: shimmer 3s infinite; }
+        @keyframes shimmer { 0% { transform: translateX(-100%) rotate(30deg); } 100% { transform: translateX(100%) rotate(30deg); } }
+
+        /* Stili për Rrotullo & Fito */
+        .spin-win-banner { background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); color: white; border-radius: 25px; padding: 20px 25px; margin: 20px 20px 80px 20px; position: relative; overflow: hidden; box-shadow: 0 15px 30px rgba(234, 88, 12, 0.3); cursor: pointer; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255, 255, 255, 0.2); transition: transform 0.2s; }
+        .spin-win-banner:active { transform: scale(0.95); }
+        .spin-win-banner::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent); transform: rotate(30deg); animation: shimmer 3s infinite; }
+        .spin-icon-wrapper { background: rgba(255, 255, 255, 0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); animation: pulse-spin 4s infinite linear; }
+        @keyframes pulse-spin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.1); } 100% { transform: rotate(360deg) scale(1); } }
+
+        /* RROTULLA E RE RADIALE (FORMA E PICËS) */
+        #wheel-container { position: relative; width: 280px; height: 280px; margin: 20px auto; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2)); }
+        #wheel { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #111827; position: relative; overflow: hidden; transition: transform 5s cubic-bezier(0.15, 0.1, 0.15, 1); background: #ffffff; box-shadow: inset 0 0 15px rgba(0,0,0,0.1); }
+        #wheel::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background: white; border-radius: 50%; border: 4px solid #111827; z-index: 20; }
+        .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 16px solid transparent; border-right: 16px solid transparent; border-top: 35px solid #ef4444; z-index: 30; filter: drop-shadow(0 3px 3px rgba(0,0,0,0.3)); }
+        .segment { position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; display: flex; align-items: center; justify-content: center; clip-path: polygon(0 0, 100% 0, 100% 100%); border: 1px solid rgba(0,0,0,0.05); }
+        .segment-content { position: absolute; width: 100px; height: 100%; transform-origin: center bottom; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 15px; text-align: center; }
+        .segment-content span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; font-weight: 900; text-transform: uppercase; color: #111827; }
+    </style>
 </head>
 
 <body class="pb-40">
@@ -97,14 +150,26 @@
         <div class="marquee-fixed-bottom">
             <div class="marquee-gold band-1">
                 <div class="marquee-content">
-                    <span class="m-item">✂️ QETHJE 5€</span><span class="m-item">🧔 MJEKËRR 4€</span><span class="m-item">✨ FRIZURË 2€</span><span class="m-item">🎨 NGJYROSJE 10-30€</span>
-                    <span class="m-item">✂️ QETHJE 5€</span><span class="m-item">🧔 MJEKËRR 4€</span><span class="m-item">✨ FRIZURË 2€</span><span class="m-item">🎨 NGJYROSJE 10-30€</span>
+                    <span class="m-item">✂️ QETHJE 5€</span>
+                    <span class="m-item">🧔 MJEKËRR 4€</span>
+                    <span class="m-item">✨ FRIZURË 2€</span>
+                    <span class="m-item">🎨 NGJYROSJE 10€</span>
+                    <span class="m-item">✂️ QETHJE 5€</span>
+                    <span class="m-item">🧔 MJEKËRR 4€</span>
+                    <span class="m-item">✨ FRIZURË 2€</span>
+                    <span class="m-item">🎨 NGJYROSJE 10€</span>
                 </div>
             </div>
             <div class="marquee-gold band-2">
                 <div class="marquee-content" style="animation-direction: reverse;">
-                    <span class="m-item">👑 GOLD MEMBER</span><span class="m-item">🚀 PA PRITJE</span><span class="m-item">⭐ PRIORITET VIP</span><span class="m-item">💎 KLIENT EKSKLUZIV</span>
-                    <span class="m-item">👑 GOLD MEMBER</span><span class="m-item">🚀 PA PRITJE</span><span class="m-item">⭐ PRIORITET VIP</span><span class="m-item">💎 KLIENT EKSKLUZIV</span>
+                    <span class="m-item">👑 GOLD MEMBER</span>
+                    <span class="m-item">🚀 PA PRITJE</span>
+                    <span class="m-item">⭐ PRIORITET VIP</span>
+                    <span class="m-item">💎 KLIENT EKSKLUZIV</span>
+                    <span class="m-item">👑 GOLD MEMBER</span>
+                    <span class="m-item">🚀 PA PRITJE</span>
+                    <span class="m-item">⭐ PRIORITET VIP</span>
+                    <span class="m-item">💎 KLIENT EKSKLUZIV</span>
                 </div>
             </div>
         </div>
@@ -112,9 +177,6 @@
 
     <div id="view-membership" class="hidden p-6 bg-gray-50 min-h-screen">
         <div class="gold-card text-center">
-            <div class="bg-amber-500 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2 shadow-lg border-4 border-amber-300">
-                <span class="font-black text-lg">25€</span>
-            </div>
             <i class="fa-solid fa-crown text-4xl mb-2"></i>
             <h2 class="text-2xl font-black uppercase italic tracking-widest">Gold Member</h2>
             <div class="grid grid-cols-2 gap-2 text-[10px] font-bold uppercase text-left mt-4 opacity-90">
@@ -161,32 +223,58 @@
     </div>
 
     <div id="view-kontakt" class="hidden p-6 bg-gray-50 min-h-screen">
-        <h2 class="text-center font-black text-xl uppercase italic mb-6">Kontakti & Lokacioni</h2>
+        <h2 class="text-center font-black text-xl uppercase italic mb-6">Kontakti</h2>
         <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070" class="w-full h-44 object-cover rounded-[30px] mb-6 shadow-lg">
-        
-        <div class="bg-white p-6 rounded-[35px] shadow-sm space-y-4 mb-5 border border-gray-100">
+        <div class="bg-white p-6 rounded-[35px] shadow-sm space-y-5 mb-5 border border-gray-100">
             <h2 class="text-center font-black text-2xl tracking-tighter uppercase italic text-slate-900 mb-2">AGONI BARBER</h2>
-            <div onclick="window.location.href='https://www.instagram.com/agonicrew'" class="insta-ribbon p-4 rounded-2xl flex items-center justify-between text-white cursor-pointer shadow-lg active:scale-95 transition-all">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-brands fa-instagram text-2xl"></i>
-                    <div><p class="text-[9px] font-bold uppercase opacity-80">Instagrami</p><p class="font-black tracking-widest">@AGONICREW</p></div>
-                </div>
-                <i class="fa-solid fa-chevron-right text-sm opacity-70"></i>
-            </div>
-            <div onclick="window.location.href='https://www.google.com/maps/place/Agonicrew/@42.6613329,20.2917208,17z'" class="location-ribbon p-4 rounded-2xl flex items-center justify-between text-white cursor-pointer shadow-lg active:scale-95 transition-all">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-solid fa-location-dot text-2xl"></i>
-                    <div><p class="text-[9px] font-bold uppercase opacity-80">Gjej lokacionin në Hartë</p><p class="font-black tracking-widest uppercase">Pejë, Kosovë</p></div>
-                </div>
-                <i class="fa-solid fa-map text-sm opacity-70"></i>
-            </div>
-            <div class="flex items-center space-x-4 pt-2" onclick="window.location.href='tel:+38349721735'"><div class="w-11 h-11 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 shadow-sm"><i class="fa-solid fa-phone text-lg"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Telefoni</p><p class="font-black text-slate-800">+383 49 721 735</p></div></div>
-            <div class="flex items-center space-x-4"><div class="w-11 h-11 bg-sky-100 rounded-2xl flex items-center justify-center text-sky-600 shadow-sm"><i class="fa-solid fa-globe text-lg"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Webi</p><p class="font-black text-slate-800 text-sm italic">www.agonicrew.com</p></div></div>
+            <div class="flex items-center space-x-4"><div class="w-11 h-11 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm"><i class="fa-solid fa-location-dot text-lg"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Lokacioni</p><p class="font-black text-slate-800">Pejë</p></div></div>
+            <div class="flex items-center space-x-4" onclick="window.location.href='tel:+38349721735'"><div class="w-11 h-11 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 shadow-sm"><i class="fa-solid fa-phone text-lg"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Telefoni</p><p class="font-black text-slate-800">+383 49 721 735</p></div></div>
+            <div class="flex items-center space-x-4"><div class="w-11 h-11 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 rounded-2xl flex items-center justify-center text-white shadow-sm"><i class="fa-brands fa-instagram text-lg"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Instagram</p><p class="font-black text-slate-800">@agonibarber</p></div></div>
+            <div class="flex items-center space-x-4"><div class="w-11 h-11 bg-sky-100 rounded-2xl flex items-center justify-center text-sky-600 shadow-sm"><i class="fa-solid fa-globe text-lg"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Web</p><p class="font-black text-slate-800 text-sm italic">www.agonicrew.com</p></div></div>
+            <div class="flex items-center space-x-4"><div class="w-11 h-11 bg-gray-100 rounded-2xl flex items-center justify-center text-slate-700 shadow-sm"><i class="fa-solid fa-building text-lg"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Adresa</p><p class="font-black text-slate-800 text-[10px] uppercase">Agonicrew, Pejë, 30000</p></div></div>
         </div>
-
         <div class="bg-white p-6 rounded-[30px] shadow-sm flex items-center justify-between border border-gray-100">
             <div class="flex items-center space-x-4"><div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-red-500"><i class="fa-solid fa-clock-rotate-left text-xl"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Orari i Punës</p><p class="font-black text-xl text-slate-800">09:00 - 19:00</p></div></div>
             <span class="bg-amber-100 text-amber-600 text-[10px] font-black px-3 py-1 rounded-lg uppercase">Pushimi: 13-14</span>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div onclick="switchPage('home')" id="nav-home" class="nav-item active"><i class="fa-solid fa-house text-xl mb-1"></i><span>Ballina</span></div>
+        <div onclick="openBooking()" class="nav-item"><i class="fa-solid fa-scissors text-xl mb-1"></i><span>Rezervo</span></div>
+        <div onclick="switchPage('terminet')" id="nav-terminet" class="nav-item"><i class="fa-regular fa-clock text-xl mb-1"></i><span>Terminet</span></div>
+        <div onclick="switchPage('kontakt')" id="nav-kontakt" class="nav-item"><i class="fa-solid fa-address-card text-xl mb-1"></i><span>Kontakt</span></div>
+    </nav>
+
+    <div id="bookingModal" class="modal-overlay">
+        <div class="modal-body">
+            <div class="flex justify-between items-center mb-6"><h2 id="modalTitle" class="font-black text-xl uppercase italic">Zgjedh Shërbimin</h2><button onclick="closeModal()" class="text-3xl text-gray-300">&times;</button></div>
+            <div id="step1">
+                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s1" onclick="setService('Qethje', 's1')"><div><span class="font-bold block">Qethje</span><span class="text-[10px] font-bold text-gray-400 uppercase">30 MIN</span></div><span class="font-black">5€</span></div>
+                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s2" onclick="setService('Qethje + Rroje', 's2')"><div><span class="font-bold block">Qethje + Rroje</span><span class="text-[10px] font-bold text-gray-400 uppercase">35 MIN</span></div><span class="font-black">6€</span></div>
+                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s3" onclick="setService('Mjekërr', 's3')"><div><span class="font-bold block">Mjekërr</span><span class="text-[10px] font-bold text-gray-400 uppercase">15 MIN</span></div><span class="font-black">4€</span></div>
+                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s4" onclick="setService('Frizurë', 's4')"><div><span class="font-bold block">Frizurë</span><span class="text-[10px] font-bold text-gray-400 uppercase">5 MIN</span></div><span class="font-black">2€</span></div>
+                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s5" onclick="setService('Ngjyrosje', 's5')"><div><span class="font-bold block">Ngjyrosje</span><span class="text-[10px] font-bold text-gray-400 uppercase">25 MIN</span></div><span class="font-black">10€</span></div>
+                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s6" onclick="setService('Fëmijë (Nën 8 vjeç)', 's6')"><div><span class="font-bold block">Fëmijë (Nën 8 vjeç)</span></div><span class="font-black">4€</span></div>
+                <button id="v1" class="vazhdo-btn" onclick="goStep(2)">Vazhdo</button>
+            </div>
+            <div id="step2" class="hidden">
+                <div class="grid grid-cols-1 gap-3 mb-4">
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b1" onclick="setB('Agon Tahiri', 'b1')">Agon Tahiri</div>
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b2" onclick="setB('Mendim', 'b2')">Mendim</div>
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b3" onclick="setB('Dori', 'b3')">Dori</div>
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b4" onclick="setB('Enis', 'b4')">Enis</div>
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b5" onclick="setB('Rejan', 'b5')">Rejan</div>
+                </div>
+                <button id="v2" class="vazhdo-btn" onclick="goStep(3)">Vazhdo</button>
+            </div>
+            <div id="step3" class="hidden">
+                <div class="flex space-x-3 overflow-x-auto mb-6 pb-2 no-scrollbar" id="cal-days"></div>
+                <div class="grid grid-cols-3 gap-2 mb-6" id="time-grid"></div>
+                <input type="text" id="cName" placeholder="Emri juaj" class="member-input">
+                <input type="tel" id="cPhone" placeholder="Nr. Telefonit" class="member-input">
+                <button onclick="confirmApp()" class="w-full bg-emerald-500 text-white py-5 rounded-2xl font-black uppercase shadow-lg">Konfirmo</button>
+            </div>
         </div>
     </div>
 
@@ -211,45 +299,200 @@
         </div>
     </div>
 
-    <div id="bookingModal" class="modal-overlay">
-        <div class="modal-body">
-            <div class="flex justify-between items-center mb-6"><h2 id="modalTitle" class="font-black text-xl uppercase italic">Zgjedh Shërbimin</h2><button onclick="closeModal()" class="text-3xl text-gray-300">×</button></div>
-            <div id="step1">
-                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s1" onclick="setService('Qethje', 's1')"><div><span class="font-bold block">Qethje</span><span class="text-[10px] font-bold text-gray-400 uppercase">30 MIN</span></div><span class="font-black">5€</span></div>
-                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s2" onclick="setService('Qethje + Rroje', 's2')"><div><span class="font-bold block">Qethje + Rroje</span><span class="text-[10px] font-bold text-gray-400 uppercase">35 MIN</span></div><span class="font-black">6€</span></div>
-                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s3" onclick="setService('Mjekërr', 's3')"><div><span class="font-bold block">Mjekërr</span><span class="text-[10px] font-bold text-gray-400 uppercase">15 MIN</span></div><span class="font-black">4€</span></div>
-                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s4" onclick="setService('Frizurë', 's4')"><div><span class="font-bold block">Frizurë</span><span class="text-[10px] font-bold text-gray-400 uppercase">5 MIN</span></div><span class="font-black">2€</span></div>
-                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s5" onclick="setService('Ngjyrosje', 's5')"><div><span class="font-bold block">Ngjyrosje</span><span class="text-[10px] font-bold text-gray-400 uppercase">25 MIN</span></div><span class="font-black">10-30€</span></div>
-                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s6" onclick="setService('Fëmijë (Nën 8 vjeç)', 's6')"><div><span class="font-bold block">Fëmijë (Nën 8 vjeç)</span></div><span class="font-black">4€</span></div>
-                <button id="v1" class="vazhdo-btn" onclick="goStep(2)">Vazhdo</button>
-            </div>
-            <div id="step2" class="hidden">
-                <div class="grid grid-cols-1 gap-3 mb-4">
-                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b1" onclick="setB('Agon Tahiri', 'b1')">Agon Tahiri</div>
-                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b2" onclick="setB('Mendim', 'b2')">Mendim</div>
-                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b3" onclick="setB('Dori', 'b3')">Dori</div>
-                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b4" onclick="setB('Enis', 'b4')">Enis</div>
-                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b5" onclick="setB('Rejan', 'b5')">Rejan</div>
+    <script>
+        // Lidhja me Firebase mbetet në fillim, funksionet e tjera janë këtu poshtë:
+        
+        function getDynamicDays() {
+            const arr = [];
+            const names = ['Die', 'Hën', 'Mar', 'Mër', 'Enj', 'Pre', 'Sht'];
+            for(let i=0; i<5; i++) {
+                let d = new Date(); d.setDate(d.getDate() + i);
+                arr.push(`${names[d.getDay()]} ${d.getDate()}`);
+            }
+            return arr;
+        }
+
+        const dynamicDays = getDynamicDays();
+        let booking = { s: '', b: '', d: dynamicDays[0], t: '' };
+        let mBooking = { s: 'Membership Gold', b: '', d: dynamicDays[0], t: '' };
+        const users = { "Agon": "Goni30", "Mendim": "mendi12", "Dori": "dori201", "Enis": "nisi99", "Rejan": "rejan77" };
+
+        function switchPage(p) {
+            ['home', 'membership', 'terminet', 'kontakt'].forEach(v => {
+                document.getElementById('view-'+v).classList.add('hidden');
+            });
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('view-'+p).classList.remove('hidden');
+            if(document.getElementById('nav-'+p)) document.getElementById('nav-'+p).classList.add('active');
+            document.getElementById('main-header').style.display = (p === 'home') ? 'flex' : 'none';
+        }
+
+        function openBooking() { document.getElementById('bookingModal').classList.add('active'); goStep(1); }
+        function closeModal() { document.getElementById('bookingModal').classList.remove('active'); }
+
+        function goStep(n) {
+            ['step1', 'step2', 'step3'].forEach(s => document.getElementById(s).classList.add('hidden'));
+            document.getElementById('step'+n).classList.remove('hidden');
+            if(n==3) buildSchedule('cal-days', 'time-grid', booking);
+        }
+
+        function selectMB(berber, el) {
+            mBooking.b = berber;
+            document.querySelectorAll('.berber-select').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('membership-schedule').classList.remove('hidden');
+            buildSchedule('m-cal-days', 'm-time-grid', mBooking);
+        }
+
+        function setService(s, id) {
+            booking.s = s;
+            document.querySelectorAll('#step1 div.border-2').forEach(d => d.style.borderColor = '#e5e7eb');
+            document.getElementById(id).style.borderColor = '#111827';
+            document.getElementById('v1').classList.add('active');
+        }
+
+        function setB(b, id) {
+            booking.b = b;
+            document.querySelectorAll('#step2 div.border-2').forEach(d => d.style.borderColor = '#e5e7eb');
+            document.getElementById(id).style.borderColor = '#111827';
+            document.getElementById('v2').classList.add('active');
+        }
+
+        async function buildSchedule(calId, gridId, obj) {
+            const daysContainer = document.getElementById(calId); daysContainer.innerHTML = '';
+            const querySnapshot = await window.getTerminePerBllokim(obj.b, obj.d);
+            
+            dynamicDays.forEach(day => {
+                let d = document.createElement('div');
+                d.className = `p-4 rounded-2xl min-w-[85px] text-center font-bold ${obj.d === day ? 'bg-slate-900 text-white' : 'bg-gray-100'}`;
+                d.innerText = day;
+                d.onclick = () => { obj.d = day; buildSchedule(calId, gridId, obj); };
+                daysContainer.appendChild(d);
+            });
+
+            const grid = document.getElementById(gridId); grid.innerHTML = '';
+            for(let h=9; h<=18; h++) {
+                for(let m of ['00', '30']) {
+                    let t = `${h<10?'0'+h:h}:${m}`;
+                    let isBusy = querySnapshot.some(doc => doc.t === t);
+                    let slot = document.createElement('div');
+                    slot.className = `time-slot ${isBusy ? 'busy' : ''} ${obj.t === t ? 'selected' : ''}`;
+                    slot.innerText = t;
+                    if(!isBusy) slot.onclick = () => { obj.t = t; buildSchedule(calId, gridId, obj); };
+                    grid.appendChild(slot);
+                }
+            }
+        }
+
+        async function confirmApp() {
+            let n = document.getElementById('cName').value;
+            let p = document.getElementById('cPhone').value;
+            if(!n || !booking.t) return alert("Ju lutem plotësoni emrin dhe orarin!");
+            
+            const success = await window.saveToFirebase({ ...booking, name: n, phone: p, createdAt: new Date().toISOString() });
+            if(success) {
+                const token = "8608115004:AAE-jHShbQbGGI1L7Z8qYFdS-J77rsX51OY"; const chatid = "5802987116";
+                const msg = `✂️ *REZERVIM I RI*\n──────────────\n👤 *Klienti:* ${n}\n📞 *Tel:* ${p}\n🧔 *Berberi:* ${booking.b}\n📅 *Data:* ${booking.d}\n⏰ *Ora:* ${booking.t}\n──────────────\n💇‍♂️ *Shërbimi:* ${booking.s}`;
+                fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`);
+                alert("Rezervimi u krye me sukses!"); location.reload();
+            }
+        }
+
+        async function confirmGold() {
+            let n = document.getElementById('mName').value; let p = document.getElementById('mPhone').value;
+            if(!n || !mBooking.t) return alert("Plotësoni të dhënat!");
+            const success = await window.saveToFirebase({ ...mBooking, name: n, phone: p, type: 'GOLD' });
+            if(success) {
+                const token = "8608115004:AAE-jHShbQbGGI1L7Z8qYFdS-J77rsX51OY"; const chatid = "5802987116";
+                const msgGold = `👑 *ANËTAR I RI GOLD*\n──────────────\n👤 *Klienti:* ${n}\n📞 *Tel:* ${p}\n🧔 *Berberi Preferuar:* ${mBooking.b}\n📅 *Termini i parë:* ${mBooking.d} në ${mBooking.t}`;
+                fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}&text=${encodeURIComponent(msgGold)}&parse_mode=Markdown`);
+                alert("Urime! Tani jeni Gold Member."); location.reload();
+            }
+        }
+
+        function handleLogin() {
+            let id = document.getElementById('uID').value;
+            if(users[id] === document.getElementById('uPass').value) {
+                document.getElementById('login-box').classList.add('hidden');
+                document.getElementById('staff-dash').classList.remove('hidden');
+                document.getElementById('staff-name').innerText = "Berberi: " + id;
+                window.getTerminetRealTime(id, (terminet) => { renderStaffAppointments(terminet); });
+            } else alert("Të dhëna të gabuara!");
+        }
+
+        function renderStaffAppointments(mine) {
+            const container = document.getElementById('list-app');
+            container.innerHTML = mine.length ? mine.map(a => `
+                <div class="bg-white p-5 rounded-2xl border-l-8 border-slate-900 shadow-sm">
+                    <div class="flex justify-between items-start">
+                        <div><b>${a.name}</b><p class="text-[10px] font-bold text-gray-500 uppercase">${a.s}</p></div>
+                        <div class="text-right"><b>${a.t}</b><p class="text-[10px] text-gray-400 font-bold">${a.d}</p></div>
+                    </div>
+                    <div class="flex justify-between mt-3 pt-3 border-t">
+                        <a href="tel:${a.phone}" class="text-blue-600 font-bold">Thirr</a>
+                        <button onclick="window.deleteTerminFirebase('${a.id}')" class="text-red-500 font-bold">Fshije</button>
+                    </div>
                 </div>
-                <button id="v2" class="vazhdo-btn" onclick="goStep(3)">Vazhdo</button>
-            </div>
-            <div id="step3" class="hidden">
-                <div class="flex space-x-3 overflow-x-auto mb-6 pb-2 no-scrollbar" id="cal-days"></div>
-                <div class="grid grid-cols-3 gap-2 mb-6" id="time-grid"></div>
-                <input type="text" id="cName" placeholder="Emri juaj" class="member-input">
-                <input type="tel" id="cPhone" placeholder="Nr. Telefonit" class="member-input">
-                <button onclick="confirmApp()" class="w-full bg-emerald-500 text-white py-5 rounded-2xl font-black uppercase shadow-lg">Konfirmo</button>
-            </div>
-        </div>
-    </div>
+            `).join('') : `<p class="text-center text-gray-400 py-10 italic">Asnjë rezervim për momentin.</p>`;
+        }
 
-    <nav class="bottom-nav">
-        <div onclick="switchPage('home')" id="nav-home" class="nav-item active"><i class="fa-solid fa-house text-xl mb-1"></i><span>Ballina</span></div>
-        <div onclick="openBooking()" class="nav-item"><i class="fa-solid fa-scissors text-xl mb-1"></i><span>Rezervo</span></div>
-        <div onclick="switchPage('terminet')" id="nav-terminet" class="nav-item"><i class="fa-regular fa-clock text-xl mb-1"></i><span>Terminet</span></div>
-        <div onclick="switchPage('kontakt')" id="nav-kontakt" class="nav-item"><i class="fa-solid fa-address-card text-xl mb-1"></i><span>Kontakt</span></div>
-    </nav>
+        // --- Rrotulla Radiale ---
+        const prizes = [
+            { text: "Qethje Falas", color: "#ffffff", win: true }, { text: "Provoni Nesër", color: "#fbbf24", win: false },
+            { text: "Wax Nishman", color: "#ffffff", win: true }, { text: "Pa Fat Sot", color: "#fbbf24", win: false },
+            { text: "Kafe Falas", color: "#ffffff", win: true }, { text: "Provoni Nesër", color: "#fbbf24", win: false },
+            { text: "Mjekërr Falas", color: "#ffffff", win: true }, { text: "Pa Fat Sot", color: "#fbbf24", win: false }
+        ];
 
-    <script src="script.js"></script>
+        function initWheel() {
+            const wheel = document.getElementById('wheel');
+            wheel.innerHTML = '';
+            prizes.forEach((p, i) => {
+                const seg = document.createElement('div');
+                seg.className = 'segment';
+                seg.style.backgroundColor = p.color;
+                seg.style.transform = `rotate(${i * 45}deg)`;
+                
+                const content = document.createElement('div');
+                content.className = 'segment-content';
+                content.style.transform = `rotate(22.5deg)`;
+                
+                const textSpan = document.createElement('span');
+                textSpan.innerHTML = p.text;
+                
+                content.appendChild(textSpan);
+                seg.appendChild(content);
+                wheel.appendChild(seg);
+            });
+        }
+
+        function openWheel() { document.getElementById('wheelModal').classList.add('active'); initWheel(); checkSpinLimit(); }
+        function closeWheel() { document.getElementById('wheelModal').classList.remove('active'); }
+
+        function checkSpinLimit() {
+            const lastSpin = localStorage.getItem('lastSpinDate');
+            if (lastSpin === new Date().toDateString()) {
+                document.getElementById('spinBtn').disabled = true;
+                document.getElementById('spinBtn').style.opacity = "0.5";
+                document.getElementById('wheelMsg').innerText = "Keni rrotulluar sot! Provoni nesër.";
+            }
+        }
+
+        function spinWheel() {
+            const btn = document.getElementById('spinBtn');
+            btn.disabled = true;
+            let prizeIndex = Math.floor(Math.random() * prizes.length);
+            const degrees = (3600 + (360 - (prizeIndex * 45)) - 22.5); 
+            document.getElementById('wheel').style.transform = `rotate(${degrees}deg)`;
+            setTimeout(() => {
+                localStorage.setItem('lastSpinDate', new Date().toDateString());
+                if (prizes[prizeIndex].win) {
+                    document.getElementById('winDisplay').classList.remove('hidden');
+                    document.getElementById('winText').innerText = "URIME! FITOVE: " + prizes[prizeIndex].text;
+                } else { alert("Më shumë fat herën tjetër!"); }
+                checkSpinLimit();
+            }, 5000);
+        }
+    </script>
 </body>
 </html>
