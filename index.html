@@ -84,7 +84,7 @@
         .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
         .m-item { margin: 0 30px; }
         
-        /* Ribbons Style */
+        /* Ribbons Style (E vjetra) */
         .insta-ribbon, .location-ribbon { position: relative; overflow: hidden; transition: 0.3s; }
         .insta-ribbon { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
         .location-ribbon { background: linear-gradient(45deg, #4285F4 0%, #34A853 100%); }
@@ -106,6 +106,15 @@
         .segment { position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; display: flex; align-items: center; justify-content: center; clip-path: polygon(0 0, 100% 0, 100% 100%); border: 1px solid rgba(0,0,0,0.05); }
         .segment-content { position: absolute; width: 100px; height: 100%; transform-origin: center bottom; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 15px; text-align: center; }
         .segment-content span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; font-weight: 900; text-transform: uppercase; color: #111827; }
+
+        /* Stil i ri 3D për Shiritat e Kontaktit */
+        .contact-ribbon-3d { display: flex; align-items: center; padding: 16px 20px; border-radius: 20px; margin-bottom: 15px; position: relative; overflow: hidden; transition: all 0.2s ease; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 0 rgb(0, 0, 0, 0.15), 0 15px 20px rgba(0,0,0,0.1); cursor: pointer; }
+        .contact-ribbon-3d:active { transform: translateY(4px); box-shadow: 0 2px 0 rgb(0, 0, 0, 0.2); }
+        .insta-3d { background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%); color: white; }
+        .loc-3d { background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); color: white; }
+        .icon-box-3d { width: 45px; height: 45px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 20px; box-shadow: inset 0 0 10px rgba(255,255,255,0.3); }
+        .shimmer-effect::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent); transform: rotate(30deg); animation: light-swipe 4s infinite; }
+        @keyframes light-swipe { 0% { transform: translateX(-100%) rotate(30deg); } 100% { transform: translateX(100%) rotate(30deg); } }
     </style>
 </head>
 
@@ -223,18 +232,53 @@
     </div>
 
     <div id="view-kontakt" class="hidden p-6 bg-gray-50 min-h-screen">
-        <h2 class="text-center font-black text-xl uppercase italic mb-6">Kontakti</h2>
+        <h2 class="text-center font-black text-xl uppercase italic mb-6">Kontakti & Lokacioni</h2>
+        
         <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070" class="w-full h-44 object-cover rounded-[30px] mb-6 shadow-lg">
-        <div class="bg-white p-6 rounded-[35px] shadow-sm space-y-5 mb-5 border border-gray-100">
-            <h2 class="text-center font-black text-2xl tracking-tighter uppercase italic text-slate-900 mb-2">AGONI BARBER</h2>
-            <div class="flex items-center space-x-4"><div class="w-11 h-11 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm"><i class="fa-solid fa-location-dot text-lg"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Lokacioni</p><p class="font-black text-slate-800">Pejë</p></div></div>
-            <div class="flex items-center space-x-4" onclick="window.location.href='tel:+38349721735'"><div class="w-11 h-11 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 shadow-sm"><i class="fa-solid fa-phone text-lg"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Telefoni</p><p class="font-black text-slate-800">+383 49 721 735</p></div></div>
-            <div class="flex items-center space-x-4"><div class="w-11 h-11 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 rounded-2xl flex items-center justify-center text-white shadow-sm"><i class="fa-brands fa-instagram text-lg"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Instagram</p><p class="font-black text-slate-800">@agonibarber</p></div></div>
-            <div class="flex items-center space-x-4"><div class="w-11 h-11 bg-sky-100 rounded-2xl flex items-center justify-center text-sky-600 shadow-sm"><i class="fa-solid fa-globe text-lg"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Web</p><p class="font-black text-slate-800 text-sm italic">www.agonicrew.com</p></div></div>
-            <div class="flex items-center space-x-4"><div class="w-11 h-11 bg-gray-100 rounded-2xl flex items-center justify-center text-slate-700 shadow-sm"><i class="fa-solid fa-building text-lg"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Adresa</p><p class="font-black text-slate-800 text-[10px] uppercase">Agonicrew, Pejë, 30000</p></div></div>
+        
+        <div class="contact-ribbon-3d insta-3d shimmer-effect" onclick="window.location.href='https://instagram.com/agonibarber'">
+            <div class="icon-box-3d">
+                <i class="fa-brands fa-instagram"></i>
+            </div>
+            <div>
+                <p class="text-[10px] font-bold uppercase opacity-80">Na ndiqni në</p>
+                <p class="font-black text-lg tracking-tight">INSTAGRAM</p>
+            </div>
+            <i class="fa-solid fa-chevron-right ml-auto opacity-50"></i>
         </div>
+
+        <div class="contact-ribbon-3d loc-3d shimmer-effect" onclick="window.location.href='https://maps.google.com/?q=Agoni+Barber+Peje'">
+            <div class="icon-box-3d">
+                <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div>
+                <p class="text-[10px] font-bold uppercase opacity-80">Si të vini tek ne</p>
+                <p class="font-black text-lg tracking-tight">HAPE NË MAPS</p>
+            </div>
+            <i class="fa-solid fa-chevron-right ml-auto opacity-50"></i>
+        </div>
+
+        <div class="bg-white p-6 rounded-[35px] shadow-sm space-y-5 mb-5 border border-gray-100 mt-6">
+            <h2 class="text-center font-black text-2xl tracking-tighter uppercase italic text-slate-900 mb-2">AGONI BARBER</h2>
+            <div class="flex items-center space-x-4" onclick="window.location.href='tel:+38349721735'">
+                <div class="w-11 h-11 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 shadow-sm"><i class="fa-solid fa-phone text-lg"></i></div>
+                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Telefoni</p><p class="font-black text-slate-800">+383 49 721 735</p></div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="w-11 h-11 bg-sky-100 rounded-2xl flex items-center justify-center text-sky-600 shadow-sm"><i class="fa-solid fa-globe text-lg"></i></div>
+                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Web</p><p class="font-black text-slate-800 text-sm italic">www.agonicrew.com</p></div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="w-11 h-11 bg-gray-100 rounded-2xl flex items-center justify-center text-slate-700 shadow-sm"><i class="fa-solid fa-building text-lg"></i></div>
+                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Adresa</p><p class="font-black text-slate-800 text-[10px] uppercase">Agonicrew, Pejë, 30000</p></div>
+            </div>
+        </div>
+
         <div class="bg-white p-6 rounded-[30px] shadow-sm flex items-center justify-between border border-gray-100">
-            <div class="flex items-center space-x-4"><div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-red-500"><i class="fa-solid fa-clock-rotate-left text-xl"></i></div><div><p class="text-[10px] font-bold text-gray-400 uppercase">Orari i Punës</p><p class="font-black text-xl text-slate-800">09:00 - 19:00</p></div></div>
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-red-500"><i class="fa-solid fa-clock-rotate-left text-xl"></i></div>
+                <div><p class="text-[10px] font-bold text-gray-400 uppercase">Orari i Punës</p><p class="font-black text-xl text-slate-800">09:00 - 19:00</p></div>
+            </div>
             <span class="bg-amber-100 text-amber-600 text-[10px] font-black px-3 py-1 rounded-lg uppercase">Pushimi: 13-14</span>
         </div>
     </div>
@@ -300,8 +344,6 @@
     </div>
 
     <script>
-        // Lidhja me Firebase mbetet në fillim, funksionet e tjera janë këtu poshtë:
-        
         function getDynamicDays() {
             const arr = [];
             const names = ['Die', 'Hën', 'Mar', 'Mër', 'Enj', 'Pre', 'Sht'];
@@ -496,3 +538,4 @@
     </script>
 </body>
 </html>
+
