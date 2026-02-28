@@ -24,6 +24,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Funksionet globale që i duhen script.js
         window.db = db;
         window.saveToFirebase = async (data) => await addDoc(collection(db, "appointments"), data);
         window.getTerminetRealTime = (barberName, callback) => {
@@ -34,10 +35,17 @@
                 callback(docs);
             });
         };
+        window.getTerminePerBllokim = async (barberName, data) => {
+            const q = query(collection(db, "appointments"), where("b", "==", barberName), where("d", "==", data));
+            const snapshot = await getDocs(q);
+            const docs = [];
+            snapshot.forEach(d => docs.push(d.data()));
+            return docs;
+        };
+        window.deleteTerminFirebase = async (id) => await deleteDoc(doc(db, "appointments", id));
     </script>
 </head>
 <body class="pb-40">
-
     <header id="main-header" class="video-header">
         <h1 class="text-4xl font-black italic tracking-tighter uppercase">AGONI BARBER</h1>
         <p class="text-[10px] tracking-[5px] opacity-90 uppercase mt-2">Pejë, Kosovë</p>
@@ -61,14 +69,41 @@
         </div>
     </main>
 
+    <div id="bookingModal" class="modal-overlay">
+        <div class="modal-body">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="font-black text-xl uppercase italic">Zgjedh Shërbimin</h2>
+                <button onclick="closeModal()" class="text-3xl text-gray-300">×</button>
+            </div>
+            <div id="step1">
+                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer service-opt" onclick="setService('Qethje', this)">
+                    <div><span class="font-bold block">Qethje</span><span class="text-[10px] text-gray-400">30 MIN</span></div>
+                    <span class="font-black">5€</span>
+                </div>
+                <button class="vazhdo-btn" id="v1" onclick="goStep(2)">Vazhdo</button>
+            </div>
+            <div id="step2" class="hidden">
+                 <div class="grid grid-cols-1 gap-3 mb-4">
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold barber-opt" onclick="setB('Agon Tahiri', this)">Agon Tahiri</div>
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold barber-opt" onclick="setB('Mendim', this)">Mendim</div>
+                </div>
+                <button class="vazhdo-btn" id="v2" onclick="goStep(3)">Vazhdo</button>
+            </div>
+            <div id="step3" class="hidden">
+                <div id="cal-days" class="flex space-x-3 overflow-x-auto mb-6 pb-2 no-scrollbar"></div>
+                <div id="time-grid" class="grid grid-cols-3 gap-2 mb-6"></div>
+                <input type="text" id="cName" placeholder="Emri juaj" class="member-input">
+                <input type="tel" id="cPhone" placeholder="Nr. Telefonit" class="member-input">
+                <button onclick="confirmApp()" class="w-full bg-emerald-500 text-white py-5 rounded-2xl font-black uppercase">Konfirmo</button>
+            </div>
+        </div>
+    </div>
+
     <div id="wheelModal" class="modal-overlay">
         <div class="modal-body text-center">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="font-black text-xl uppercase italic">Rrotullo & Fito</h2>
-                <button onclick="closeWheel()" class="text-3xl">×</button>
-            </div>
+            <div class="flex justify-between items-center mb-4"><h2 class="font-black text-xl uppercase italic">Rrotullo</h2><button onclick="closeWheel()" class="text-3xl">×</button></div>
             <div id="wheel-container">
-                <div class="wheel-pointer"></div>
+                <div class="wheel-pointer"><i class="fa-solid fa-caret-down"></i></div>
                 <div id="wheel"></div>
             </div>
             <button id="spinBtn" onclick="spinWheel()" class="w-full bg-orange-500 text-white py-4 rounded-2xl font-black uppercase mt-4">Rrotullo</button>
@@ -85,4 +120,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
