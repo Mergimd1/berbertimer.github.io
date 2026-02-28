@@ -3,185 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agoni Barber | Premium Portfolio</title>
+    <title>Agoni Barber | 10 Vite Eksperiencë</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        body { background-color: #0f172a; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; }
-        
+        body {
+            background-color: #0f172a;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            scroll-behavior: smooth;
+        }
+
         /* 3D Glass Effect */
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 28px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
         }
 
-        /* Hero Background me foton tënde */
+        .glass-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            border: 1px solid rgba(251, 191, 36, 0.5);
+            box-shadow: 0 35px 60px -15px rgba(251, 191, 36, 0.2);
+        }
+
+        /* Hero Background */
         .hero-bg {
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), #0f172a), 
-                        url('FOTO_JOTE_KRYESORE.jpg'); 
-            background-size: cover; 
-            background-position: center; 
-            height: 65vh;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            border-bottom: 2px solid rgba(251, 191, 36, 0.2);
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.3), #0f172a), 
+                        url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070'); /* KETU VENDOSET FOTOJA JOTE */
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float-icon {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* 3D Buttons */
+        .btn-3d {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            box-shadow: 0 4px 0 #92400e, 0 8px 15px rgba(0,0,0,0.4);
+            transition: all 0.1s ease;
+        }
+
+        .btn-3d:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #92400e;
         }
 
         .section-title {
-            font-size: 2.5rem; 
-            font-weight: 900; 
+            font-size: 3rem;
+            font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: -1px;
+            letter-spacing: -2px;
             background: linear-gradient(to right, #fbbf24, #fff);
-            -webkit-background-clip: text; 
+            -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        /* Gallery Grid */
-        .gallery-item {
-            position: relative; 
-            overflow: hidden; 
-            border-radius: 24px; 
-            height: 280px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6); 
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .gallery-item img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .gallery-item:hover img { transform: scale(1.15); }
-
-        /* Navigation Style */
-        .bottom-nav {
-            position: fixed; bottom: 20px; left: 20px; right: 20px;
-            background: rgba(30, 41, 59, 0.7); 
-            backdrop-filter: blur(25px);
-            display: flex; justify-content: space-around; padding: 18px;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.1); 
-            z-index: 100;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-        .nav-btn { 
-            color: #94a3b8; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            font-size: 11px; 
-            font-weight: 800; 
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
-        .nav-btn.active { color: #fbbf24; transform: translateY(-5px); }
     </style>
 </head>
-<body class="pb-32">
+<body class="overflow-x-hidden">
 
-    <div id="view-home">
-        <section class="hero-bg text-center">
-            <h1 class="text-6xl font-black italic uppercase leading-none tracking-tighter">AGONI<br><span class="text-yellow-400">BARBER</span></h1>
-            <div class="mt-4 bg-yellow-400/20 border border-yellow-400/50 text-yellow-400 px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest">
-                10 Vite Eksperiencë
-            </div>
-        </section>
-
-        <section class="p-6">
-            <h2 class="section-title mb-4">Biografia</h2>
-            <div class="glass-card p-8 text-gray-300 text-sm leading-relaxed border-l-4 border-yellow-400">
-                Unë jam Agoni, një berber me mbi 1 dekadë përvojë në artin e qethjes. Stili im ndërthur klasiken me modernen, duke u siguruar që çdo klient të dalë me vetëbesim maksimal. Puna ime është pasioni im.
-            </div>
-        </section>
-
-        <section class="p-6">
-            <h2 class="section-title mb-6 text-center">Shërbimet 3D</h2>
-            <div class="grid grid-cols-1 gap-5">
-                <div class="glass-card p-6 flex justify-between items-center group hover:bg-white/5">
-                    <div>
-                        <h3 class="font-black uppercase text-lg">Qethje Klasike</h3>
-                        <p class="text-xs text-gray-500 font-bold uppercase">Mjeshtëri me gërshërë</p>
-                    </div>
-                    <span class="text-2xl font-black text-yellow-400 bg-yellow-400/10 px-4 py-2 rounded-xl">5€</span>
-                </div>
-                <div class="glass-card p-6 flex justify-between items-center border-b-2 border-yellow-400">
-                    <div>
-                        <h3 class="font-black uppercase text-lg text-yellow-400">Full Service VIP</h3>
-                        <p class="text-xs text-gray-500 font-bold uppercase">Qethje + Mjekërr + Maskë</p>
-                    </div>
-                    <span class="text-2xl font-black text-yellow-400 bg-yellow-400/10 px-4 py-2 rounded-xl">10€</span>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <div id="view-gallery" class="hidden p-6 animate-fade-in">
-        <h2 class="section-title text-center mb-10">My Gallery</h2>
-        <div class="grid grid-cols-2 gap-5">
-            <div class="gallery-item"><img src="FOTO_1.jpg" alt="Work 1"></div>
-            <div class="gallery-item"><img src="FOTO_2.jpg" alt="Work 2"></div>
-            <div class="gallery-item"><img src="FOTO_3.jpg" alt="Work 3"></div>
-            <div class="gallery-item"><img src="FOTO_4.jpg" alt="Work 4"></div>
-            <div class="gallery-item"><img src="FOTO_5.jpg" alt="Work 5"></div>
-            <div class="gallery-item"><img src="FOTO_6.jpg" alt="Work 6"></div>
+    <section id="home" class="hero-bg flex flex-col items-center justify-center text-center p-6">
+        <div class="float-icon bg-yellow-400 text-black px-4 py-1 rounded-full font-bold text-sm mb-4">
+            EST. 2014 - 10 VITE EKSPERIENCË
         </div>
-    </div>
+        <h1 class="text-6xl md:text-8xl font-black uppercase italic leading-none mb-4">
+            AGONI<br><span class="text-yellow-400">BARBER</span>
+        </h1>
+        <p class="text-gray-300 max-w-md text-lg font-light mb-8">
+            Arti i qethjes i transformuar në eksperiencë premium. Mbi 10 vite mjeshtëri në çdo detaj.
+        </p>
+        <a href="#booking" class="btn-3d text-black px-10 py-4 rounded-2xl font-black uppercase tracking-widest">
+            CAKTO TERMININ
+        </a>
+    </section>
 
-    <div id="view-kontakt" class="hidden p-6 flex flex-col items-center justify-center min-h-[80vh]">
-        <div class="glass-card p-10 w-full text-center border-t-2 border-yellow-400">
-            <div class="w-20 h-20 bg-yellow-400/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <i class="fa-solid fa-location-dot text-4xl text-yellow-400"></i>
-            </div>
-            <h2 class="text-3xl font-black uppercase mb-2">Lokacioni</h2>
-            <p class="text-gray-400 italic mb-8 font-bold">Qendra, Pejë, Kosovë</p>
-            
-            <a href="tel:+38349721735" class="block w-full bg-yellow-400 text-black py-5 rounded-2xl font-black uppercase tracking-tighter text-lg shadow-xl mb-4 hover:scale-105 transition-transform">
-                Thirr Tani
-            </a>
-            
-            <div class="flex justify-center gap-8 mt-6">
-                <a href="#" class="text-white hover:text-yellow-400 text-3xl"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="text-white hover:text-green-500 text-3xl"><i class="fa-brands fa-whatsapp"></i></a>
+    <section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <div class="glass-card p-2">
+            <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=2070" class="rounded-2xl" alt="Barber at work">
+        </div>
+        <div>
+            <h2 class="section-title mb-6">Mjeshtri im</h2>
+            <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                Me një karrierë që filloi para 1 dekade, unë kam dedikuar çdo ditë për të perfeksionuar stilin dhe teknikat moderne. Nuk është thjesht një qethje, është vizioni juaj i jetësuar përmes gërshërëve të mia.
+            </p>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glass-card p-4 text-center">
+                    <h4 class="text-3xl font-black text-yellow-400">10k+</h4>
+                    <p class="text-xs uppercase font-bold text-gray-500">Klientë të kënaqur</p>
+                </div>
+                <div class="glass-card p-4 text-center">
+                    <h4 class="text-3xl font-black text-yellow-400">10</h4>
+                    <p class="text-xs uppercase font-bold text-gray-500">Vite Përvojë</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <nav class="bottom-nav">
-        <button onclick="switchPage('home')" id="btn-home" class="nav-btn active">
-            <i class="fa-solid fa-house-chimney text-xl mb-1"></i> Ballina
-        </button>
-        <button onclick="switchPage('gallery')" id="btn-gallery" class="nav-btn">
-            <i class="fa-solid fa-images text-xl mb-1"></i> Gallery
-        </button>
-        <button onclick="switchPage('kontakt')" id="btn-kontakt" class="nav-btn">
-            <i class="fa-solid fa-paper-plane text-xl mb-1"></i> Kontakt
-        </button>
+    <section class="py-20 bg-[#0a0f1d] px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title text-center mb-16">Shërbimet & Çmimet</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 text-center relative overflow-hidden group">
+                    <div class="absolute -right-4 -top-4 text-8xl opacity-10 group-hover:opacity-20 transition-all">✂️</div>
+                    <i class="fa-solid fa-cut text-5xl text-yellow-400 mb-6"></i>
+                    <h3 class="text-2xl font-black mb-2 uppercase">Qethje Klasike</h3>
+                    <p class="text-gray-500 text-sm mb-6 uppercase font-bold">Stili që nuk vdes kurrë</p>
+                    <div class="text-4xl font-black text-white">5€</div>
+                </div>
+
+                <div class="glass-card p-8 text-center relative overflow-hidden group border-yellow-400/30">
+                    <div class="absolute -right-4 -top-4 text-8xl opacity-10 group-hover:opacity-20 transition-all">👑</div>
+                    <i class="fa-solid fa-crown text-5xl text-yellow-400 mb-6"></i>
+                    <h3 class="text-2xl font-black mb-2 uppercase">Full Service</h3>
+                    <p class="text-gray-500 text-sm mb-6 uppercase font-bold">Qethje + Mjekërr + Maskë</p>
+                    <div class="text-4xl font-black text-white">10€</div>
+                </div>
+
+                <div class="glass-card p-8 text-center relative overflow-hidden group">
+                    <div class="absolute -right-4 -top-4 text-8xl opacity-10 group-hover:opacity-20 transition-all">🔥</div>
+                    <i class="fa-solid fa-fire text-5xl text-yellow-400 mb-6"></i>
+                    <h3 class="text-2xl font-black mb-2 uppercase">Mjekërr & Lineup</h3>
+                    <p class="text-gray-500 text-sm mb-6 uppercase font-bold">Konturim perfekt</p>
+                    <div class="text-4xl font-black text-white">3€</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6">
+        <h2 class="section-title text-center mb-16">Galeria e Punimeve</h2>
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="glass-card overflow-hidden h-64 h-80">
+                <img src="https://images.unsplash.com/photo-1599351431247-f10b216981ad?q=80&w=1974" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Work 1">
+            </div>
+            <div class="glass-card overflow-hidden h-64 mt-8">
+                <img src="https://images.unsplash.com/photo-1622286332618-f28016a50463?q=80&w=2070" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Work 2">
+            </div>
+            <div class="glass-card overflow-hidden h-64">
+                <img src="https://images.unsplash.com/photo-1532710093739-9470acff878f?q=80&w=2070" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Work 3">
+            </div>
+            <div class="glass-card overflow-hidden h-64 mt-8">
+                <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=1974" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Work 4">
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="py-20 px-6 bg-gradient-to-t from-yellow-400/10 to-transparent">
+        <div class="max-w-4xl mx-auto glass-card p-10">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-4xl font-black uppercase mb-6 italic">Cakto Termin</h2>
+                    <p class="text-gray-400 mb-8 font-bold">Rezervo vendin tënd tani dhe evito pritjen.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <i class="fa-solid fa-phone text-yellow-400 text-xl"></i>
+                            <span class="font-bold">+383 49 721 735</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <i class="fa-solid fa-location-dot text-yellow-400 text-xl"></i>
+                            <span class="font-bold">Qendra, Pejë, Kosovë</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <input type="text" placeholder="Emri Mbiemri" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-yellow-400 font-bold">
+                    <input type="tel" placeholder="Nr. Telefonit" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-yellow-400 font-bold">
+                    <button class="btn-3d w-full py-4 text-black font-black uppercase rounded-xl">KONFIRMO REZERVIMIN</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 glass-card px-8 py-4 flex gap-8 z-50">
+        <a href="#home" class="text-yellow-400"><i class="fa-solid fa-house"></i></a>
+        <a href="#booking" class="text-white hover:text-yellow-400"><i class="fa-solid fa-calendar-days"></i></a>
+        <a href="https://instagram.com" class="text-white hover:text-yellow-400"><i class="fa-brands fa-instagram"></i></a>
     </nav>
 
     <script>
-        function switchPage(pageId) {
-            // Fsheh faqet
-            document.getElementById('view-home').classList.add('hidden');
-            document.getElementById('view-gallery').classList.add('hidden');
-            document.getElementById('view-kontakt').classList.add('hidden');
-            
-            // Shfaq faqen e klikuar
-            document.getElementById('view-' + pageId).classList.remove('hidden');
-
-            // Aktivizo butonin
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('btn-' + pageId).classList.add('active');
-
-            // Shko në fillim të faqes
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        // Efekt i thjeshtë për të lëvizur kartat me miun (3D Tilt)
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                let x = (window.innerWidth / 2 - e.pageX) / 25;
+                let y = (window.innerHeight / 2 - e.pageY) / 25;
+                // Vetëm për ekranet e mëdha
+                if(window.innerWidth > 768) {
+                    card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            });
+        });
     </script>
 </body>
 </html>
