@@ -51,3 +51,57 @@ body { background-color: #f3f4f6; font-family: -apple-system, system-ui, sans-se
 .segment { position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; display: flex; align-items: center; justify-content: center; clip-path: polygon(0 0, 100% 0, 100% 100%); border: 1px solid rgba(0,0,0,0.05); }
 .segment-content { position: absolute; width: 100px; height: 100%; transform-origin: center bottom; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 15px; text-align: center; }
 .segment-content span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; font-weight: 900; text-transform: uppercase; color: #111827; }
+
+/* Stil i ri 3D për Shiritat e Kontaktit */
+.contact-ribbon-3d {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 0 rgb(0, 0, 0, 0.15), 0 15px 20px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.contact-ribbon-3d:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 rgb(0, 0, 0, 0.2);
+}
+
+.insta-3d { background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%); color: white; }
+.loc-3d { background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); color: white; }
+
+.icon-box-3d {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 20px;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.3);
+}
+
+.shimmer-effect::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+    transform: rotate(30deg);
+    animation: light-swipe 4s infinite;
+}
+
+@keyframes light-swipe {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    100% { transform: translateX(100%) rotate(30deg); }
+}
