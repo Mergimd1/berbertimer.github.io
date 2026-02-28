@@ -24,10 +24,11 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Funksionet globale që i duhen script.js
-        window.db = db;
-        window.saveToFirebase = async (data) => await addDoc(collection(db, "appointments"), data);
-        window.getTerminetRealTime = (barberName, callback) => {
+        window.saveToFirebase = async function(data) {
+            try { await addDoc(collection(db, "appointments"), data); return true; } catch (e) { return false; }
+        };
+
+        window.getTerminetRealTime = function(barberName, callback) {
             const q = query(collection(db, "appointments"), where("b", "==", barberName));
             onSnapshot(q, (snapshot) => {
                 const docs = [];
@@ -35,14 +36,16 @@
                 callback(docs);
             });
         };
-        window.getTerminePerBllokim = async (barberName, data) => {
+
+        window.deleteTerminFirebase = async (id) => await deleteDoc(doc(db, "appointments", id));
+
+        window.getTerminePerBllokim = async function(barberName, data) {
             const q = query(collection(db, "appointments"), where("b", "==", barberName), where("d", "==", data));
             const snapshot = await getDocs(q);
             const docs = [];
             snapshot.forEach(d => docs.push(d.data()));
             return docs;
         };
-        window.deleteTerminFirebase = async (id) => await deleteDoc(doc(db, "appointments", id));
     </script>
 </head>
 <body class="pb-40">
@@ -61,37 +64,63 @@
                 <div class="bg-amber-50 p-4 rounded-full mb-3 text-amber-500"><i class="fa-solid fa-crown text-2xl"></i></div>
                 <span class="text-xs font-bold uppercase">Membership</span>
             </div>
+            <div class="home-card col-span-2 flex-row space-x-4 py-5 mt-2" onclick="alert('Së shpejti...')">
+                <i class="fa-solid fa-cart-shopping text-emerald-500 text-2xl"></i>
+                <span class="text-xs font-bold uppercase tracking-wider">Produktet Tona</span>
+            </div>
         </div>
 
         <div class="spin-win-banner" onclick="openWheel()">
-            <div><h3 class="font-black text-xl uppercase italic">Rrotullo & Fito</h3><p class="text-[10px] font-bold">Provojeni fatin sot!</p></div>
-            <i class="fa-solid fa-dharmachakra text-3xl"></i>
+            <div class="z-10 relative">
+                <h3 class="font-black text-2xl uppercase italic tracking-wider">Rrotullo & Fito</h3>
+                <p class="text-[10px] font-bold uppercase mt-1 tracking-widest flex items-center gap-1">
+                    <i class="fa-solid fa-gift text-white"></i> Provojeni fatin sot!
+                </p>
+            </div>
+            <div class="spin-icon-wrapper z-10 relative"><i class="fa-solid fa-dharmachakra text-3xl text-white"></i></div>
+        </div>
+
+        <div class="marquee-fixed-bottom">
+            <div class="marquee-gold band-1">
+                <div class="marquee-content">
+                    <span class="m-item">✂️ QETHJE 5€</span><span class="m-item">🧔 MJEKËRR 4€</span><span class="m-item">✨ FRIZURË 2€</span><span class="m-item">🎨 NGJYROSJE 10-30€</span>
+                </div>
+            </div>
         </div>
     </main>
 
+    <div id="view-membership" class="hidden p-6 bg-gray-50 min-h-screen">
+        <div class="gold-card text-center">
+            <div class="bg-amber-500 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2 shadow-lg">
+                <span class="font-black text-lg">25€</span>
+            </div>
+            <i class="fa-solid fa-crown text-4xl mb-2"></i>
+            <h2 class="text-2xl font-black uppercase italic tracking-widest">Gold Member</h2>
+        </div>
+        <div class="bg-white p-5 rounded-[25px] shadow-sm">
+            <input type="text" id="mName" placeholder="Emri & Mbiemri" class="member-input">
+            <input type="tel" id="mPhone" placeholder="Numri i Telefonit" class="member-input">
+            <button onclick="confirmGold()" class="w-full bg-amber-500 text-white py-5 rounded-2xl font-black mt-6 uppercase tracking-widest">Bëhu Gold Member</button>
+        </div>
+    </div>
+
     <div id="bookingModal" class="modal-overlay">
         <div class="modal-body">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="font-black text-xl uppercase italic">Zgjedh Shërbimin</h2>
-                <button onclick="closeModal()" class="text-3xl text-gray-300">×</button>
-            </div>
+            <div class="flex justify-between items-center mb-6"><h2 class="font-black text-xl uppercase italic">Zgjedh Shërbimin</h2><button onclick="closeModal()" class="text-3xl text-gray-300">×</button></div>
             <div id="step1">
-                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer service-opt" onclick="setService('Qethje', this)">
-                    <div><span class="font-bold block">Qethje</span><span class="text-[10px] text-gray-400">30 MIN</span></div>
-                    <span class="font-black">5€</span>
-                </div>
-                <button class="vazhdo-btn" id="v1" onclick="goStep(2)">Vazhdo</button>
+                <div class="p-4 border-2 rounded-2xl mb-3 flex justify-between items-center cursor-pointer" id="s1" onclick="setService('Qethje', 's1')"><div><span class="font-bold block">Qethje</span></div><span class="font-black">5€</span></div>
+                <button id="v1" class="vazhdo-btn" onclick="goStep(2)">Vazhdo</button>
             </div>
             <div id="step2" class="hidden">
-                 <div class="grid grid-cols-1 gap-3 mb-4">
-                    <div class="p-4 border-2 rounded-2xl text-center font-bold barber-opt" onclick="setB('Agon Tahiri', this)">Agon Tahiri</div>
-                    <div class="p-4 border-2 rounded-2xl text-center font-bold barber-opt" onclick="setB('Mendim', this)">Mendim</div>
+                <div class="grid grid-cols-1 gap-3 mb-4">
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b1" onclick="setB('Agon Tahiri', 'b1')">Agon Tahiri</div>
+                    <div class="p-4 border-2 rounded-2xl text-center font-bold" id="b2" onclick="setB('Mendim', 'b2')">Mendim</div>
                 </div>
-                <button class="vazhdo-btn" id="v2" onclick="goStep(3)">Vazhdo</button>
+                <button id="v2" class="vazhdo-btn" onclick="goStep(3)">Vazhdo</button>
             </div>
             <div id="step3" class="hidden">
-                <div id="cal-days" class="flex space-x-3 overflow-x-auto mb-6 pb-2 no-scrollbar"></div>
-                <div id="time-grid" class="grid grid-cols-3 gap-2 mb-6"></div>
+                <div class="flex space-x-3 overflow-x-auto mb-6 pb-2 no-scrollbar" id="cal-days"></div>
+                <div class="grid grid-cols-3 gap-2 mb-6" id="time-grid"></div>
                 <input type="text" id="cName" placeholder="Emri juaj" class="member-input">
                 <input type="tel" id="cPhone" placeholder="Nr. Telefonit" class="member-input">
                 <button onclick="confirmApp()" class="w-full bg-emerald-500 text-white py-5 rounded-2xl font-black uppercase">Konfirmo</button>
@@ -102,19 +131,16 @@
     <div id="wheelModal" class="modal-overlay">
         <div class="modal-body text-center">
             <div class="flex justify-between items-center mb-4"><h2 class="font-black text-xl uppercase italic">Rrotullo</h2><button onclick="closeWheel()" class="text-3xl">×</button></div>
-            <div id="wheel-container">
-                <div class="wheel-pointer"><i class="fa-solid fa-caret-down"></i></div>
-                <div id="wheel"></div>
-            </div>
+            <div id="wheel-container"><div class="wheel-pointer"></div><div id="wheel"></div></div>
             <button id="spinBtn" onclick="spinWheel()" class="w-full bg-orange-500 text-white py-4 rounded-2xl font-black uppercase mt-4">Rrotullo</button>
-            <div id="winDisplay" class="hidden mt-6 p-4 bg-emerald-50 border-2 border-emerald-500 rounded-2xl text-emerald-600 font-black"></div>
+            <div id="winDisplay" class="hidden mt-6 p-4 bg-emerald-50 border-2 border-emerald-500 rounded-2xl"><p id="winText" class="text-emerald-600 font-black uppercase"></p></div>
         </div>
     </div>
 
     <nav class="bottom-nav">
-        <div onclick="switchPage('home')" class="nav-item active"><i class="fa-solid fa-house text-xl mb-1"></i><span>Ballina</span></div>
-        <div onclick="openBooking()" class="nav-item"><i class="fa-solid fa-scissors text-xl mb-1"></i><span>Rezervo</span></div>
-        <div onclick="switchPage('kontakt')" class="nav-item"><i class="fa-solid fa-address-card text-xl mb-1"></i><span>Kontakt</span></div>
+        <div onclick="switchPage('home')" id="nav-home" class="nav-item active"><i class="fa-solid fa-house text-xl"></i><span>Ballina</span></div>
+        <div onclick="openBooking()" class="nav-item"><i class="fa-solid fa-scissors text-xl"></i><span>Rezervo</span></div>
+        <div onclick="switchPage('kontakt')" id="nav-kontakt" class="nav-item"><i class="fa-solid fa-address-card text-xl"></i><span>Kontakt</span></div>
     </nav>
 
     <script src="script.js"></script>
