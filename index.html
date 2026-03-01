@@ -2,127 +2,71 @@
 <html lang="sq">
 <head>
     <meta charset="UTF-8">
-<meta name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agoni Barber | 10 Vite Eksperiencë</title>
+    <meta name="referrer" content="no-referrer">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        body { background-color: #0f172a; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; overflow-x: hidden; }
+        body { background-color: #0f172a; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; }
         
-        /* 3D Glass Effect */
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 28px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            transition: all 0.3s ease;
         }
 
-        /* https://imgur.com/a/K002CvU.com */
-.hero-bg {
-    /* Kam ndryshuar linkun në një server që nuk e bllokon foton */
-    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.5), #0f172a), 
-                url('https://res.cloudinary.com/demo/image/fetch/https://i.imgur.com/vHqB3p3.jpeg'); 
-    background-size: cover;
-    background-position: center 20%;
-    height: 70vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
+        /* HERO SECTION ME FIX PER FOTON */
+        .hero-bg {
+            /* Perdorim nje sherbim 'wsrv.nl' qe eshte falas dhe i shfaq fotot e Imgur pa bllokim */
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.5), #0f172a), 
+                        url('https://wsrv.nl/?url=https://i.imgur.com/vHqB3p3.jpeg'); 
+            background-size: cover;
+            background-position: center 20%;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
 
         .section-title {
-            font-size: 2.5rem; font-weight: 900; uppercase;
+            font-size: 2.5rem; font-weight: 900; text-transform: uppercase;
             background: linear-gradient(to right, #fbbf24, #fff);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* Navigation Style */
-        .bottom-nav {
-            position: fixed; bottom: 20px; left: 20px; right: 20px;
-            background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(20px);
-            display: flex; justify-content: space-around; padding: 15px;
-            border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); z-index: 100;
-        }
-        .nav-btn { color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .nav-btn { color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; }
         .nav-btn.active { color: #fbbf24; }
-
-        .hidden { display: none; }
-        
-        .gallery-img {
-            width: 100%; height: 250px; object-fit: cover; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
     </style>
 </head>
-<body class="pb-28">
+<body>
 
-    <div id="view-home">
-        <section class="hero-bg">
-            <h1 class="text-6xl font-black italic uppercase leading-none">AGONI<br><span class="text-yellow-400">BARBER</span></h1>
-            <p class="mt-4 bg-yellow-400 text-black px-4 py-1 rounded-full text-xs font-bold uppercase">10 Vite Eksperiencë</p>
-        </section>
-
-        <section class="p-6 max-w-4xl mx-auto">
-            <h2 class="section-title mb-4">Biografia</h2>
-            <div class="glass-card p-6 text-gray-300 leading-relaxed border-l-4 border-yellow-400">
-                Unë jam Agoni, një berber me mbi 1 dekadë përvojë në artin e qethjes. Stili im ndërthur klasiken me modernen, duke u siguruar që çdo klient të dalë me vetëbesim maksimal.
-            </div>
-        </section>
-
-        <section class="p-6 max-w-4xl mx-auto">
-            <h2 class="section-title mb-6">Shërbimet</h2>
-            <div class="grid gap-4">
-                <div class="glass-card p-5 flex justify-between items-center">
-                    <div><h3 class="font-bold uppercase">Qethje</h3><p class="text-xs text-gray-500 uppercase">Stil & Precision</p></div>
-                    <span class="text-xl font-black text-yellow-400">5€</span>
-                </div>
-                <div class="glass-card p-5 flex justify-between items-center border-yellow-400/30">
-                    <div><h3 class="font-bold uppercase">Full Service</h3><p class="text-xs text-gray-500 uppercase">Qethje + Mjekërr</p></div>
-                    <span class="text-xl font-black text-yellow-400">10€</span>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <div id="view-gallery" class="hidden p-6 animate-fade-in">
-        <h2 class="section-title text-center mb-8 italic">My Gallery</h2>
-        <div class="grid grid-cols-2 gap-4">
-            <img src="https://i.imgur.com/vHqB3p3.jpeg" class="gallery-img" alt="Work 1">
-            <img src="https://i.imgur.com/vHqB3p3.jpeg" class="gallery-img" alt="Work 2">
-            <img src="https://i.imgur.com/vHqB3p3.jpeg" class="gallery-img" alt="Work 3">
-            <img src="https://i.imgur.com/vHqB3p3.jpeg" class="gallery-img" alt="Work 4">
+    <section class="hero-bg">
+        <h1 class="text-6xl font-black italic uppercase leading-none">AGONI<br><span class="text-yellow-400">BARBER</span></h1>
+        <div class="mt-4 bg-yellow-400 text-black px-6 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+            10 Vite Eksperiencë
         </div>
-    </div>
+    </section>
 
-    <nav class="bottom-nav">
-        <button onclick="switchPage('home')" id="btn-home" class="nav-btn active">
-            <i class="fa-solid fa-house text-xl mb-1"></i> Ballina
-        </button>
-        <button onclick="switchPage('gallery')" id="btn-gallery" class="nav-btn">
-            <i class="fa-solid fa-images text-xl mb-1"></i> Gallery
-        </button>
-        <button onclick="switchPage('home')" class="nav-btn">
-            <i class="fa-brands fa-instagram text-xl mb-1"></i> Instagram
-        </button>
+    <section class="p-8 max-w-4xl mx-auto">
+        <h2 class="section-title mb-4">Biografia</h2>
+        <div class="glass-card p-6 text-gray-300 leading-relaxed border-l-4 border-yellow-400">
+            Unë jam Agoni, një berber me mbi 1 dekadë përvojë në artin e qethjes. Stili im ndërthur klasiken me modernen, duke u siguruar që çdo klient të dalë me vetëbesim maksimal.
+        </div>
+    </section>
+
+    <nav class="fixed bottom-6 left-6 right-6 bg-slate-900/80 backdrop-blur-lg flex justify-around p-4 rounded-3xl border border-white/10">
+        <button class="nav-btn active"><i class="fa-solid fa-house text-xl mb-1"></i> Ballina</button>
+        <button class="nav-btn"><i class="fa-solid fa-images text-xl mb-1"></i> Gallery</button>
+        <button class="nav-btn"><i class="fa-brands fa-instagram text-xl mb-1"></i> Instagram</button>
     </nav>
 
-    <script>
-        function switchPage(pageId) {
-            document.getElementById('view-home').classList.add('hidden');
-            document.getElementById('view-gallery').classList.add('hidden');
-            
-            document.getElementById('view-' + pageId).classList.remove('hidden');
-
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('btn-' + pageId).classList.add('active');
-            window.scrollTo(0,0);
-        }
-    </script>
 </body>
 </html>
