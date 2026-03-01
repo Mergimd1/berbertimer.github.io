@@ -12,12 +12,73 @@
         * { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
         body { background-color: #0f172a; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; overflow-x: hidden; }
 
-        /* Background Setup */
+        /* Background */
         .bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         .fixed-bg { width: 100%; height: 100%; background-image: url('1000005485.jpg'); background-size: cover; background-position: center; filter: brightness(0.4); }
         .light-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(15, 23, 42, 0.3), #0f172a 95%); }
 
-        /* Modal Rezervimi */
+        /* NAVIGIMI 3D - DIZAJN I RI */
+        .bottom-nav {
+            position: fixed; bottom: 25px; left: 15px; right: 15px; height: 90px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px);
+            border-radius: 35px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 20%;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #94a3b8;
+            margin-bottom: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .nav-text {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+            transition: 0.3s;
+        }
+
+        /* Kur butoni eshte AKTIV */
+        .nav-item.active .icon-box {
+            transform: translateY(-15px) rotate(-5deg);
+            background: #fbbf24;
+            color: #0f172a;
+            box-shadow: 0 15px 30px rgba(251, 191, 36, 0.4);
+            border: none;
+        }
+
+        .nav-item.active .nav-text {
+            color: #fff;
+            transform: translateY(-8px);
+        }
+
+        /* MODAL REZERVIMI */
         #booking-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9); backdrop-filter: blur(15px);
@@ -31,21 +92,8 @@
         .day-btn { background: white; color: black; padding: 10px 20px; border-radius: 12px; font-weight: bold; font-size: 13px; min-width: 90px; }
         .day-btn.active { background: #1e293b; color: white; border: 1px solid #fbbf24; }
 
-        /* Navigation 3D */
-        .bottom-nav {
-            position: fixed; bottom: 20px; left: 15px; right: 15px; height: 85px;
-            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px);
-            border-radius: 30px; display: flex; justify-content: space-around;
-            align-items: center; border: 1px solid rgba(255,255,255,0.1); z-index: 1000;
-        }
-        .nav-item { display: flex; flex-direction: column; align-items: center; width: 22%; text-decoration: none; }
-        .icon-circle { width: 45px; height: 45px; border-radius: 15px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); margin-bottom: 5px; transition: 0.4s; color: #94a3b8; }
-        .nav-item.active .icon-circle { background: #fbbf24; color: #0f172a; transform: translateY(-10px); box-shadow: 0 10px 20px rgba(251, 191, 36, 0.4); }
-        .nav-text { font-size: 10px; font-weight: 800; text-transform: uppercase; color: #94a3b8; }
-        .nav-item.active .nav-text { color: white; transform: translateY(-5px); }
-
         .hidden { display: none; }
-        .glass-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 25px; }
+        .glass-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; }
     </style>
 </head>
 <body class="pb-32">
@@ -56,83 +104,92 @@
     </div>
 
     <div id="view-home" class="p-6">
-        <section class="h-[45vh] flex flex-col items-center justify-center text-center">
+        <section class="h-[40vh] flex flex-col items-center justify-center text-center">
             <h1 class="text-6xl font-black italic uppercase leading-none tracking-tighter">MERGIM<br><span class="text-yellow-400">BARBER</span></h1>
-            <p class="text-yellow-400 font-bold tracking-widest text-[10px] mt-3 italic uppercase">VIP Mobile Service 🚗</p>
+            <p class="text-yellow-400 font-bold tracking-widest text-[10px] mt-4 italic uppercase bg-black/50 px-5 py-2 rounded-full border border-yellow-400/30">Master Barber ✂️</p>
         </section>
 
-        <section class="glass-card p-8 text-center border-b-8 border-yellow-400 shadow-2xl">
-            <h2 class="text-2xl font-black mb-2 italic uppercase">Premium Cut</h2>
-            <div class="text-5xl font-black text-yellow-400 mb-4 tracking-tighter">20.00€</div>
-            <button onclick="openBooking()" class="w-full bg-yellow-400 text-black py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-2xl active:scale-95 transition-all">
-                REZERVO LOKACIONIN <i class="fa-solid fa-calendar-check ml-2"></i>
+        <section class="glass-card p-8 text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-yellow-400"></div>
+            <h2 class="text-2xl font-black mb-1 italic uppercase tracking-widest text-yellow-400">Premium Cut</h2>
+            <p class="text-[10px] font-bold text-white/60 mb-3 tracking-[3px] uppercase">Service në shtëpinë tuaj 🚗</p>
+            <div class="text-6xl font-black text-white mb-4 tracking-tighter">20<span class="text-2xl text-yellow-400">€</span></div>
+            <p class="text-gray-300 text-sm mb-8 px-4 leading-relaxed italic">
+                Nuk keni nevojë të prisni në rend. Unë vij te ju me të gjitha pajisjet profesionale për një qethje VIP.
+            </p>
+            <button onclick="openBooking()" class="w-full bg-yellow-400 text-black py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-[0_10px_40px_rgba(251,191,36,0.3)] active:scale-95 transition-all">
+                REZERVO LOKACIONIN <i class="fa-solid fa-location-dot ml-2"></i>
             </button>
         </section>
     </div>
 
     <div id="view-gallery" class="hidden p-6 text-center">
-        <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400">Punimet</h2>
+        <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400 tracking-widest">Gallery</h2>
         <div class="grid grid-cols-2 gap-4">
-            <img src="klienti1.jpg" class="w-full h-64 object-cover rounded-2xl border border-white/10 shadow-2xl">
-            <img src="klienti2.jpg" class="w-full h-64 object-cover rounded-2xl border border-white/10 shadow-2xl">
+            <img src="klienti1.jpg" class="w-full h-64 object-cover rounded-[2rem] border border-white/10 shadow-2xl">
+            <img src="klienti2.jpg" class="w-full h-64 object-cover rounded-[2rem] border border-white/10 shadow-2xl">
         </div>
     </div>
 
     <div id="view-license" class="hidden p-6 text-center">
-        <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400">Kualifikimet</h2>
+        <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400 tracking-widest">Licencat</h2>
         <div class="space-y-6">
-            <img src="Certificate1.jpg" class="w-full rounded-2xl border-2 border-yellow-400 shadow-2xl">
-            <img src="Certificate2.jpg" class="w-full rounded-2xl border-2 border-yellow-400 shadow-2xl">
+            <img src="Certificate1.jpg" class="w-full rounded-[2rem] border-2 border-yellow-400 shadow-2xl">
+            <img src="Certificate2.jpg" class="w-full rounded-[2rem] border-2 border-yellow-400 shadow-2xl">
         </div>
     </div>
 
     <div id="booking-modal">
-        <div class="bg-white text-black p-6 w-[92%] max-w-sm rounded-[35px] overflow-y-auto max-h-[92vh] shadow-2xl">
+        <div class="bg-white text-black p-8 w-[92%] max-w-sm rounded-[40px] shadow-2xl">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-black italic uppercase">Zgjidh Shërbimin</h2>
+                <h2 class="text-xl font-black italic uppercase">Zgjidh Termin</h2>
                 <button onclick="closeBooking()"><i class="fa-solid fa-circle-xmark text-3xl text-gray-300"></i></button>
             </div>
-
-            <div class="flex gap-3 overflow-x-auto pb-3 mb-4">
-                <button class="day-btn active">Die 1</button>
-                <button class="day-btn">Hën 2</button>
-                <button class="day-btn">Mar 3</button>
-                <button class="day-btn">Mër 4</button>
-            </div>
-
+            
             <div class="time-grid">
                 <button class="time-btn" onclick="selectT(this)">09:00</button>
-                <button class="time-btn" onclick="selectT(this)">10:30</button>
                 <button class="time-btn" onclick="selectT(this)">12:00</button>
-                <button class="time-btn" onclick="selectT(this)">13:30</button>
                 <button class="time-btn" onclick="selectT(this)">15:00</button>
-                <button class="time-btn" onclick="selectT(this)">16:30</button>
+                <button class="time-btn" onclick="selectT(this)">18:00</button>
+                <button class="time-btn" onclick="selectT(this)">20:00</button>
+                <button class="time-btn" onclick="selectT(this)">21:30</button>
             </div>
 
             <div class="mt-6 space-y-4">
-                <button onclick="getLocation()" id="loc-btn" class="w-full py-4 bg-gray-50 rounded-2xl text-[12px] font-extrabold text-gray-500 uppercase border-2 border-dashed border-gray-200 active:bg-blue-50 transition-all">
+                <button onclick="getLocation()" id="loc-btn" class="w-full py-4 bg-gray-100 rounded-2xl text-[12px] font-extrabold text-gray-500 uppercase border-2 border-dashed border-gray-200">
                     <i class="fa-solid fa-location-arrow mr-2 text-blue-500"></i> Merr Lokacionin Tim
                 </button>
-                
-                <input type="text" id="cust-name" placeholder="Emri dhe Mbiemri" class="w-full p-4 bg-gray-50 rounded-2xl text-sm border border-gray-100">
-                <input type="tel" id="cust-phone" placeholder="Nr. Telefonit" class="w-full p-4 bg-gray-50 rounded-2xl text-sm border border-gray-100">
-                
-                <button onclick="confirmBooking()" class="w-full bg-[#00c37b] text-white py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg mt-4 active:scale-95 transition-all">
-                    KONFIRMO TERMININ
+                <input type="text" id="cust-name" placeholder="Emri juaj" class="w-full p-4 bg-gray-100 rounded-2xl text-sm border-none">
+                <button onclick="confirmBooking()" class="w-full bg-[#00c37b] text-white py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg mt-4">
+                    KONFIRMO <i class="fa-solid fa-paper-plane ml-2"></i>
                 </button>
             </div>
         </div>
     </div>
 
     <nav class="bottom-nav">
-        <button onclick="switchPage('home')" id="n-home" class="nav-item active"><div class="icon-circle"><i class="fa-solid fa-house"></i></div><span class="nav-text">Ballina</span></button>
-        <button onclick="switchPage('gallery')" id="n-gallery" class="nav-item"><div class="icon-circle"><i class="fa-solid fa-images"></i></div><span class="nav-text">Gallery</span></button>
-        <button onclick="switchPage('license')" id="n-license" class="nav-item"><div class="icon-circle"><i class="fa-solid fa-award"></i></div><span class="nav-text">Licensa</span></button>
-        <a href="https://instagram.com" class="nav-item"><div class="icon-circle"><i class="fa-brands fa-instagram"></i></div><span class="nav-text">Insta</span></a>
+        <button onclick="switchPage('home')" id="n-home" class="nav-item active">
+            <div class="icon-box"><i class="fa-solid fa-house"></i></div>
+            <span class="nav-text">Ballina</span>
+        </button>
+        <button onclick="switchPage('gallery')" id="n-gallery" class="nav-item">
+            <div class="icon-box"><i class="fa-solid fa-camera-retro"></i></div>
+            <span class="nav-text">Gallery</span>
+        </button>
+        <button onclick="switchPage('license')" id="n-license" class="nav-item">
+            <div class="icon-box"><i class="fa-solid fa-award"></i></div>
+            <span class="nav-text">Licensa</span>
+        </button>
+        <a href="https://instagram.com" class="nav-item">
+            <div class="icon-box"><i class="fa-brands fa-instagram"></i></div>
+            <span class="nav-text">Insta</span>
+        </a>
     </nav>
 
     <script>
         let selectedTime = ""; let mapsUrl = "";
+        const botToken = "8686495061:AAGBd8mahN4RNdzV3FZJHDEaJDQdfyXYaxs";
+        const chatId = "-1003852106267";
 
         function switchPage(p) {
             ['home', 'gallery', 'license'].forEach(v => document.getElementById('view-'+v).classList.add('hidden'));
@@ -144,12 +201,7 @@
 
         function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
         function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
-        
-        function selectT(btn) {
-            document.querySelectorAll('.time-btn').forEach(x => x.classList.remove('active'));
-            btn.classList.add('active');
-            selectedTime = btn.innerText;
-        }
+        function selectT(btn) { document.querySelectorAll('.time-btn').forEach(x => x.classList.remove('active')); btn.classList.add('active'); selectedTime = btn.innerText; }
 
         function getLocation() {
             if (navigator.geolocation) {
@@ -157,31 +209,23 @@
                 navigator.geolocation.getCurrentPosition(pos => {
                     mapsUrl = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
                     document.getElementById('loc-btn').innerText = "LOKACIONI U RUAJT ✅";
-                    document.getElementById('loc-btn').style.backgroundColor = "#f0fdf4";
-                }, () => { alert("Lejoni qasjen në lokacion!"); });
+                });
             }
         }
 
         async function confirmBooking() {
             const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            if(!selectedTime || !name || !phone || !mapsUrl) { alert("Plotësoni të gjitha!"); return; }
-
-            const botToken = "8686495061:AAGBd8mahN4RNdzV3FZJHDEaJDQdfyXYaxs";
-            const chatId = "-1003852106267";
-
-            const calLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Qethje+VIP+${encodeURIComponent(name)}&location=${encodeURIComponent(mapsUrl)}`;
-            const message = `🚀 *REZERVOIM I RI VIP* 🚀\n\n👤 Klienti: ${name}\n📞 Tel: ${phone}\n⏰ Ora: ${selectedTime}\n📍 Lokacioni: ${mapsUrl}\n\n🗓️ [Shto ne Kalendar](${calLink})`;
-
+            if(!selectedTime || !name || !mapsUrl) { alert("Plotësoni të gjitha!"); return; }
+            const message = `🚀 *TERMIN I RI SHTËPI* 🚀\n\n👤 Klienti: ${name}\n⏰ Ora: ${selectedTime}\n📍 Lokacioni: ${mapsUrl}`;
             try {
                 await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'Markdown' })
                 });
-                alert("Sukses! Rezervimi u dërgua në Telegram.");
+                alert("Rezervimi u dërgua! Mergimi po vjen.");
                 closeBooking();
-            } catch (e) { alert("Gabim në dërgim!"); }
+            } catch (e) { alert("Gabim!"); }
         }
     </script>
 </body>
