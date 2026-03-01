@@ -12,40 +12,47 @@
         * { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
         body { background-color: #020617; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; overflow-x: hidden; }
 
-        /* KTHIMI I FOTOS NE SFOND */
+        /* NDRIÇIMI I RRITUR I FOTOS */
         .bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        .fixed-bg { width: 100%; height: 100%; background-image: url('cover.jpg'); background-size: cover; background-position: center; filter: brightness(0.4); } /*cite: 1, 2*/
-        .light-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent, #020617 95%); }
+        .fixed-bg { 
+            width: 100%; height: 100%; 
+            background-image: url('cover.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+            filter: brightness(0.7); /* Ndriçimi më i lartë këtu */
+        } 
+        .light-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(2, 6, 23, 0.2), #020617 98%); }
 
-        /* NAVIGIMI 3D ME NGJYRA */
+        /* NAVIGIMI 3D - 5 BUTONA TANI */
         .bottom-nav {
-            position: fixed; bottom: 20px; left: 15px; right: 15px; height: 85px;
-            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(25px);
+            position: fixed; bottom: 20px; left: 10px; right: 10px; height: 85px;
+            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(25px);
             border-radius: 30px; display: flex; justify-content: space-around;
-            align-items: center; border: 1px solid rgba(255, 255, 255, 0.1); z-index: 1000;
+            align-items: center; border: 1px solid rgba(255, 255, 255, 0.15); z-index: 1000;
         }
 
-        .nav-item { display: flex; flex-direction: column; align-items: center; width: 22%; transition: 0.4s; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; width: 19%; transition: 0.4s; }
         .icon-box { 
-            width: 48px; height: 48px; border-radius: 16px; display: flex; 
-            align-items: center; justify-content: center; font-size: 20px; 
+            width: 44px; height: 44px; border-radius: 14px; display: flex; 
+            align-items: center; justify-content: center; font-size: 18px; 
             background: rgba(255,255,255,0.05); margin-bottom: 5px; transition: 0.3s;
         }
 
         #n-home .icon-box { color: #3b82f6; }
         #n-gallery .icon-box { color: #ec4899; }
+        #n-services .icon-box { color: #10b981; } /* Ngjyrë e Gjelbër për Shërbimet */
         #n-license .icon-box { color: #fbbf24; }
         #n-insta .icon-box { color: #f43f5e; }
 
-        .nav-item.active .icon-box { transform: translateY(-18px) scale(1.1); color: #fff !important; }
+        .nav-item.active .icon-box { transform: translateY(-15px) scale(1.1); color: #fff !important; }
         #n-home.active .icon-box { background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4); }
         #n-gallery.active .icon-box { background: linear-gradient(135deg, #ec4899, #db2777); box-shadow: 0 10px 20px rgba(236, 72, 153, 0.4); }
+        #n-services.active .icon-box { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4); }
         #n-license.active .icon-box { background: linear-gradient(135deg, #fbbf24, #d97706); box-shadow: 0 10px 20px rgba(251, 191, 36, 0.4); }
         
-        .nav-text { font-size: 9px; font-weight: 800; text-transform: uppercase; color: #64748b; }
-        .nav-item.active .nav-text { color: #fff; transform: translateY(-10px); }
+        .nav-text { font-size: 8px; font-weight: 800; text-transform: uppercase; color: #94a3b8; text-align: center; }
+        .nav-item.active .nav-text { color: #fff; transform: translateY(-8px); }
 
-        /* FORMULAR REZERVIMI */
         #booking-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.92); backdrop-filter: blur(15px);
@@ -54,10 +61,7 @@
 
         .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 15px 0; }
         .time-btn { background: #f1f5f9; color: #0f172a; padding: 10px 5px; border-radius: 12px; font-weight: 800; font-size: 12px; text-align: center; }
-        .time-btn.active { background: #fbbf24; color: #000; transform: scale(1.05); }
-
-        .day-btn { background: #f1f5f9; color: #0f172a; padding: 8px 15px; border-radius: 10px; font-weight: bold; font-size: 11px; min-width: 75px; }
-        .day-btn.active { background: #0f172a; color: #fff; }
+        .time-btn.active { background: #fbbf24; color: #000; }
 
         .input-style { width: 100%; background: #f8fafc; border-radius: 15px; padding: 14px; font-size: 14px; color: #000; border: 1px solid #e2e8f0; margin-bottom: 12px; font-weight: 600; }
         .hidden { display: none; }
@@ -70,12 +74,12 @@
     <div id="view-home" class="p-6">
         <section class="h-[40vh] flex flex-col items-center justify-center text-center">
             <h1 class="text-6xl font-black italic uppercase leading-none tracking-tighter">MERGIM<br><span class="text-yellow-400">BARBER</span></h1>
-            <p class="text-yellow-400 font-bold tracking-[4px] text-[10px] mt-4 italic uppercase bg-black/40 px-4 py-1 rounded-full">VIP Mobile Service 🚗</p>
+            <p class="text-yellow-400 font-bold tracking-[4px] text-[10px] mt-4 italic uppercase bg-black/60 px-4 py-1 rounded-full">VIP Mobile Service 🚗</p>
         </section>
 
-        <section class="bg-white/10 backdrop-blur-md p-8 text-center rounded-[40px] border border-white/10 shadow-2xl">
+        <section class="bg-white/10 backdrop-blur-md p-8 text-center rounded-[40px] border border-white/20 shadow-2xl">
             <h2 class="text-2xl font-black mb-1 italic uppercase text-yellow-400">Premium Cut</h2>
-            <p class="text-[10px] font-bold text-white/60 mb-3 uppercase tracking-widest">Unë vij të qethi në shtëpinë tuaj</p>
+            <p class="text-[10px] font-bold text-white mb-3 uppercase tracking-widest">Unë vij të qethi në shtëpinë tuaj</p>
             <div class="text-6xl font-black text-white mb-6 italic">20€</div>
             <button onclick="openBooking()" class="w-full bg-yellow-400 text-black py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">
                 REZERVO TANI <i class="fa-solid fa-bolt ml-2"></i>
@@ -91,11 +95,28 @@
         </div>
     </div>
 
+    <div id="view-services" class="hidden p-6">
+        <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400 text-center">Shërbimet</h2>
+        <div class="space-y-4">
+            <div class="bg-white/10 p-5 rounded-3xl border border-white/10 flex justify-between items-center">
+                <span>Qethje Profesionale</span>
+                <span class="text-yellow-400 font-bold">15€</span>
+            </div>
+            <div class="bg-white/10 p-5 rounded-3xl border border-white/10 flex justify-between items-center">
+                <span>Rruajtje VIP</span>
+                <span class="text-yellow-400 font-bold">10€</span>
+            </div>
+            <div class="bg-white/10 p-5 rounded-3xl border border-white/10 flex justify-between items-center font-bold">
+                <span class="text-yellow-400 uppercase italic">Premium Combo (Home)</span>
+                <span class="text-yellow-400">20€</span>
+            </div>
+        </div>
+    </div>
+
     <div id="view-license" class="hidden p-6 text-center">
         <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400">Licencat</h2>
         <div class="space-y-6">
-            <img src="Certificate1.jpg" class="w-full rounded-[30px] border-2 border-yellow-400 shadow-2xl">
-            <img src="Certificate2.jpg" class="w-full rounded-[30px] border-2 border-yellow-400 shadow-2xl">
+            <img src="Certificate1.jpg" class="w-full rounded-[30px] border-2 border-yellow-400">
         </div>
     </div>
 
@@ -112,20 +133,14 @@
             <div class="flex gap-2 overflow-x-auto pb-3 mb-2">
                 <button class="day-btn active" onclick="selD(this)">Sot</button>
                 <button class="day-btn" onclick="selD(this)">Nesër</button>
-                <button class="day-btn" onclick="selD(this)">Pasnesër</button>
             </div>
 
             <div class="time-grid">
                 <button class="time-btn" onclick="selT(this)">09:00</button>
-                <button class="time-btn" onclick="selT(this)">10:00</button>
                 <button class="time-btn" onclick="selT(this)">11:00</button>
-                <button class="time-btn" onclick="selT(this)">12:00</button>
                 <button class="time-btn" onclick="selT(this)">13:00</button>
-                <button class="time-btn" onclick="selT(this)">14:00</button>
                 <button class="time-btn" onclick="selT(this)">15:00</button>
-                <button class="time-btn" onclick="selT(this)">16:00</button>
                 <button class="time-btn" onclick="selT(this)">17:00</button>
-                <button class="time-btn" onclick="selT(this)">18:00</button>
                 <button class="time-btn" onclick="selT(this)">19:00</button>
             </div>
 
@@ -145,6 +160,7 @@
     <nav class="bottom-nav">
         <button onclick="switchP('home')" id="n-home" class="nav-item active"><div class="icon-box"><i class="fa-solid fa-house-chimney"></i></div><span class="nav-text">Ballina</span></button>
         <button onclick="switchP('gallery')" id="n-gallery" class="nav-item"><div class="icon-box"><i class="fa-solid fa-images"></i></div><span class="nav-text">Gallery</span></button>
+        <button onclick="switchP('services')" id="n-services" class="nav-item"><div class="icon-box"><i class="fa-solid fa-scissors"></i></div><span class="nav-text">Shërbimet</span></button>
         <button onclick="switchP('license')" id="n-license" class="nav-item"><div class="icon-box"><i class="fa-solid fa-award"></i></div><span class="nav-text">Licensa</span></button>
         <a href="https://instagram.com/PROFILI_YT" id="n-insta" class="nav-item"><div class="icon-box"><i class="fa-brands fa-instagram"></i></div><span class="nav-text">Insta</span></a>
     </nav>
@@ -155,7 +171,7 @@
         const cid = "-1003852106267";
 
         function switchP(p) {
-            ['home', 'gallery', 'license'].forEach(v => document.getElementById('view-'+v).classList.add('hidden'));
+            ['home', 'gallery', 'services', 'license'].forEach(v => document.getElementById('view-'+v).classList.add('hidden'));
             document.getElementById('view-'+p).classList.remove('hidden');
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById('n-'+p).classList.add('active');
