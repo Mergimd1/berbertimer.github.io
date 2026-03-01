@@ -9,133 +9,119 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        body {
-            background-color: #0f172a;
-            font-family: 'Poppins', sans-serif;
-            color: #fff;
-            scroll-behavior: smooth;
-        }
-
+        body { background-color: #0f172a; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; overflow-x: hidden; }
+        
         /* 3D Glass Effect */
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             transition: all 0.3s ease;
         }
 
-        .glass-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            border: 1px solid rgba(251, 191, 36, 0.5);
-        }
-
-        /* Hero Background - E rregulluar me linkun tuaj direkt */
+        /* Hero Background - Fotoja jote e rregulluar */
         .hero-bg {
             background: linear-gradient(to bottom, rgba(15, 23, 42, 0.5), #0f172a), 
                         url('https://i.imgur.com/vHqB3p3.jpeg'); 
             background-size: cover;
-            background-position: center 20%; /* Pozicionimi i kokes */
-            background-repeat: no-repeat;
-            height: 90vh;
+            background-position: center 20%;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .float-icon { animation: float 4s ease-in-out infinite; }
-
-        .btn-3d {
-            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
-            box-shadow: 0 4px 0 #92400e, 0 8px 15px rgba(0,0,0,0.4);
-            transition: all 0.1s ease;
-        }
-
-        .btn-3d:active { transform: translateY(4px); box-shadow: 0 0 0 #92400e; }
 
         .section-title {
-            font-size: 3rem;
-            font-weight: 900;
-            text-transform: uppercase;
+            font-size: 2.5rem; font-weight: 900; uppercase;
             background: linear-gradient(to right, #fbbf24, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* Navigation Style */
+        .bottom-nav {
+            position: fixed; bottom: 20px; left: 20px; right: 20px;
+            background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(20px);
+            display: flex; justify-content: space-around; padding: 15px;
+            border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); z-index: 100;
+        }
+        .nav-btn { color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .nav-btn.active { color: #fbbf24; }
+
+        .hidden { display: none; }
+        
+        .gallery-img {
+            width: 100%; height: 250px; object-fit: cover; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body class="pb-28">
 
-    <section id="home" class="hero-bg flex flex-col items-center justify-center text-center p-6">
-        <div class="float-icon bg-yellow-400 text-black px-4 py-1 rounded-full font-bold text-sm mb-4">
-            EST. 2014 - 10 VITE EKSPERIENCË
-        </div>
-        <h1 class="text-6xl md:text-8xl font-black uppercase italic leading-none mb-4">
-            AGONI<br><span class="text-yellow-400">BARBER</span>
-        </h1>
-        <p class="text-gray-300 max-w-md text-lg font-light mb-8">
-            Arti i qethjes i transformuar në eksperiencë premium. Mbi 10 vite mjeshtëri në çdo detaj.
-        </p>
-        <a href="#booking" class="btn-3d text-black px-10 py-4 rounded-2xl font-black uppercase tracking-widest">
-            CAKTO TERMININ
-        </a>
-    </section>
+    <div id="view-home">
+        <section class="hero-bg">
+            <h1 class="text-6xl font-black italic uppercase leading-none">AGONI<br><span class="text-yellow-400">BARBER</span></h1>
+            <p class="mt-4 bg-yellow-400 text-black px-4 py-1 rounded-full text-xs font-bold uppercase">10 Vite Eksperiencë</p>
+        </section>
 
-    <section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        <div class="glass-card p-2">
-            <img src="https://i.imgur.com/vHqB3p3.jpeg" class="rounded-2xl w-full h-[500px] object-cover" alt="Agoni Barber">
-        </div>
-        <div>
-            <h2 class="section-title mb-6">Mjeshtria Ime</h2>
-            <p class="text-gray-400 text-lg leading-relaxed mb-6">
-                Me një karrierë që filloi para 1 dekade, unë kam dedikuar çdo ditë për të perfeksionuar stilin dhe teknikat moderne. Nuk është thjesht një qethje, është vizioni juaj i jetësuar përmes gërshërëve të mia.
-            </p>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="glass-card p-6 text-center">
-                    <h4 class="text-4xl font-black text-yellow-400">10k+</h4>
-                    <p class="text-xs uppercase font-bold text-gray-500">Klientë</p>
+        <section class="p-6 max-w-4xl mx-auto">
+            <h2 class="section-title mb-4">Biografia</h2>
+            <div class="glass-card p-6 text-gray-300 leading-relaxed border-l-4 border-yellow-400">
+                Unë jam Agoni, një berber me mbi 1 dekadë përvojë në artin e qethjes. Stili im ndërthur klasiken me modernen, duke u siguruar që çdo klient të dalë me vetëbesim maksimal.
+            </div>
+        </section>
+
+        <section class="p-6 max-w-4xl mx-auto">
+            <h2 class="section-title mb-6">Shërbimet</h2>
+            <div class="grid gap-4">
+                <div class="glass-card p-5 flex justify-between items-center">
+                    <div><h3 class="font-bold uppercase">Qethje</h3><p class="text-xs text-gray-500 uppercase">Stil & Precision</p></div>
+                    <span class="text-xl font-black text-yellow-400">5€</span>
                 </div>
-                <div class="glass-card p-6 text-center">
-                    <h4 class="text-4xl font-black text-yellow-400">10</h4>
-                    <p class="text-xs uppercase font-bold text-gray-500">Vite Përvojë</p>
+                <div class="glass-card p-5 flex justify-between items-center border-yellow-400/30">
+                    <div><h3 class="font-bold uppercase">Full Service</h3><p class="text-xs text-gray-500 uppercase">Qethje + Mjekërr</p></div>
+                    <span class="text-xl font-black text-yellow-400">10€</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
-    <section class="py-20 bg-[#0a0f1d] px-6">
-        <div class="max-w-6xl mx-auto text-center">
-            <h2 class="section-title mb-16">Shërbimet</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                <div class="glass-card p-8 relative overflow-hidden">
-                    <i class="fa-solid fa-cut text-4xl text-yellow-400 mb-4"></i>
-                    <h3 class="text-xl font-bold uppercase">Qethje</h3>
-                    <p class="text-gray-500 text-sm mb-4">Stil modern dhe klasik</p>
-                    <div class="text-3xl font-black">5€</div>
-                </div>
-                <div class="glass-card p-8 border-yellow-400/30">
-                    <i class="fa-solid fa-crown text-4xl text-yellow-400 mb-4"></i>
-                    <h3 class="text-xl font-bold uppercase">Full Service</h3>
-                    <p class="text-gray-500 text-sm mb-4">Qethje + Mjekerr + Masazh</p>
-                    <div class="text-3xl font-black">10€</div>
-                </div>
-                <div class="glass-card p-8">
-                    <i class="fa-solid fa-face-smile text-4xl text-yellow-400 mb-4"></i>
-                    <h3 class="text-xl font-bold uppercase">Mjekerr</h3>
-                    <p class="text-gray-500 text-sm mb-4">Konturim me brisk</p>
-                    <div class="text-3xl font-black">3€</div>
-                </div>
-            </div>
+    <div id="view-gallery" class="hidden p-6 animate-fade-in">
+        <h2 class="section-title text-center mb-8 italic">My Gallery</h2>
+        <div class="grid grid-cols-2 gap-4">
+            <img src="https://i.imgur.com/vHqB3p3.jpeg" class="gallery-img" alt="Work 1">
+            <img src="https://i.imgur.com/vHqB3p3.jpeg" class="gallery-img" alt="Work 2">
+            <img src="https://i.imgur.com/vHqB3p3.jpeg" class="gallery-img" alt="Work 3">
+            <img src="https://i.imgur.com/vHqB3p3.jpeg" class="gallery-img" alt="Work 4">
         </div>
-    </section>
+    </div>
 
-    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 glass-card px-10 py-4 flex gap-10 z-50">
-        <a href="#home" class="text-yellow-400 text-xl"><i class="fa-solid fa-house"></i></a>
-        <a href="#home" class="text-white hover:text-yellow-400 text-xl"><i class="fa-solid fa-images"></i></a>
-        <a href="https://instagram.com" class="text-white hover:text-yellow-400 text-xl"><i class="fa-brands fa-instagram"></i></a>
+    <nav class="bottom-nav">
+        <button onclick="switchPage('home')" id="btn-home" class="nav-btn active">
+            <i class="fa-solid fa-house text-xl mb-1"></i> Ballina
+        </button>
+        <button onclick="switchPage('gallery')" id="btn-gallery" class="nav-btn">
+            <i class="fa-solid fa-images text-xl mb-1"></i> Gallery
+        </button>
+        <button onclick="switchPage('home')" class="nav-btn">
+            <i class="fa-brands fa-instagram text-xl mb-1"></i> Instagram
+        </button>
     </nav>
 
+    <script>
+        function switchPage(pageId) {
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-gallery').classList.add('hidden');
+            
+            document.getElementById('view-' + pageId).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + pageId).classList.add('active');
+            window.scrollTo(0,0);
+        }
+    </script>
 </body>
 </html>
