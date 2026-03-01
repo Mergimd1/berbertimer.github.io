@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agoni Barber | 10 Vite Eksperiencë</title>
-    
-    <meta name="referrer" content="no-referrer">
-    
+    <title>Agoni Barber | Premium</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -22,10 +19,10 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        /* HERO BACKGROUND - ME LINKUN E RI QE PUNON */
+        /* KETU ESHTE LIDHJA ME FOTON TENDE NE TELEFON/PC */
         .hero-bg {
             background: linear-gradient(to bottom, rgba(15, 23, 42, 0.5), #0f172a), 
-                        url('https://images.weserv.nl/?url=https://i.imgur.com/vHqB3p3.jpeg'); 
+                        url('cover.jpg'); 
             background-size: cover;
             background-position: center 20%;
             height: 75vh;
@@ -44,56 +41,51 @@
 
         .bottom-nav {
             position: fixed; bottom: 20px; left: 20px; right: 20px;
-            background: rgba(30, 41, 59, 0.95); backdrop-filter: blur(20px);
+            background: rgba(30, 41, 59, 0.95); backdrop-blur: 20px;
             display: flex; justify-content: space-around; padding: 15px;
             border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); z-index: 100;
         }
 
-        .nav-btn { color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
-        .nav-btn.active { color: #fbbf24; transform: translateY(-3px); }
+        .nav-btn { color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .nav-btn.active { color: #fbbf24; }
         .hidden { display: none; }
-
-        .gallery-img {
-            width: 100%; height: 280px; object-fit: cover; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
     </style>
 </head>
 <body class="pb-28">
 
     <div id="view-home">
         <section class="hero-bg">
-            <h1 class="text-6xl font-black italic uppercase leading-none">AGONI<br><span class="text-yellow-400">BARBER</span></h1>
-            <p class="mt-4 bg-yellow-400 text-black px-6 py-1 rounded-full text-xs font-bold uppercase tracking-widest">10 Vite Eksperiencë</p>
+            <h1 class="text-6xl font-black italic uppercase leading-none tracking-tighter">AGONI<br><span class="text-yellow-400">BARBER</span></h1>
+            <p class="mt-4 bg-yellow-400 text-black px-6 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">10 Vite Eksperiencë</p>
         </section>
 
-        <section class="p-6 max-w-4xl mx-auto">
+        <section class="p-6">
             <h2 class="section-title mb-4 italic">Biografia</h2>
             <div class="glass-card p-6 text-gray-300 leading-relaxed border-l-4 border-yellow-400">
-                Unë jam Agoni, një berber me mbi 1 dekadë përvojë në artin e qethjes. Stili im ndërthur klasiken me modernen, duke u siguruar që çdo klient të dalë me vetëbesim maksimal.
+                Unë jam Agoni, një berber me mbi 1 dekadë përvojë në artin e qethjes. Stili im ndërthur klasiken me modernen.
             </div>
         </section>
 
-        <section class="p-6 max-w-4xl mx-auto">
+        <section class="p-6">
             <h2 class="section-title mb-6 italic">Shërbimet</h2>
             <div class="grid gap-4">
                 <div class="glass-card p-5 flex justify-between items-center">
-                    <div><h3 class="font-bold uppercase">Qethje</h3><p class="text-[10px] text-gray-500 uppercase font-bold">Modern & Classic</p></div>
+                    <h3 class="font-bold uppercase">Qethje Klasike</h3>
                     <span class="text-2xl font-black text-yellow-400">5€</span>
                 </div>
                 <div class="glass-card p-5 flex justify-between items-center border-yellow-400/20">
-                    <div><h3 class="font-bold uppercase text-yellow-400">Full Service</h3><p class="text-[10px] text-gray-400 uppercase font-bold">Qethje + Mjekërr + Maskë</p></div>
+                    <h3 class="font-bold uppercase text-yellow-400">Full Service VIP</h3>
                     <span class="text-2xl font-black text-yellow-400">10€</span>
                 </div>
             </div>
         </section>
     </div>
 
-    <div id="view-gallery" class="hidden p-6 animate-fade-in">
+    <div id="view-gallery" class="hidden p-6">
         <h2 class="section-title text-center mb-10 italic">My Gallery</h2>
-        <div class="grid grid-cols-1 gap-6 max-w-4xl mx-auto">
-            <img src="https://images.weserv.nl/?url=https://i.imgur.com/vHqB3p3.jpeg" class="gallery-img" alt="Work 1">
-            <div class="text-center text-gray-500 uppercase text-xs font-bold tracking-widest">Më shumë punime së shpejti...</div>
+        <div class="grid grid-cols-2 gap-4">
+            <img src="cover.jpg" class="w-full h-64 object-cover rounded-2xl border border-white/10">
+            <div class="bg-white/5 rounded-2xl h-64 flex items-center justify-center text-gray-600 font-bold uppercase text-xs p-4 text-center">Shto foto të tjera këtu</div>
         </div>
     </div>
 
@@ -111,18 +103,11 @@
 
     <script>
         function switchPage(pageId) {
-            // Fsheh faqet
             document.getElementById('view-home').classList.add('hidden');
             document.getElementById('view-gallery').classList.add('hidden');
-            
-            // Shfaq faqen e duhur
             document.getElementById('view-' + pageId).classList.remove('hidden');
-
-            // Bej butonin aktiv
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('btn-' + pageId).classList.add('active');
-
-            // Ktheje faqen ne fillim
             window.scrollTo(0,0);
         }
     </script>
