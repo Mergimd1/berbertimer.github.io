@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mergim Barber | VIP Mobile Service</title>
+    <title>Mergim Barber | VIP Mobile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -16,137 +16,164 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             transform: translateZ(0);
         }
-
         .fixed-bg {
             width: 100%; height: 100%;
             background-image: url('cover.jpg'); 
             background-size: cover; background-position: center;
         }
-
         .light-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(15, 23, 42, 0.2), #0f172a 98%);
         }
-        
-        .glass-card {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-        }
 
-        .section-title {
-            font-size: 2.2rem; font-weight: 900; text-transform: uppercase;
-            background: linear-gradient(to right, #fbbf24, #fff);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
+        /* MENUJA E RE 3D */
         .bottom-nav {
-            position: fixed; bottom: 15px; left: 10px; right: 10px;
-            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px);
-            display: flex; justify-content: space-around; padding: 12px 5px;
-            border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); z-index: 100;
+            position: fixed;
+            bottom: 25px;
+            left: 5%;
+            right: 5%;
+            height: 80px;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
         }
 
-        .nav-btn { color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 9px; font-weight: bold; width: 25%; }
-        .nav-btn.active { color: #fbbf24; }
-        .hidden { display: none; }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
 
-        .cert-img { width: 100%; border-radius: 15px; border: 2px solid #fbbf24; }
-        
-        /* Butoni i animuar per Rezervim Mobile */
-        .btn-mobile {
-            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
-            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.3);
+        /* Efekti 3D kur butoni eshte aktiv */
+        .nav-item.active {
+            transform: translateY(-15px);
+            background: #0f172a;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 
+                        inset 0 -2px 5px rgba(255, 255, 255, 0.1);
+            border: 2px solid;
+        }
+
+        .nav-item i {
+            font-size: 20px;
             transition: 0.3s;
         }
-        .btn-mobile:active { transform: scale(0.95); }
+
+        .nav-text {
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-top: 4px;
+            opacity: 0;
+            transition: 0.3s;
+            position: absolute;
+            bottom: -20px;
+        }
+
+        .nav-item.active .nav-text {
+            opacity: 1;
+            color: #fff;
+        }
+
+        /* Ngjyrat individuale per 3D */
+        .btn-home.active { border-color: #3b82f6; color: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+        .btn-gallery.active { border-color: #ec4899; color: #ec4899; box-shadow: 0 0 20px rgba(236, 72, 153, 0.5); }
+        .btn-license.active { border-color: #fbbf24; color: #fbbf24; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5); }
+        .btn-insta.active { border-color: #f09433; color: #f09433; box-shadow: 0 0 20px rgba(240, 148, 51, 0.5); }
+
+        .hidden { display: none; }
+        .glass-card { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; }
     </style>
 </head>
-<body class="pb-28">
+<body class="pb-32">
 
     <div class="bg-container">
         <div class="fixed-bg"></div>
         <div class="light-overlay"></div>
     </div>
 
-    <div id="view-home">
-        <section class="h-[75vh] flex flex-col items-center justify-center text-center px-4">
-            <h1 class="text-6xl font-black italic uppercase leading-tight tracking-tighter">
+    <div id="view-home" class="p-6">
+        <section class="h-[60vh] flex flex-col items-center justify-center text-center">
+            <h1 class="text-6xl font-black italic uppercase leading-none tracking-tighter">
                 MERGIM<br><span class="text-yellow-400">BARBER</span>
             </h1>
-            <p class="text-yellow-400 font-bold tracking-widest text-[10px] mt-2">MOBILE SERVICE 🚗💨</p>
+            <p class="text-yellow-400 font-bold tracking-widest text-[10px] mt-2">VIP MOBILE SERVICE 🚗</p>
         </section>
 
-        <section class="p-6">
-            <div class="glass-card p-6 border-2 border-yellow-400/50 bg-yellow-400/5">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-black text-2xl">
-                        <i class="fa-solid fa-car-side"></i>
-                    </div>
-                    <h2 class="text-xl font-black uppercase italic">Berber në Shtëpi</h2>
-                </div>
-                <p class="text-gray-200 text-sm leading-relaxed mb-6">
-                    Nuk keni kohë të vini në sallon? Unë vij te ju! Shërbim profesional i qethjes në komoditetin e shtëpisë ose zyrës suaj. 
-                </p>
-                <a href="https://wa.me/383XXXXXXXXX" class="btn-mobile block text-center py-4 rounded-xl text-black font-black uppercase tracking-widest text-sm">
-                    Rezervo Lokacionin <i class="fa-solid fa-location-dot ml-2"></i>
-                </a>
-            </div>
-        </section>
-
-        <section class="p-6">
-            <div class="glass-card p-6 border-l-4 border-yellow-400">
-                <h2 class="text-yellow-400 font-black mb-2 italic uppercase">Pse të më zgjidhni mua?</h2>
-                <ul class="text-gray-300 text-sm space-y-2">
-                    <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i> 10 vite eksperiencë profesionale</li>
-                    <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i> Teknikat më të reja nga Turqia 🇹🇷</li>
-                    <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i> Vegla të sterilizuara dhe higjienë 100%</li>
-                </ul>
-            </div>
+        <section class="glass-card p-6 border-l-4 border-yellow-400 mb-6">
+            <h2 class="text-xl font-black uppercase italic italic mb-2">Shërbim në Shtëpi</h2>
+            <p class="text-gray-200 text-sm leading-relaxed">
+                Mjeshtëria turke vjen te ju. Rezervoni terminin dhe unë vij në lokacionin tuaj.
+            </p>
         </section>
     </div>
 
     <div id="view-gallery" class="hidden p-6">
-        <h2 class="section-title text-center mb-10 italic">Punimet</h2>
+        <h2 class="text-3xl font-black text-center mb-10 italic uppercase">Gallery</h2>
         <div class="grid grid-cols-2 gap-4">
-            <div class="glass-card p-2"><img src="klienti1.jpg" class="w-full h-64 object-cover rounded-xl"></div>
-            <div class="glass-card p-2"><img src="klienti2.jpg" class="w-full h-64 object-cover rounded-xl"></div>
+            <div class="glass-card p-2"><img src="klienti1.jpg" class="w-full h-48 object-cover rounded-xl"></div>
+            <div class="glass-card p-2"><img src="klienti2.jpg" class="w-full h-48 object-cover rounded-xl"></div>
         </div>
     </div>
 
-    <div id="view-license" class="hidden p-6">
-        <h2 class="section-title text-center mb-10 italic uppercase">Kualifikimet</h2>
-        <div class="grid grid-cols-1 gap-6">
-            <img src="Certificate1.jpg" class="cert-img">
-            <img src="Certificate2.jpg" class="cert-img">
-        </div>
+    <div id="view-license" class="hidden p-6 text-center">
+        <h2 class="text-3xl font-black mb-10 italic uppercase">Licencat</h2>
+        <img src="Certificate1.jpg" class="w-full rounded-xl border-2 border-yellow-400 mb-6 shadow-xl">
+        <img src="Certificate2.jpg" class="w-full rounded-xl border-2 border-yellow-400 shadow-xl">
     </div>
 
     <nav class="bottom-nav">
-        <button onclick="switchPage('home')" id="btn-home" class="nav-btn active">
-            <i class="fa-solid fa-house text-lg mb-1"></i> Ballina
+        <button onclick="switchPage('home')" id="btn-home" class="nav-item btn-home active">
+            <i class="fa-solid fa-house"></i>
+            <span class="nav-text">Home</span>
         </button>
-        <button onclick="switchPage('gallery')" id="btn-gallery" class="nav-btn">
-            <i class="fa-solid fa-images text-lg mb-1"></i> Gallery
+        
+        <button onclick="switchPage('gallery')" id="btn-gallery" class="nav-item btn-gallery">
+            <i class="fa-solid fa-camera-retro"></i>
+            <span class="nav-text">Gallery</span>
         </button>
-        <button onclick="switchPage('license')" id="btn-license" class="nav-btn">
-            <i class="fa-solid fa-id-card text-lg mb-1"></i> Licenca
+        
+        <button onclick="switchPage('license')" id="btn-license" class="nav-item btn-license">
+            <i class="fa-solid fa-award"></i>
+            <span class="nav-text">License</span>
         </button>
-        <a href="https://instagram.com" class="nav-btn">
-            <i class="fa-brands fa-instagram text-lg mb-1"></i> Instagram
+        
+        <a href="https://instagram.com" class="nav-item btn-insta">
+            <i class="fa-brands fa-instagram"></i>
+            <span class="nav-text">Insta</span>
         </a>
     </nav>
 
     <script>
         function switchPage(pageId) {
+            // Fsheh faqet
             document.getElementById('view-home').classList.add('hidden');
             document.getElementById('view-gallery').classList.add('hidden');
             document.getElementById('view-license').classList.add('hidden');
+            
+            // Shfaq faqen e duhur
             document.getElementById('view-' + pageId).classList.remove('hidden');
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('btn-' + pageId).classList.add('active');
+            
+            // Menaxho klasat aktive per efektin 3D
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            
+            const activeBtn = document.getElementById('btn-' + pageId);
+            if(activeBtn) activeBtn.classList.add('active');
+
             window.scrollTo({ top: 0, behavior: 'instant' });
         }
     </script>
 </body>
 </html>
+
