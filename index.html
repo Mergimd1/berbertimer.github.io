@@ -10,7 +10,7 @@
     
     <style>
         * { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; box-sizing: border-box; }
-        body { background-color: #020617; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; padding-bottom: 120px; }
+        body { background-color: #020617; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; overflow-x: hidden; }
 
         .bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         .fixed-bg { 
@@ -22,163 +22,169 @@
         } 
         .light-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(2,6,23,0.1), #020617 95%); }
 
-        /* NAVIGIMI */
+        /* NAVIGIMI LUXURY 6K (I KTHYER) */
         .bottom-nav {
-            position: fixed; bottom: 15px; left: 8px; right: 8px; height: 85px;
-            background: rgba(10, 15, 30, 0.9); backdrop-filter: blur(25px);
-            border-radius: 30px; display: flex; justify-content: space-around;
-            align-items: center; border: 1px solid rgba(255, 255, 255, 0.1); z-index: 1000;
+            position: fixed; bottom: 15px; left: 8px; right: 8px; height: 90px;
+            background: rgba(10, 15, 30, 0.9); backdrop-filter: blur(30px);
+            border-radius: 35px; display: flex; justify-content: space-around;
+            align-items: center; border: 1px solid rgba(255, 255, 255, 0.15); z-index: 1000;
         }
 
-        .nav-item { display: flex; flex-direction: column; align-items: center; width: 16%; transition: 0.4s; border: none; background: none; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; width: 18%; transition: 0.5s; border: none; background: none; }
         .icon-box { 
-            width: 42px; height: 42px; border-radius: 14px; display: flex; 
+            width: 44px; height: 44px; border-radius: 16px; display: flex; 
             align-items: center; justify-content: center; font-size: 18px; 
-            background: rgba(255,255,255,0.05); margin-bottom: 4px; color: #64748b;
+            background: rgba(255,255,255,0.03); margin-bottom: 4px; transition: 0.4s;
+            border: 1px solid rgba(255,255,255,0.08);
         }
 
-        .nav-item.active .icon-box { transform: translateY(-10px); color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-        #n-home.active .icon-box { background: #0084ff; }
-        #n-gallery.active .icon-box { background: #ff007b; }
-        #n-services.active .icon-box { background: #00ff8c; }
-        #n-products.active .icon-box { background: #a600ff; }
-        #n-license.active .icon-box { background: #ffbb00; }
+        /* Ngjyrat e ikonave kur jane aktive */
+        #n-home .icon-box { color: #0084ff; }
+        #n-gallery .icon-box { color: #ff007b; }
+        #n-services .icon-box { color: #00ff8c; }
+        #n-products .icon-box { color: #a600ff; }
+        #n-license .icon-box { color: #ffbb00; }
 
-        .nav-text { font-size: 7px; font-weight: 800; text-transform: uppercase; color: #64748b; }
-        .nav-item.active .nav-text { color: #fff; }
+        .nav-item.active .icon-box { transform: translateY(-15px) scale(1.1); color: #fff !important; box-shadow: 0 10px 20px currentColor; }
+        #n-home.active .icon-box { background: linear-gradient(135deg, #0084ff, #0044ff); }
+        #n-gallery.active .icon-box { background: linear-gradient(135deg, #ff007b, #ff0040); }
+        #n-services.active .icon-box { background: linear-gradient(135deg, #00ff8c, #00ab5e); }
+        #n-products.active .icon-box { background: linear-gradient(135deg, #a600ff, #6a00ff); }
+        #n-license.active .icon-box { background: linear-gradient(135deg, #ffbb00, #ff8800); }
+
+        .nav-text { font-size: 7px; font-weight: 900; text-transform: uppercase; color: #64748b; }
+        .nav-item.active .nav-text { color: #fff; transform: translateY(-8px); }
 
         /* GALLERY & LIGHTBOX */
-        .gallery-img { width: 100%; height: 180px; object-fit: cover; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .gallery-img { width: 100%; height: 200px; object-fit: cover; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); }
         #lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.98); z-index: 5000; display: none;
+            background: rgba(0,0,0,0.96); z-index: 5000; display: none;
             align-items: center; justify-content: center; padding: 20px;
         }
 
-        /* MODAL REZERVIMI */
+        /* MODAL */
         #booking-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); backdrop-filter: blur(15px);
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
             z-index: 2000; display: none; align-items: center; justify-content: center;
         }
 
-        .service-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 20px; }
+        .service-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 25px; margin-bottom: 12px; }
         .hidden { display: none; }
     </style>
 </head>
-<body>
+<body class="pb-32">
 
     <div class="bg-container"><div class="fixed-bg"></div><div class="light-overlay"></div></div>
 
     <div id="lightbox" onclick="this.style.display='none'">
-        <img id="lightbox-img" class="max-w-full max-h-[80vh] rounded-lg shadow-2xl">
+        <img id="lightbox-img" class="max-w-full max-h-[85vh] rounded-2xl shadow-2xl border border-white/10">
     </div>
 
     <div id="view-home" class="p-6">
         <section class="h-[35vh] flex flex-col items-center justify-center text-center">
-            <h1 class="text-6xl font-black italic uppercase leading-none tracking-tighter shadow-xl">MERGIM<br><span class="text-yellow-400">BARBER</span></h1>
-            <p class="text-yellow-400 font-bold tracking-[4px] text-[10px] mt-4 italic uppercase bg-black/60 px-5 py-2 rounded-full border border-white/10">PREMIUM MOBILE SERVICE</p>
+            <h1 class="text-7xl font-black italic uppercase leading-none tracking-tighter">MERGIM<br><span class="text-yellow-400">BARBER</span></h1>
+            <p class="text-yellow-400 font-bold tracking-[5px] text-[10px] mt-4 italic uppercase bg-black/70 px-6 py-2 rounded-full">PREMIUM MOBILE SERVICE</p>
         </section>
 
-        <section class="bg-white/10 backdrop-blur-xl p-8 text-center rounded-[40px] border border-white/20 shadow-2xl mt-4">
-            <h2 class="text-2xl font-black mb-1 italic uppercase text-yellow-400 leading-tight">VIP Home Service</h2>
-            <p class="text-[10px] font-bold text-white/60 mb-4 uppercase tracking-widest">Shërbim profesional në shtëpi</p>
+        <section class="bg-white/10 backdrop-blur-xl p-8 text-center rounded-[45px] border border-white/20 shadow-2xl">
+            <h2 class="text-2xl font-black mb-1 italic uppercase text-yellow-400">VIP Home Service</h2>
+            <p class="text-[10px] font-bold text-white/70 mb-4 uppercase tracking-widest">Shërbim profesional në shtëpinë tuaj</p>
             <div class="text-6xl font-black text-white mb-6 italic">20€</div>
-            <button onclick="openBooking('VIP SHTËPI (20€)')" class="w-full bg-yellow-400 text-black py-5 rounded-2xl font-black uppercase tracking-widest text-sm active:scale-95 transition-all">
+            <button onclick="openBooking('VIP SHTËPI (20€)')" class="w-full bg-yellow-400 text-black py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">
                 REZERVO TANI <i class="fa-solid fa-bolt-lightning ml-2"></i>
             </button>
         </section>
     </div>
 
     <div id="view-gallery" class="hidden p-6 text-center">
-        <h2 class="text-3xl font-black mb-6 italic uppercase text-yellow-400">Punimet</h2>
-        <div class="grid grid-cols-2 gap-3 pb-20">
-            <img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400'" class="gallery-img" onclick="showImg(this.src)">
-            <img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400'" class="gallery-img" onclick="showImg(this.src)">
-            <img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1599351431247-f13b38466835?w=400'" class="gallery-img" onclick="showImg(this.src)">
-            <img src="foto4.jpg" onerror="this.src='https://images.unsplash.com/photo-1512690196236-d5a232933d44?w=400'" class="gallery-img" onclick="showImg(this.src)">
+        <h2 class="text-3xl font-black mb-8 italic uppercase text-yellow-400">Punimet</h2>
+        <div class="grid grid-cols-2 gap-4 pb-10">
+            <img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500'" class="gallery-img" onclick="showImg(this.src)">
+            <img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500'" class="gallery-img" onclick="showImg(this.src)">
+            <img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1599351431247-f13b38466835?w=500'" class="gallery-img" onclick="showImg(this.src)">
+            <img src="foto4.jpg" onerror="this.src='https://images.unsplash.com/photo-1512690196236-d5a232933d44?w=500'" class="gallery-img" onclick="showImg(this.src)">
         </div>
     </div>
 
     <div id="view-services" class="hidden p-6">
-        <h2 class="text-3xl font-black mb-8 italic uppercase text-yellow-400 text-center">Çmimore</h2>
-        <div class="space-y-3 pb-20">
+        <h2 class="text-3xl font-black mb-8 italic uppercase text-yellow-400 text-center">Rezervo në Dyqan</h2>
+        <div class="space-y-3 pb-10">
             <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold text-sm">Qethje</p><p class="text-yellow-400 font-black">5€</p></div>
-                <button onclick="openBooking('Qethje (5€)')" class="bg-[#00ff8c] text-black text-[9px] font-black px-4 py-2 rounded-lg uppercase">Rezervo</button>
+                <div><p class="font-bold">Qethje</p><p class="text-yellow-400 font-black">5€</p></div>
+                <button onclick="openBooking('Qethje (5€)')" class="bg-[#00ff8c] text-black text-[10px] font-black px-4 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
             <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold text-sm">Qethje & Mjekërr</p><p class="text-yellow-400 font-black">7€</p></div>
-                <button onclick="openBooking('Q&M (7€)')" class="bg-[#00ff8c] text-black text-[9px] font-black px-4 py-2 rounded-lg uppercase">Rezervo</button>
+                <div><p class="font-bold">Qethje & Mjekërr</p><p class="text-yellow-400 font-black">7€</p></div>
+                <button onclick="openBooking('Q&M (7€)')" class="bg-[#00ff8c] text-black text-[10px] font-black px-4 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
             <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold text-sm">Mjekërr</p><p class="text-yellow-400 font-black">3€</p></div>
-                <button onclick="openBooking('Mjekërr (3€)')" class="bg-[#00ff8c] text-black text-[9px] font-black px-4 py-2 rounded-lg uppercase">Rezervo</button>
+                <div><p class="font-bold">Mjekërr</p><p class="text-yellow-400 font-black">3€</p></div>
+                <button onclick="openBooking('Mjekërr (3€)')" class="bg-[#00ff8c] text-black text-[10px] font-black px-4 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
             <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold text-sm">Frizurë</p><p class="text-yellow-400 font-black">2€</p></div>
-                <button onclick="openBooking('Frizurë (2€)')" class="bg-[#00ff8c] text-black text-[9px] font-black px-4 py-2 rounded-lg uppercase">Rezervo</button>
+                <div><p class="font-bold">Frizurë</p><p class="text-yellow-400 font-black">2€</p></div>
+                <button onclick="openBooking('Frizurë (2€)')" class="bg-[#00ff8c] text-black text-[10px] font-black px-4 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
             <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold text-sm">Ngjyrosje</p><p class="text-yellow-400 font-black">10-30€</p></div>
-                <button onclick="openBooking('Ngjyrosje')" class="bg-[#00ff8c] text-black text-[9px] font-black px-4 py-2 rounded-lg uppercase">Rezervo</button>
+                <div><p class="font-bold">Ngjyrosje</p><p class="text-yellow-400 font-black">10-30€</p></div>
+                <button onclick="openBooking('Ngjyrosje')" class="bg-[#00ff8c] text-black text-[10px] font-black px-4 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
             <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold text-[11px] uppercase">Pedrit Fytyre (Maskë)</p><p class="text-yellow-400 font-black">3€</p></div>
-                <button onclick="openBooking('Maskë (3€)')" class="bg-[#00ff8c] text-black text-[9px] font-black px-4 py-2 rounded-lg uppercase">Rezervo</button>
+                <div><p class="font-bold text-xs">Pastrim Fytyre</p><p class="text-yellow-400 font-black">3€</p></div>
+                <button onclick="openBooking('Pastrim Fytyre (3€)')" class="bg-[#00ff8c] text-black text-[10px] font-black px-4 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
         </div>
     </div>
 
     <div id="view-products" class="hidden p-6 text-center">
         <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400">Produktet</h2>
-        <div class="bg-white/5 p-10 rounded-3xl border border-dashed border-white/20">
-            <p class="text-white/40 italic">Së shpejti do t'i shihni produktet këtu...</p>
-        </div>
+        <p class="text-white/30 italic font-bold">Së shpejti...</p>
     </div>
 
     <div id="view-license" class="hidden p-6 text-center">
         <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400">Licenca</h2>
-        <img src="Certificate1.jpg" class="w-full rounded-3xl border-2 border-yellow-400">
+        <img src="Certificate1.jpg" class="w-full rounded-[35px] border-2 border-yellow-400 shadow-2xl">
     </div>
 
     <div id="booking-modal">
-        <div class="bg-white text-black p-6 w-[90%] max-w-sm rounded-[40px] shadow-2xl relative">
-            <button onclick="closeBooking()" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-circle-xmark text-3xl"></i></button>
-            <h2 id="modal-title" class="text-xl font-black italic uppercase mb-1 mt-2">Rezervo</h2>
-            <p class="text-[9px] font-bold text-red-500 uppercase mb-4">Rezervo 1 orë më parë</p>
+        <div class="bg-white text-black p-6 w-[95%] max-w-sm rounded-[45px] shadow-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="modal-title" class="text-xl font-black italic uppercase">Rezervo</h2>
+                <button onclick="closeBooking()"><i class="fa-solid fa-circle-xmark text-4xl text-gray-200"></i></button>
+            </div>
             
             <div class="flex gap-2 mb-4">
-                <button class="day-btn active bg-black text-white px-4 py-2 rounded-xl text-xs font-bold" onclick="selD(this)">Sot</button>
-                <button class="day-btn bg-gray-100 text-black px-4 py-2 rounded-xl text-xs font-bold" onclick="selD(this)">Nesër</button>
+                <button class="day-btn active bg-black text-white px-5 py-2 rounded-xl text-xs font-bold" onclick="selD(this)">Sot</button>
+                <button class="day-btn bg-gray-100 text-black px-5 py-2 rounded-xl text-xs font-bold" onclick="selD(this)">Nesër</button>
             </div>
 
-            <div class="grid grid-cols-4 gap-2 mb-4" id="time-list">
-                <button class="time-btn bg-gray-100 p-2 rounded-lg text-[10px] font-bold" onclick="selT(this)">09:00</button>
-                <button class="time-btn bg-gray-100 p-2 rounded-lg text-[10px] font-bold" onclick="selT(this)">11:00</button>
-                <button class="time-btn bg-gray-100 p-2 rounded-lg text-[10px] font-bold" onclick="selT(this)">13:00</button>
-                <button class="time-btn bg-gray-100 p-2 rounded-lg text-[10px] font-bold" onclick="selT(this)">15:00</button>
-                <button class="time-btn bg-gray-100 p-2 rounded-lg text-[10px] font-bold" onclick="selT(this)">17:00</button>
-                <button class="time-btn bg-gray-100 p-2 rounded-lg text-[10px] font-bold" onclick="selT(this)">19:00</button>
+            <div class="grid grid-cols-4 gap-2 mb-4">
+                <button class="time-btn bg-gray-100 p-2 rounded-lg text-[10px] font-black" onclick="selT(this)">09:00</button>
+                <button class="time-btn bg-gray-100 p-2 rounded-lg text-[10px] font-black" onclick="selT(this)">11:00</button>
+                <button class="time-btn bg-gray-100 p-2 rounded-lg text-[10px] font-black" onclick="selT(this)">13:00</button>
+                <button class="time-btn bg-gray-100 p-2 rounded-lg text-[10px] font-black" onclick="selT(this)">15:00</button>
+                <button class="time-btn bg-gray-100 p-2 rounded-lg text-[10px] font-black" onclick="selT(this)">17:00</button>
+                <button class="time-btn bg-gray-100 p-2 rounded-lg text-[10px] font-black" onclick="selT(this)">19:00</button>
             </div>
 
-            <div id="loc-section" class="mb-3">
+            <div id="loc-section" class="mb-4">
                 <button onclick="getLoc()" id="loc-btn" class="w-full py-3 bg-blue-50 rounded-xl text-[10px] font-bold text-blue-600 uppercase border border-blue-200">
-                    <i class="fa-solid fa-location-dot"></i> Kliko Lokacionin (Për shtëpi)
+                    <i class="fa-solid fa-location-dot mr-2"></i> Merr Lokacionin (Për shtëpi)
                 </button>
             </div>
 
-            <input type="text" id="c-name" placeholder="Emri juaj" class="w-full bg-gray-100 p-3 rounded-xl mb-2 font-bold text-sm outline-none">
-            <input type="tel" id="c-phone" placeholder="Numri i telefonit" class="w-full bg-gray-100 p-3 rounded-xl mb-4 font-bold text-sm outline-none">
-            
-            <button onclick="sendOrder()" class="w-full bg-[#00c37b] text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs">DËRGO TERMININ</button>
+            <input type="text" id="c-name" placeholder="Emri juaj" class="w-full bg-gray-100 p-4 rounded-2xl mb-2 font-bold text-sm">
+            <input type="tel" id="c-phone" placeholder="Numri telefonit" class="w-full bg-gray-100 p-4 rounded-2xl mb-4 font-bold text-sm">
+            <button onclick="sendOrder()" class="w-full bg-[#00c37b] text-white py-4 rounded-3xl font-black uppercase tracking-widest text-xs">KONFIRMO TERMININ</button>
         </div>
     </div>
 
     <nav class="bottom-nav">
         <button onclick="switchP('home')" id="n-home" class="nav-item active"><div class="icon-box"><i class="fa-solid fa-house"></i></div><span class="nav-text">Ballina</span></button>
         <button onclick="switchP('gallery')" id="n-gallery" class="nav-item"><div class="icon-box"><i class="fa-solid fa-camera"></i></div><span class="nav-text">Gallery</span></button>
-        <button onclick="switchP('services')" id="n-services" class="nav-item"><div class="icon-box"><i class="fa-solid fa-cut"></i></div><span class="nav-text">Shërbime</span></button>
+        <button onclick="switchP('services')" id="n-services" class="nav-item"><div class="icon-box"><i class="fa-solid fa-cut"></i></div><span class="nav-text">Shërbimet</span></button>
         <button onclick="switchP('products')" id="n-products" class="nav-item"><div class="icon-box"><i class="fa-solid fa-bottle-droplet"></i></div><span class="nav-text">Produkte</span></button>
         <button onclick="switchP('license')" id="n-license" class="nav-item"><div class="icon-box"><i class="fa-solid fa-award"></i></div><span class="nav-text">Licenca</span></button>
     </nav>
@@ -189,9 +195,11 @@
         const cid = "-1003852106267";
 
         function switchP(p) {
-            ['home', 'gallery', 'services', 'products', 'license'].forEach(v => document.getElementById('view-'+v).classList.add('hidden'));
+            ['home', 'gallery', 'services', 'products', 'license'].forEach(v => {
+                document.getElementById('view-'+v).classList.add('hidden');
+                document.getElementById('n-'+v).classList.remove('active');
+            });
             document.getElementById('view-'+p).classList.remove('hidden');
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById('n-'+p).classList.add('active');
             window.scrollTo(0,0);
         }
@@ -215,8 +223,18 @@
         }
 
         function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
-        function selT(b) { document.querySelectorAll('.time-btn').forEach(x => x.classList.remove('bg-yellow-400')); b.classList.add('bg-yellow-400'); sT = b.innerText; }
-        function selD(b) { document.querySelectorAll('.day-btn').forEach(x => {x.classList.remove('bg-black','text-white'); x.classList.add('bg-gray-100','text-black')}); b.classList.add('bg-black','text-white'); sD = b.innerText; }
+        
+        function selT(b) { 
+            document.querySelectorAll('.time-btn').forEach(x => x.classList.replace('bg-yellow-400','bg-gray-100')); 
+            b.classList.replace('bg-gray-100','bg-yellow-400'); 
+            sT = b.innerText; 
+        }
+
+        function selD(b) { 
+            document.querySelectorAll('.day-btn').forEach(x => {x.classList.remove('bg-black','text-white'); x.classList.add('bg-gray-100','text-black')}); 
+            b.classList.add('bg-black','text-white'); 
+            sD = b.innerText; 
+        }
 
         function getLoc() {
             if (navigator.geolocation) {
