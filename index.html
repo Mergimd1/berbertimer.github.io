@@ -3,33 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mergim Barber | Firestore Edition</title>
+    <title>Mergim Barber | Official App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
     
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
 
     <style>
-        /* Stili mbetet i njëjtë siç e do ti */
         * { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; box-sizing: border-box; }
         body { background-color: #01040a; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; padding-bottom: 140px; }
+
         .bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        .fixed-bg { width: 100%; height: 100%; background-image: url('cover.jpg'); background-size: cover; background-position: center; filter: brightness(0.4); }
-        .bottom-nav { position: fixed; bottom: 15px; left: 8px; right: 8px; height: 95px; background: rgba(10, 15, 30, 0.95); backdrop-filter: blur(25px); border-radius: 35px; display: flex; justify-content: space-around; align-items: center; border: 1px solid rgba(255, 255, 255, 0.1); z-index: 1000; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; width: 18%; transition: 0.4s; }
-        .icon-box { width: 50px; height: 50px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #64748b; }
-        #n-home { --neon: #00d2ff; } #n-gallery { --neon: #ff007b; } #n-services { --neon: #00ffa3; } #n-license { --neon: #ffcc00; }
-        .nav-item.active .icon-box { color: #fff; transform: translateY(-20px) scale(1.1); box-shadow: 0 0 25px var(--neon); border: 1px solid var(--neon); }
+        .fixed-bg { 
+            width: 100%; height: 100%; 
+            background-image: url('cover.jpg'); 
+            background-size: cover; background-position: center; 
+            filter: brightness(0.4) contrast(1.1); 
+        } 
+
+        /* NAVIGIMI */
+        .bottom-nav {
+            position: fixed; bottom: 15px; left: 8px; right: 8px; height: 95px;
+            background: rgba(10, 15, 30, 0.95); backdrop-filter: blur(25px);
+            border-radius: 35px; display: flex; justify-content: space-around;
+            align-items: center; border: 1px solid rgba(255, 255, 255, 0.1); 
+            box-shadow: 0 0 40px rgba(0,0,0,0.8); z-index: 1000;
+        }
+
+        .nav-item { display: flex; flex-direction: column; align-items: center; width: 18%; transition: 0.4s; border: none; background: none; }
+        .icon-box { 
+            width: 50px; height: 50px; border-radius: 18px; display: flex; 
+            align-items: center; justify-content: center; font-size: 20px; 
+            background: rgba(255,255,255,0.03); margin-bottom: 4px; transition: 0.4s;
+            border: 1px solid rgba(255,255,255,0.08); color: #64748b;
+        }
+
+        #n-home { --neon: #00d2ff; }
+        #n-gallery { --neon: #ff007b; }
+        #n-services { --neon: #00ffa3; }
+        #n-license { --neon: #ffcc00; }
+
+        .nav-item.active .icon-box { 
+            color: #fff !important; 
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-20px) scale(1.1);
+            box-shadow: 0 0 25px var(--neon);
+            border: 1px solid var(--neon);
+        }
+
         .nav-text { font-size: 7px; font-weight: 900; text-transform: uppercase; color: #64748b; }
         .nav-item.active .nav-text { color: var(--neon); transform: translateY(-10px); }
+
+        /* MODAL & CARDS */
+        #booking-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.92); 
+            z-index: 2000; display: none; align-items: center; justify-content: center; padding: 15px;
+        }
+
         .scroll-x { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 10px; scrollbar-width: none; }
-        .day-card { flex: 0 0 auto; padding: 12px 20px; border-radius: 15px; background: #f3f4f6; color: #000; font-weight: 800; font-size: 11px; cursor: pointer; }
+        .day-card { 
+            flex: 0 0 auto; padding: 12px 20px; border-radius: 15px; 
+            background: #f3f4f6; color: #000; font-weight: 800; font-size: 11px;
+        }
         .selected-item { background: #000 !important; color: #fff !important; border: 2px solid #eab308; }
-        .time-card { background: #f3f4f6; color: #000; font-weight: 800; padding: 10px; border-radius: 12px; font-size: 10px; text-align: center; }
+        
+        .time-card { 
+            background: #f3f4f6; color: #000; font-weight: 800; padding: 10px; 
+            border-radius: 12px; font-size: 10px; text-align: center; transition: 0.2s;
+        }
         .selected-time { background: #eab308 !important; color: #000 !important; }
         .busy { background: #ef4444 !important; color: #fff !important; opacity: 0.6; cursor: not-allowed; }
-        #booking-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 15px; }
+
+        .service-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 30px; margin-bottom: 12px; }
+        .img-card { width: 100%; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); object-cover; }
         .hidden { display: none; }
     </style>
 </head>
@@ -37,29 +85,57 @@
 
     <div class="bg-container"><div class="fixed-bg"></div></div>
 
-    <div id="view-home" class="p-6 text-center">
-        <h1 class="text-7xl font-black italic uppercase mt-20">MERGIM<br><span class="text-yellow-400">BARBER</span></h1>
-        <button onclick="openBooking('VIP SHTËPI (20€)')" class="mt-20 w-full bg-yellow-400 text-black py-5 rounded-3xl font-black shadow-xl">REZERVO TANI (20€)</button>
+    <div id="view-home" class="p-6">
+        <section class="h-[35vh] flex flex-col items-center justify-center text-center">
+            <h1 class="text-7xl font-black italic uppercase leading-none tracking-tighter">MERGIM<br><span class="text-yellow-400">BARBER</span></h1>
+            <p class="text-yellow-400 font-bold tracking-[5px] text-[10px] mt-4 italic uppercase bg-black/70 px-6 py-2 rounded-full border border-yellow-400/20">KING OF STYLE</p>
+        </section>
+
+        <section class="bg-gradient-to-br from-slate-900 to-black p-10 text-center rounded-[45px] border border-white/10 shadow-2xl">
+            <h2 class="text-2xl font-black mb-1 italic uppercase text-yellow-400">VIP Home Service</h2>
+            <div class="text-6xl font-black text-white mb-8 italic">20€</div>
+            <button onclick="openBooking('VIP SHTËPI (20€)')" class="w-full bg-yellow-400 text-black py-5 rounded-3xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">
+                REZERVO TANI
+            </button>
+        </section>
     </div>
 
-    <div id="view-gallery" class="hidden p-6 grid grid-cols-2 gap-4">
-        <img src="foto1.jpg" class="w-full h-48 object-cover rounded-2xl">
-        <img src="foto2.jpg" class="w-full h-48 object-cover rounded-2xl">
-        <img src="foto3.jpg" class="w-full h-48 object-cover rounded-2xl">
-        <img src="foto4.jpg" class="w-full h-48 object-cover rounded-2xl">
-        <img src="foto5.jpg" class="w-full h-48 object-cover rounded-2xl">
-        <img src="foto6.jpg" class="w-full h-48 object-cover rounded-2xl">
-    </div>
-
-    <div id="view-services" class="hidden p-6 space-y-3">
-        <div class="bg-white/5 p-5 rounded-3xl flex justify-between items-center">
-            <div><p class="font-bold">Qethje</p><p class="text-emerald-400 font-black">5€</p></div>
-            <button onclick="openBooking('Qethje (5€)')" class="bg-emerald-500 text-black px-4 py-2 rounded-xl font-black text-[10px]">REZERVO</button>
+    <div id="view-gallery" class="hidden p-6 text-center">
+        <h2 class="text-3xl font-black mb-8 italic uppercase text-pink-500">Galeria</h2>
+        <div class="grid grid-cols-2 gap-4 pb-10">
+            <img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400'" class="img-card h-48 object-cover">
+            <img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400'" class="img-card h-48 object-cover">
+            <img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1599351431247-f13b38466835?w=400'" class="img-card h-48 object-cover">
+            <img src="foto4.jpg" onerror="this.src='https://images.unsplash.com/photo-1512690196236-d5a232933d44?w=400'" class="img-card h-48 object-cover">
+            <img src="foto5.jpg" onerror="this.src='https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=401'" class="img-card h-48 object-cover">
+            <img src="foto6.jpg" onerror="this.src='https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=401'" class="img-card h-48 object-cover">
         </div>
     </div>
 
-    <div id="view-license" class="hidden p-6 space-y-4">
-        <img src="Certificate1.jpg" class="w-full rounded-2xl border border-yellow-500 shadow-xl">
+    <div id="view-services" class="hidden p-6">
+        <h2 class="text-3xl font-black mb-8 italic uppercase text-emerald-400 text-center">Shërbimet</h2>
+        <div class="space-y-3 pb-20">
+            <div class="service-card flex justify-between items-center">
+                <div><p class="font-bold">Qethje</p><p class="text-emerald-400 font-black">5€</p></div>
+                <button onclick="openBooking('Qethje (5€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
+            </div>
+            <div class="service-card flex justify-between items-center">
+                <div><p class="font-bold">Qethje & Mjekërr</p><p class="text-emerald-400 font-black">7€</p></div>
+                <button onclick="openBooking('Q&M (7€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
+            </div>
+            <div class="service-card flex justify-between items-center">
+                <div><p class="font-bold">Mjekërr</p><p class="text-emerald-400 font-black">3€</p></div>
+                <button onclick="openBooking('Mjekërr (3€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-license" class="hidden p-6 text-center">
+        <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-500">Certifikatat</h2>
+        <div class="space-y-4 pb-20">
+            <img src="Certificate1.jpg" onerror="this.src='https://via.placeholder.com/400x500?text=Licenca+1'" class="img-card">
+            <img src="Certificate2.jpg" onerror="this.src='https://via.placeholder.com/400x500?text=Licenca+2'" class="img-card">
+        </div>
     </div>
 
     <div id="booking-modal">
@@ -96,7 +172,7 @@
     </nav>
 
     <script>
-        // 1. Konfigurimi yt i Firebase (FIRESTORE)
+        // FIREBASE KONFIGURIMI YT
         const firebaseConfig = {
             apiKey: "AIzaSyCWbffauwmr3FocvxjXy0d8kpYtG3JCnPo",
             authDomain: "privatbarber-5a47f.firebaseapp.com",
@@ -112,15 +188,10 @@
         const token = "8686495061:AAGBd8mahN4RNdzV3FZJHDEaJDQdfyXYaxs";
         const cid = "-1003852106267";
 
-        // 2. Load Reserved Times nga Firestore
         function loadTimes() {
-            // Firestore merr listen e dokumenteve te zena per diten specifike
-            db.collection("rezervimet").doc(sD).collection("ora").onSnapshot((querySnapshot) => {
+            db.collection("rezervimet").doc(sD).collection("ora").onSnapshot((snap) => {
                 const reserved = {};
-                querySnapshot.forEach((doc) => {
-                    reserved[doc.id] = true;
-                });
-
+                snap.forEach((doc) => { reserved[doc.id] = true; });
                 const grid = document.getElementById('time-grid');
                 grid.innerHTML = "";
                 for(let h=9; h<=20; h++) {
@@ -129,17 +200,13 @@
                         let tID = t.replace(':', '-');
                         let btn = document.createElement('button');
                         btn.className = "time-card";
-
                         if(reserved[tID]) {
-                            btn.classList.add('busy');
-                            btn.innerText = "Zënë";
-                            btn.disabled = true;
+                            btn.classList.add('busy'); btn.innerText = "Zënë"; btn.disabled = true;
                         } else {
                             btn.innerText = t;
                             btn.onclick = function() {
                                 document.querySelectorAll('.time-card').forEach(b => b.classList.remove('selected-time'));
-                                this.classList.add('selected-time');
-                                sT = t;
+                                this.classList.add('selected-time'); sT = t;
                             };
                         }
                         grid.appendChild(btn);
@@ -159,49 +226,27 @@
 
         function openBooking(s) { currentS = s; document.getElementById('modal-title').innerText = s; document.getElementById('booking-modal').style.display = 'flex'; loadTimes(); }
         function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
-        
         function selD(el, d) { 
             document.querySelectorAll('.day-card').forEach(b => b.classList.remove('selected-item'));
             el.classList.add('selected-item'); sD = d; sT = ""; loadTimes(); 
         }
 
-        // 3. Ruaj ne Firestore dhe dërgo në Telegram
         async function sendOrder() {
             const name = document.getElementById('c-name').value;
             const phone = document.getElementById('c-phone').value;
             if(!name || !phone || !sT) return alert("Plotëso fushave!");
-
             const submitBtn = document.getElementById('btn-submit');
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Duke u dërguar...";
-            
+            submitBtn.disabled = true; submitBtn.innerText = "Duke u dërguar...";
             try {
-                // Shkruaj ne Firestore
-                await db.collection("rezervimet").doc(sD).collection("ora").doc(sT.replace(':', '-')).set({
-                    klienti: name,
-                    tel: phone,
-                    data: new Date().toISOString()
-                });
-
-                // Dërgo Telegram
-                const msg = `👑 REZERVIM I RI 👑\n\n👤: ${name}\n📞: ${phone}\n✂️: ${currentS}\n📅: ${sD}\n⏰: ${sT}`;
+                await db.collection("rezervimet").doc(sD).collection("ora").doc(sT.replace(':', '-')).set({ klienti: name, tel: phone });
+                const msg = `👑 REZERVIM I RI 👑\n👤: ${name}\n📞: ${phone}\n✂️: ${currentS}\n📅: ${sD}\n⏰: ${sT}`;
                 await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: cid, text: msg })
                 });
-
-                alert("U rezervua me sukses!"); 
-                closeBooking();
-            } catch (error) {
-                console.error(error);
-                alert("Pati një gabim gjatë rezervimit.");
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = "DËRGO TERMININ";
-            }
+                alert("U rezervua me sukses!"); closeBooking();
+            } catch (e) { alert("Gabim!"); } finally { submitBtn.disabled = false; submitBtn.innerText = "DËRGO TERMININ"; }
         }
-
         window.onload = loadTimes;
     </script>
 </body>
