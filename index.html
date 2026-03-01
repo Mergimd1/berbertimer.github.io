@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mergim Barber | VIP Mobile</title>
+    <title>Mergim Barber | 6K VIP Service</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -12,58 +12,65 @@
         * { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
         body { background-color: #020617; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; overflow-x: hidden; }
 
-        /* NDRIÇIMI I RRITUR I FOTOS */
         .bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         .fixed-bg { 
             width: 100%; height: 100%; 
             background-image: url('cover.jpg'); 
             background-size: cover; 
             background-position: center; 
-            filter: brightness(0.7); /* Ndriçimi më i lartë këtu */
+            filter: brightness(0.75) contrast(1.1); 
         } 
-        .light-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(2, 6, 23, 0.2), #020617 98%); }
+        .light-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(2,6,23,0.1), #020617 95%); }
 
-        /* NAVIGIMI 3D - 5 BUTONA TANI */
+        /* NAVIGIMI LUXURY 6K */
         .bottom-nav {
-            position: fixed; bottom: 20px; left: 10px; right: 10px; height: 85px;
-            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(25px);
-            border-radius: 30px; display: flex; justify-content: space-around;
+            position: fixed; bottom: 15px; left: 8px; right: 8px; height: 90px;
+            background: rgba(10, 15, 30, 0.9); backdrop-filter: blur(30px);
+            border-radius: 35px; display: flex; justify-content: space-around;
             align-items: center; border: 1px solid rgba(255, 255, 255, 0.15); z-index: 1000;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
         }
 
-        .nav-item { display: flex; flex-direction: column; align-items: center; width: 19%; transition: 0.4s; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; width: 16%; transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
         .icon-box { 
-            width: 44px; height: 44px; border-radius: 14px; display: flex; 
+            width: 46px; height: 46px; border-radius: 18px; display: flex; 
             align-items: center; justify-content: center; font-size: 18px; 
-            background: rgba(255,255,255,0.05); margin-bottom: 5px; transition: 0.3s;
+            background: rgba(255,255,255,0.03); margin-bottom: 4px; transition: 0.4s;
+            border: 1px solid rgba(255,255,255,0.08);
         }
 
-        #n-home .icon-box { color: #3b82f6; }
-        #n-gallery .icon-box { color: #ec4899; }
-        #n-services .icon-box { color: #10b981; } /* Ngjyrë e Gjelbër për Shërbimet */
-        #n-license .icon-box { color: #fbbf24; }
-        #n-insta .icon-box { color: #f43f5e; }
+        /* Neon Glow Effects */
+        #n-home .icon-box { color: #0084ff; text-shadow: 0 0 10px rgba(0,132,255,0.5); }
+        #n-gallery .icon-box { color: #ff007b; text-shadow: 0 0 10px rgba(255,0,123,0.5); }
+        #n-services .icon-box { color: #00ff8c; text-shadow: 0 0 10px rgba(0,255,140,0.5); }
+        #n-products .icon-box { color: #a600ff; text-shadow: 0 0 10px rgba(166,0,255,0.5); }
+        #n-license .icon-box { color: #ffbb00; text-shadow: 0 0 10px rgba(255,187,0,0.5); }
+        #n-insta .icon-box { color: #ff4d00; text-shadow: 0 0 10px rgba(255,77,0,0.5); }
 
-        .nav-item.active .icon-box { transform: translateY(-15px) scale(1.1); color: #fff !important; }
-        #n-home.active .icon-box { background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4); }
-        #n-gallery.active .icon-box { background: linear-gradient(135deg, #ec4899, #db2777); box-shadow: 0 10px 20px rgba(236, 72, 153, 0.4); }
-        #n-services.active .icon-box { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4); }
-        #n-license.active .icon-box { background: linear-gradient(135deg, #fbbf24, #d97706); box-shadow: 0 10px 20px rgba(251, 191, 36, 0.4); }
+        .nav-item.active .icon-box { 
+            transform: translateY(-20px) scale(1.2); 
+            color: #fff !important; 
+            box-shadow: 0 15px 30px currentColor;
+            border: none;
+        }
         
-        .nav-text { font-size: 8px; font-weight: 800; text-transform: uppercase; color: #94a3b8; text-align: center; }
-        .nav-item.active .nav-text { color: #fff; transform: translateY(-8px); }
+        #n-home.active .icon-box { background: linear-gradient(135deg, #0084ff, #0044ff); }
+        #n-gallery.active .icon-box { background: linear-gradient(135deg, #ff007b, #ff0040); }
+        #n-services.active .icon-box { background: linear-gradient(135deg, #00ff8c, #00ab5e); }
+        #n-products.active .icon-box { background: linear-gradient(135deg, #a600ff, #6a00ff); }
+        #n-license.active .icon-box { background: linear-gradient(135deg, #ffbb00, #ff8800); }
 
-        #booking-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.92); backdrop-filter: blur(15px);
-            z-index: 2000; display: none; align-items: center; justify-content: center;
+        .nav-text { font-size: 7px; font-weight: 900; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px; }
+        .nav-item.active .nav-text { color: #fff; transform: translateY(-12px); }
+
+        /* STILIMI I SHERBIMEVE */
+        .service-card {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            padding: 16px; border-radius: 20px; display: flex; justify-content: space-between;
+            align-items: center; transition: 0.3s;
         }
+        .service-card:active { background: rgba(255,255,255,0.1); transform: scale(0.98); }
 
-        .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 15px 0; }
-        .time-btn { background: #f1f5f9; color: #0f172a; padding: 10px 5px; border-radius: 12px; font-weight: 800; font-size: 12px; text-align: center; }
-        .time-btn.active { background: #fbbf24; color: #000; }
-
-        .input-style { width: 100%; background: #f8fafc; border-radius: 15px; padding: 14px; font-size: 14px; color: #000; border: 1px solid #e2e8f0; margin-bottom: 12px; font-weight: 600; }
         .hidden { display: none; }
     </style>
 </head>
@@ -73,16 +80,16 @@
 
     <div id="view-home" class="p-6">
         <section class="h-[40vh] flex flex-col items-center justify-center text-center">
-            <h1 class="text-6xl font-black italic uppercase leading-none tracking-tighter">MERGIM<br><span class="text-yellow-400">BARBER</span></h1>
-            <p class="text-yellow-400 font-bold tracking-[4px] text-[10px] mt-4 italic uppercase bg-black/60 px-4 py-1 rounded-full">VIP Mobile Service 🚗</p>
+            <h1 class="text-7xl font-black italic uppercase leading-none tracking-tighter shadow-black">MERGIM<br><span class="text-yellow-400">BARBER</span></h1>
+            <p class="text-yellow-400 font-bold tracking-[5px] text-[10px] mt-4 italic uppercase bg-black/70 px-6 py-2 rounded-full border border-yellow-400/20">PREMIUM MOBILE SERVICE</p>
         </section>
 
-        <section class="bg-white/10 backdrop-blur-md p-8 text-center rounded-[40px] border border-white/20 shadow-2xl">
-            <h2 class="text-2xl font-black mb-1 italic uppercase text-yellow-400">Premium Cut</h2>
-            <p class="text-[10px] font-bold text-white mb-3 uppercase tracking-widest">Unë vij të qethi në shtëpinë tuaj</p>
+        <section class="bg-white/10 backdrop-blur-xl p-8 text-center rounded-[45px] border border-white/20 shadow-2xl">
+            <h2 class="text-2xl font-black mb-1 italic uppercase text-yellow-400">VIP Home Service</h2>
+            <p class="text-[10px] font-bold text-white/70 mb-4 uppercase tracking-widest">Përjetoni luksin në shtëpinë tuaj</p>
             <div class="text-6xl font-black text-white mb-6 italic">20€</div>
-            <button onclick="openBooking()" class="w-full bg-yellow-400 text-black py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">
-                REZERVO TANI <i class="fa-solid fa-bolt ml-2"></i>
+            <button onclick="openBooking()" class="w-full bg-yellow-400 text-black py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(251,191,36,0.4)] active:scale-95 transition-all">
+                REZERVO TANI <i class="fa-solid fa-bolt-lightning ml-2"></i>
             </button>
         </section>
     </div>
@@ -96,97 +103,93 @@
     </div>
 
     <div id="view-services" class="hidden p-6">
-        <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400 text-center">Shërbimet</h2>
-        <div class="space-y-4">
-            <div class="bg-white/10 p-5 rounded-3xl border border-white/10 flex justify-between items-center">
-                <span>Qethje Profesionale</span>
-                <span class="text-yellow-400 font-bold">15€</span>
+        <h2 class="text-3xl font-black mb-8 italic uppercase text-yellow-400 text-center">Çmimore</h2>
+        <div class="space-y-3">
+            <div class="service-card"><span>Qethje</span><span class="text-yellow-400 font-black">5€</span></div>
+            <div class="service-card"><span>Qethje dhe Mjekërr</span><span class="text-yellow-400 font-black">7€</span></div>
+            <div class="service-card"><span>Mjekërr</span><span class="text-yellow-400 font-black">3€</span></div>
+            <div class="service-card"><span>Frizurë</span><span class="text-yellow-400 font-black">2€</span></div>
+            <div class="service-card"><span>Ngjyrosje</span><span class="text-yellow-400 font-black">10-30€</span></div>
+            <div class="service-card"><span>Pastrim Fytyre (Maskë/Mast)</span><span class="text-yellow-400 font-black">3€</span></div>
+            <div class="service-card border-yellow-400/50 bg-yellow-400/5">
+                <span class="italic font-bold">Sherbim në shtëpi (Combo)</span>
+                <span class="text-yellow-400 font-black">20€</span>
             </div>
-            <div class="bg-white/10 p-5 rounded-3xl border border-white/10 flex justify-between items-center">
-                <span>Rruajtje VIP</span>
-                <span class="text-yellow-400 font-bold">10€</span>
-            </div>
-            <div class="bg-white/10 p-5 rounded-3xl border border-white/10 flex justify-between items-center font-bold">
-                <span class="text-yellow-400 uppercase italic">Premium Combo (Home)</span>
-                <span class="text-yellow-400">20€</span>
+        </div>
+    </div>
+
+    <div id="view-products" class="hidden p-6">
+        <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400 text-center">Produktet</h2>
+        <div class="grid grid-cols-1 gap-6">
+            <div class="bg-white/5 p-4 rounded-3xl border border-white/10 text-center">
+                <div class="w-full h-48 bg-white/10 rounded-2xl flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-image text-4xl text-white/20"></i>
+                </div>
+                <h3 class="font-bold">Emri i Produktit</h3>
+                <p class="text-yellow-400 font-black">00.00 €</p>
             </div>
         </div>
     </div>
 
     <div id="view-license" class="hidden p-6 text-center">
         <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400">Licencat</h2>
-        <div class="space-y-6">
-            <img src="Certificate1.jpg" class="w-full rounded-[30px] border-2 border-yellow-400">
-        </div>
+        <img src="Certificate1.jpg" class="w-full rounded-[35px] border-2 border-yellow-400 shadow-2xl">
     </div>
 
-    <div id="booking-modal">
-        <div class="bg-white text-black p-6 w-[95%] max-w-sm rounded-[40px] shadow-2xl overflow-y-auto max-h-[95vh]">
-            <div class="flex justify-between items-center mb-4">
+    <div id="booking-modal" style="display:none">
+        <div class="bg-white text-black p-7 w-[95%] max-w-sm rounded-[45px] shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
                 <div>
-                    <h2 class="text-xl font-black italic uppercase">Rezervo</h2>
-                    <p class="text-[10px] font-bold text-red-500 uppercase italic">Rezervo të paktën 1 orë më vonë</p>
+                    <h2 class="text-2xl font-black italic uppercase leading-none">Rezervo</h2>
+                    <p class="text-[10px] font-bold text-red-500 uppercase mt-1">Rezervo 1 orë më vonë</p>
                 </div>
-                <button onclick="closeBooking()"><i class="fa-solid fa-circle-xmark text-3xl text-gray-200"></i></button>
+                <button onclick="closeBooking()"><i class="fa-solid fa-circle-xmark text-4xl text-gray-200"></i></button>
             </div>
             
-            <div class="flex gap-2 overflow-x-auto pb-3 mb-2">
-                <button class="day-btn active" onclick="selD(this)">Sot</button>
-                <button class="day-btn" onclick="selD(this)">Nesër</button>
-            </div>
+            <input type="text" id="c-name" placeholder="Emri dhe Mbiemri" class="w-full bg-gray-100 p-4 rounded-2xl mb-3 font-bold">
+            <input type="tel" id="c-phone" placeholder="Numri i Telefonit" class="w-full bg-gray-100 p-4 rounded-2xl mb-4 font-bold">
+            
+            <button onclick="getLoc()" id="loc-btn" class="w-full py-4 bg-blue-50 text-blue-600 rounded-2xl font-black text-xs uppercase border-2 border-dashed border-blue-200 mb-4">
+                <i class="fa-solid fa-location-crosshairs mr-2"></i> Konfirmo Lokacionin
+            </button>
 
-            <div class="time-grid">
-                <button class="time-btn" onclick="selT(this)">09:00</button>
-                <button class="time-btn" onclick="selT(this)">11:00</button>
-                <button class="time-btn" onclick="selT(this)">13:00</button>
-                <button class="time-btn" onclick="selT(this)">15:00</button>
-                <button class="time-btn" onclick="selT(this)">17:00</button>
-                <button class="time-btn" onclick="selT(this)">19:00</button>
-            </div>
-
-            <div class="space-y-1">
-                <button onclick="getLoc()" id="loc-btn" class="w-full py-3 bg-blue-50 rounded-xl text-[11px] font-bold text-blue-600 uppercase border-2 border-dashed border-blue-200 mb-3">
-                    <i class="fa-solid fa-location-dot mr-2"></i> Merr Lokacionin Tim
-                </button>
-                <input type="text" id="c-name" placeholder="Emri dhe Mbiemri" class="input-style">
-                <input type="tel" id="c-phone" placeholder="Numri i Telefonit" class="input-style">
-                <button onclick="sendOrder()" class="w-full bg-[#00c37b] text-white py-4 rounded-2xl font-black uppercase tracking-widest shadow-lg mt-2">
-                    KONFIRMO <i class="fa-solid fa-check-double ml-2"></i>
-                </button>
-            </div>
+            <button onclick="sendOrder()" class="w-full bg-[#00c37b] text-white py-5 rounded-3xl font-black uppercase tracking-widest shadow-xl">
+                DËRGO TERMININ <i class="fa-solid fa-paper-plane ml-2"></i>
+            </button>
         </div>
     </div>
 
     <nav class="bottom-nav">
-        <button onclick="switchP('home')" id="n-home" class="nav-item active"><div class="icon-box"><i class="fa-solid fa-house-chimney"></i></div><span class="nav-text">Ballina</span></button>
-        <button onclick="switchP('gallery')" id="n-gallery" class="nav-item"><div class="icon-box"><i class="fa-solid fa-images"></i></div><span class="nav-text">Gallery</span></button>
-        <button onclick="switchP('services')" id="n-services" class="nav-item"><div class="icon-box"><i class="fa-solid fa-scissors"></i></div><span class="nav-text">Shërbimet</span></button>
-        <button onclick="switchP('license')" id="n-license" class="nav-item"><div class="icon-box"><i class="fa-solid fa-award"></i></div><span class="nav-text">Licensa</span></button>
+        <button onclick="switchP('home')" id="n-home" class="nav-item active"><div class="icon-box"><i class="fa-solid fa-house"></i></div><span class="nav-text">Ballina</span></button>
+        <button onclick="switchP('gallery')" id="n-gallery" class="nav-item"><div class="icon-box"><i class="fa-solid fa-camera"></i></div><span class="nav-text">Gallery</span></button>
+        <button onclick="switchP('services')" id="n-services" class="nav-item"><div class="icon-box"><i class="fa-solid fa-cut"></i></div><span class="nav-text">Shërbimet</span></button>
+        <button onclick="switchP('products')" id="n-products" class="nav-item"><div class="icon-box"><i class="fa-solid fa-bottle-droplet"></i></div><span class="nav-text">Produkte</span></button>
+        <button onclick="switchP('license')" id="n-license" class="nav-item"><div class="icon-box"><i class="fa-solid fa-award"></i></div><span class="nav-text">Licenca</span></button>
         <a href="https://instagram.com/PROFILI_YT" id="n-insta" class="nav-item"><div class="icon-box"><i class="fa-brands fa-instagram"></i></div><span class="nav-text">Insta</span></a>
     </nav>
 
     <script>
-        let sT = ""; let sD = "Sot"; let mU = "";
+        let mU = "";
         const token = "8686495061:AAGBd8mahN4RNdzV3FZJHDEaJDQdfyXYaxs";
         const cid = "-1003852106267";
 
         function switchP(p) {
-            ['home', 'gallery', 'services', 'license'].forEach(v => document.getElementById('view-'+v).classList.add('hidden'));
+            ['home', 'gallery', 'services', 'products', 'license'].forEach(v => document.getElementById('view-'+v).classList.add('hidden'));
             document.getElementById('view-'+p).classList.remove('hidden');
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById('n-'+p).classList.add('active');
+            window.scrollTo(0,0);
         }
         function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
         function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
-        function selT(b) { document.querySelectorAll('.time-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); sT = b.innerText; }
-        function selD(b) { document.querySelectorAll('.day-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); sD = b.innerText; }
 
         function getLoc() {
             if (navigator.geolocation) {
-                document.getElementById('loc-btn').innerText = "Duke kërkuar hartën...";
+                document.getElementById('loc-btn').innerText = "Duke lokalizuar...";
                 navigator.geolocation.getCurrentPosition(pos => {
                     mU = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
-                    document.getElementById('loc-btn').innerText = "LOKACIONI U RUAJT ✅";
+                    document.getElementById('loc-btn').innerText = "LOKACIONI U KONFIRMUA ✅";
+                    document.getElementById('loc-btn').classList.replace('bg-blue-50', 'bg-green-50');
                 });
             }
         }
@@ -194,19 +197,18 @@
         async function sendOrder() {
             const name = document.getElementById('c-name').value;
             const phone = document.getElementById('c-phone').value;
-            if(!sT || !name || !phone || !mU) { alert("Plotësoni të gjitha!"); return; }
+            if(!name || !phone || !mU) { alert("Plotësoni të gjitha fushët dhe lokacionin!"); return; }
 
-            const msg = `🚀 *TERMIN VIP NË SHTËPI* 🚀\n\n👤 Emri: ${name}\n📞 Tel: ${phone}\n📅 Data: ${sD}\n⏰ Ora: ${sT}\n📍 Harta: ${mU}`;
+            const msg = `👑 *TERMIN VIP I RI* 👑\n\n👤 Klienti: ${name}\n📞 Tel: ${phone}\n📍 Lokacioni: ${mU}\n\n⚠️ *Kujtesë:* Rezervimi u bë 1 orë më vonë.`;
 
             await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ chat_id: cid, text: msg, parse_mode: 'Markdown' })
             });
-            alert("Rezervimi u dërgua me sukses!");
+            alert("Rezervimi juaj u dërgua me sukses në Telegram!");
             closeBooking();
         }
     </script>
 </body>
 </html>
-
