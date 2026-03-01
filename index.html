@@ -3,53 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agoni Barber | Premium</title>
+    <title>Mergim Barber | Premium</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
     
     <style>
+        /* Ky rregull ndalon ngecjet gjatë lëvizjes */
+        * { -webkit-tap-highlight-color: transparent; }
+        
         body { 
             background-color: #0f172a; 
             font-family: 'Poppins', sans-serif; 
             color: #fff; 
-            margin: 0; 
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        /* FIX I RI: Kjo e mban foton mbas pa shkaktuar ngecje */
-        .fixed-background {
+        /* FIX PËR NGECEJET: Përdorim hardware acceleration */
+        .bg-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Vendos emrin e fotos sate ketu */
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            transform: translateZ(0); /* Aktivizon GPU */
+            will-change: transform;
+        }
+
+        .fixed-bg {
+            width: 100%; height: 100%;
             background-image: url('cover.jpg'); 
             background-size: cover;
             background-position: center;
-            z-index: -1; /* E dërgon foton në fund fare */
         }
 
-        /* Shtresa e dritës që e bën foton të duket bukur */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.2), #0f172a 95%);
-            z-index: -1;
+        /* Shtresa që i jep dritë dhe ngjyrë */
+        .light-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.1), #0f172a 98%);
         }
         
+        /* Kartat me efekt qelqi por të lehtësuara për procesorin */
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.07);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 28px;
+            border-radius: 24px;
+            /* Hoqëm blur-in e rëndë për të ndaluar llag-un */
         }
 
         .hero-section {
-            height: 100vh;
+            height: 90vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -58,69 +63,72 @@
         }
 
         .section-title {
-            font-size: 2.5rem; font-weight: 900; text-transform: uppercase;
+            font-size: 2.2rem; font-weight: 900; text-transform: uppercase;
             background: linear-gradient(to right, #fbbf24, #fff);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
         .bottom-nav {
-            position: fixed; bottom: 20px; left: 20px; right: 20px;
-            background: rgba(30, 41, 59, 0.9); backdrop-filter: blur(20px);
-            display: flex; justify-content: space-around; padding: 15px;
-            border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); z-index: 100;
+            position: fixed; bottom: 15px; left: 15px; right: 15px;
+            background: rgba(15, 23, 42, 0.9);
+            display: flex; justify-content: space-around; padding: 12px;
+            border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); z-index: 100;
         }
 
-        .nav-btn { color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .nav-btn { color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; }
         .nav-btn.active { color: #fbbf24; }
         .hidden { display: none; }
     </style>
 </head>
-<body class="pb-28">
+<body class="pb-24">
 
-    <div class="fixed-background"></div>
-    <div class="overlay"></div>
+    <div class="bg-container">
+        <div class="fixed-bg"></div>
+        <div class="light-overlay"></div>
+    </div>
 
     <div id="view-home">
         <section class="hero-section">
-            <h1 class="text-7xl font-black italic uppercase leading-none tracking-tighter">AGONI<br><span class="text-yellow-400">BARBER</span></h1>
-            <div class="mt-4 bg-yellow-400 text-black px-6 py-1 rounded-full text-xs font-black uppercase tracking-widest">
+            <h1 class="text-6xl font-black italic uppercase leading-tight tracking-tighter">
+                MERGIM<br><span class="text-yellow-400">BARBER</span>
+            </h1>
+            <div class="mt-4 bg-yellow-400 text-black px-5 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
                 10 Vite Eksperiencë
-            </div>
-            <div class="absolute bottom-10 animate-bounce text-yellow-400">
-                <i class="fa-solid fa-chevron-down text-2xl"></i>
             </div>
         </section>
 
         <section class="p-6">
-            <h2 class="section-title mb-4 italic">Mbi Mua</h2>
-            <div class="glass-card p-6 text-gray-200 border-l-4 border-yellow-400">
-                Arti i qethjes i transformuar në eksperiencë premium. Çdo detaj ka rëndësi.
+            <div class="glass-card p-6 border-l-4 border-yellow-400">
+                <h2 class="text-yellow-400 font-black mb-2 italic">MBI MUA</h2>
+                <p class="text-gray-200 text-sm leading-relaxed">
+                    Unë jam Mergimi, mjeshtër i artit të qethjes. Me mbi 10 vite përvojë, unë transformoj stilin tuaj në një vizion unik dhe modern.
+                </p>
             </div>
         </section>
 
         <section class="p-6">
             <h2 class="section-title mb-6 italic">Çmimet</h2>
             <div class="grid gap-4">
-                <div class="glass-card p-6 flex justify-between items-center">
-                    <h3 class="font-black uppercase text-xl">Qethje</h3>
-                    <span class="text-3xl font-black text-yellow-400">5€</span>
+                <div class="glass-card p-5 flex justify-between items-center">
+                    <span class="font-black uppercase tracking-wider">Qethje Klasike</span>
+                    <span class="text-2xl font-black text-yellow-400">5€</span>
                 </div>
-                <div class="glass-card p-6 flex justify-between items-center border-yellow-400/30">
-                    <h3 class="font-black uppercase text-xl text-yellow-400">Full Service</h3>
-                    <span class="text-3xl font-black text-yellow-400">10€</span>
+                <div class="glass-card p-5 flex justify-between items-center border-yellow-400/30 bg-yellow-400/5">
+                    <span class="font-black uppercase tracking-wider text-yellow-400">Full Service</span>
+                    <span class="text-2xl font-black text-yellow-400">10€</span>
                 </div>
             </div>
         </section>
     </div>
 
     <div id="view-gallery" class="hidden p-6">
-        <h2 class="section-title text-center mb-10 italic text-5xl">KLIENTËT</h2>
+        <h2 class="section-title text-center mb-10 italic">Klientët</h2>
         <div class="grid grid-cols-2 gap-4">
-            <div class="glass-card p-2">
-                <img src="klienti1.jpg" class="w-full h-64 object-cover rounded-2xl" alt="Klienti 1">
+            <div class="glass-card p-1">
+                <img src="klienti1.jpg" class="w-full h-56 object-cover rounded-xl" alt="Klienti">
             </div>
-            <div class="glass-card p-2">
-                <img src="klienti2.jpg" class="w-full h-64 object-cover rounded-2xl" alt="Klienti 2">
+            <div class="glass-card p-1">
+                <img src="klienti2.jpg" class="w-full h-56 object-cover rounded-xl" alt="Klienti">
             </div>
         </div>
     </div>
@@ -144,7 +152,7 @@
             document.getElementById('view-' + pageId).classList.remove('hidden');
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('btn-' + pageId).classList.add('active');
-            window.scrollTo(0,0);
+            window.scrollTo({ top: 0, behavior: 'instant' });
         }
     </script>
 </body>
