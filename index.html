@@ -23,7 +23,7 @@
             filter: brightness(0.4) contrast(1.1); 
         } 
 
-        /* NAVIGIMI ULTRA GLOW */
+        /* NAVIGIMI */
         .bottom-nav {
             position: fixed; bottom: 15px; left: 8px; right: 8px; height: 95px;
             background: rgba(10, 15, 30, 0.95); backdrop-filter: blur(25px);
@@ -70,7 +70,7 @@
         .selected-time { background: #eab308 !important; color: #000 !important; }
         .busy { background: #ef4444 !important; color: #fff !important; opacity: 0.6; cursor: not-allowed; }
 
-        .service-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 30px; margin-bottom: 12px; }
+        .service-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 18px; border-radius: 25px; margin-bottom: 10px; }
         .img-card { width: 100%; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); object-fit: cover; }
         .hidden { display: none; }
     </style>
@@ -97,12 +97,12 @@
     <div id="view-gallery" class="hidden p-6 text-center">
         <h2 class="text-3xl font-black mb-8 italic uppercase text-pink-500">Galeria</h2>
         <div class="grid grid-cols-2 gap-4 pb-10">
-            <img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400'" class="img-card h-48">
-            <img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400'" class="img-card h-48">
-            <img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1599351431247-f13b38466835?w=400'" class="img-card h-48">
-            <img src="foto4.jpg" onerror="this.src='https://images.unsplash.com/photo-1512690196236-d5a232933d44?w=400'" class="img-card h-48">
-            <img src="foto5.jpg" onerror="this.src='https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=401'" class="img-card h-48">
-            <img src="foto6.jpg" onerror="this.src='https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=401'" class="img-card h-48">
+            <img src="foto1.jpg" class="img-card h-48">
+            <img src="foto2.jpg" class="img-card h-48">
+            <img src="foto3.jpg" class="img-card h-48">
+            <img src="foto4.jpg" class="img-card h-48">
+            <img src="foto5.jpg" class="img-card h-48">
+            <img src="foto6.jpg" class="img-card h-48">
         </div>
     </div>
 
@@ -110,16 +110,28 @@
         <h2 class="text-3xl font-black mb-8 italic uppercase text-emerald-400 text-center">Shërbimet</h2>
         <div class="space-y-3 pb-20">
             <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold">Qethje</p><p class="text-emerald-400 font-black">5€</p></div>
+                <div><p class="font-bold text-sm">Qethje</p><p class="text-emerald-400 font-black">5€</p></div>
                 <button onclick="openBooking('Qethje (5€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
             <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold">Qethje & Mjekërr</p><p class="text-emerald-400 font-black">7€</p></div>
+                <div><p class="font-bold text-sm">Qethje dhe Mjekër</p><p class="text-emerald-400 font-black">7€</p></div>
                 <button onclick="openBooking('Q&M (7€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
             <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold">Mjekërr</p><p class="text-emerald-400 font-black">3€</p></div>
-                <button onclick="openBooking('Mjekërr (3€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
+                <div><p class="font-bold text-sm">Mjekër</p><p class="text-emerald-400 font-black">3€</p></div>
+                <button onclick="openBooking('Mjekër (3€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
+            </div>
+            <div class="service-card flex justify-between items-center">
+                <div><p class="font-bold text-sm">Frizurë</p><p class="text-emerald-400 font-black">2€</p></div>
+                <button onclick="openBooking('Frizurë (2€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
+            </div>
+            <div class="service-card flex justify-between items-center">
+                <div><p class="font-bold text-sm">Ngjyrosje</p><p class="text-emerald-400 font-black">10-30€</p></div>
+                <button onclick="openBooking('Ngjyrosje (10-30€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
+            </div>
+            <div class="service-card flex justify-between items-center">
+                <div><p class="font-bold text-xs">Pedrit ftyre mask mast</p><p class="text-emerald-400 font-black">3€</p></div>
+                <button onclick="openBooking('Pedrit ftyre (3€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
         </div>
     </div>
@@ -127,8 +139,8 @@
     <div id="view-license" class="hidden p-6 text-center">
         <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-500">Certifikatat</h2>
         <div class="space-y-4 pb-20">
-            <img src="Certificate1.jpg" onerror="this.src='https://via.placeholder.com/400x500?text=Licenca+1'" class="img-card">
-            <img src="Certificate2.jpg" onerror="this.src='https://via.placeholder.com/400x500?text=Licenca+2'" class="img-card">
+            <img src="Certificate1.jpg" class="img-card">
+            <img src="Certificate2.jpg" class="img-card">
         </div>
     </div>
 
@@ -221,7 +233,6 @@
             });
             document.getElementById('view-'+p).classList.remove('hidden');
             document.getElementById('n-'+p).classList.add('active');
-            window.scrollTo(0,0);
         }
 
         function openBooking(s) { 
@@ -257,12 +268,10 @@
             submitBtn.disabled = true; submitBtn.innerText = "Duke u dërguar...";
 
             try {
-                // Firebase
                 await db.collection("rezervimet").doc(sD).collection("ora").doc(sT.replace(':', '-')).set({ 
                     klienti: name, tel: phone, shërbimi: currentS 
                 });
 
-                // Telegram
                 const msg = `👑 REZERVIM I RI 👑\n\n👤: ${name}\n📞: ${phone}\n✂️: ${currentS}\n📅: ${sD}\n⏰: ${sT}\n📍: ${mU || 'Në Dyqan'}`;
                 await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
