@@ -16,8 +16,7 @@
         .fixed-bg { 
             width: 100%; height: 100%; 
             background-image: url('cover.jpg'); 
-            background-size: cover; 
-            background-position: center; 
+            background-size: cover; background-position: center; 
             filter: brightness(0.5) contrast(1.2); 
         } 
         .light-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at top, rgba(125,100,255,0.15), #01040a 90%); }
@@ -28,118 +27,87 @@
             background: rgba(10, 15, 30, 0.95); backdrop-filter: blur(25px);
             border-radius: 35px; display: flex; justify-content: space-around;
             align-items: center; border: 1px solid rgba(255, 255, 255, 0.1); 
-            box-shadow: 0 0 40px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.05); z-index: 1000;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8); z-index: 1000;
         }
 
         .nav-item { display: flex; flex-direction: column; align-items: center; width: 18%; transition: 0.4s; border: none; background: none; position: relative; }
-        
         .icon-box { 
             width: 50px; height: 50px; border-radius: 18px; display: flex; 
             align-items: center; justify-content: center; font-size: 20px; 
             background: rgba(255,255,255,0.03); margin-bottom: 4px; transition: 0.4s;
             border: 1px solid rgba(255,255,255,0.08); color: #64748b;
-            position: relative; z-index: 1;
         }
 
-        /* Rrethi i Shkëlqimit (Glowing Ring) */
-        .nav-item .icon-box::before {
-            content: ''; position: absolute; top: -3px; left: -3px; right: -3px; bottom: -3px;
-            background: var(--neon); border-radius: 21px; z-index: -1; filter: blur(10px); opacity: 0; transition: 0.4s;
-        }
-
-        /* Ngjyrat Neon Specifike */
         #n-home { --neon: #00d2ff; }
         #n-gallery { --neon: #ff007b; }
         #n-services { --neon: #00ffa3; }
         #n-products { --neon: #bc00ff; }
         #n-license { --neon: #ffcc00; }
 
-        /* KUR IKONA ESHTE AKTIVE - EFEKTI GLOWING */
         .nav-item.active .icon-box { 
             color: #fff !important; 
             background: rgba(255,255,255,0.08);
             transform: translateY(-20px) scale(1.1);
-            text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px var(--neon);
+            box-shadow: 0 0 20px var(--neon);
             border: 1px solid var(--neon);
         }
 
-        .nav-item.active .icon-box::before { opacity: 0.7; animation: pulseGlow 2s infinite; }
+        .nav-text { font-size: 7px; font-weight: 900; text-transform: uppercase; color: #64748b; }
+        .nav-item.active .nav-text { color: var(--neon); transform: translateY(-10px); }
 
-        @keyframes pulseGlow {
-            0% { filter: blur(10px); opacity: 0.7; }
-            50% { filter: blur(15px); opacity: 1; }
-            100% { filter: blur(10px); opacity: 0.7; }
-        }
-
-        .nav-text { font-size: 7px; font-weight: 900; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px; transition: 0.4s; }
-        .nav-item.active .nav-text { color: var(--neon); text-shadow: 0 0 5px var(--neon); transform: translateY(-10px); }
-
-        /* GALLERY GLOW */
-        .gallery-img { 
-            width: 100%; height: 200px; object-fit: cover; border-radius: 25px; 
-            border: 1px solid rgba(255,255,255,0.08); cursor: pointer; transition: 0.3s; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-        .gallery-img:active { transform: scale(0.95); box-shadow: 0 0 15px rgba(255,0,123,0.3); }
-
-        #lightbox {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.96); z-index: 5000; display: none;
-            align-items: center; justify-content: center; padding: 20px;
-        }
-
-        .service-card { 
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); 
-            padding: 20px; border-radius: 30px; margin-bottom: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
+        /* GALLERY & LICENSA */
+        .img-card { width: 100%; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .service-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 20px; border-radius: 30px; margin-bottom: 12px; }
 
         #booking-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.92); backdrop-filter: blur(15px);
-            z-index: 2000; display: none; align-items: center; justify-content: center;
+            z-index: 2000; display: none; align-items: center; justify-content: center; padding: 15px;
         }
+
         .hidden { display: none; }
+        .active-btn { background: black !important; color: white !important; }
+        .active-time { background: #eab308 !important; color: black !important; }
     </style>
 </head>
 <body>
 
     <div class="bg-container"><div class="fixed-bg"></div><div class="light-overlay"></div></div>
 
-    <div id="lightbox" onclick="this.style.display='none'">
-        <img id="lightbox-img" class="max-w-full max-h-[85vh] rounded-3xl shadow-2xl border border-white/10">
+    <div id="lightbox" class="fixed inset-0 bg-black/95 z-[5000] hidden flex items-center justify-center p-5" onclick="this.style.display='none'">
+        <img id="lightbox-img" class="max-w-full max-h-[85vh] rounded-3xl border border-white/10 shadow-2xl">
     </div>
 
     <div id="view-home" class="p-6">
         <section class="h-[35vh] flex flex-col items-center justify-center text-center">
-            <h1 class="text-7xl font-black italic uppercase leading-none tracking-tighter drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]">MERGIM<br><span class="text-yellow-400">BARBER</span></h1>
+            <h1 class="text-7xl font-black italic uppercase leading-none tracking-tighter drop-shadow-2xl">MERGIM<br><span class="text-yellow-400">BARBER</span></h1>
             <p class="text-yellow-400 font-bold tracking-[5px] text-[10px] mt-4 italic uppercase bg-black/70 px-6 py-2 rounded-full border border-yellow-400/20 shadow-xl">PREMIUM NEON EDITION</p>
         </section>
 
-        <section class="bg-gradient-to-br from-slate-900 to-black p-10 text-center rounded-[45px] border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.6)]">
+        <section class="bg-gradient-to-br from-slate-900 to-black p-10 text-center rounded-[45px] border border-white/10 shadow-2xl">
             <h2 class="text-2xl font-black mb-1 italic uppercase text-yellow-400">VIP Home Service</h2>
             <p class="text-[10px] font-bold text-white/50 mb-6 uppercase tracking-widest">Luksi vjen te ju</p>
-            <div class="text-6xl font-black text-white mb-8 italic drop-shadow-2xl">20€</div>
-            <button onclick="openBooking('VIP SHTËPI (20€)')" class="w-full bg-yellow-400 text-black py-5 rounded-3xl font-black uppercase tracking-widest text-sm shadow-[0_10px_30px_rgba(250,204,21,0.3)] active:scale-95 transition-all">
-                REZERVO LOKACIONIN
+            <div class="text-6xl font-black text-white mb-8 italic italic">20€</div>
+            <button onclick="openBooking('VIP SHTËPI (20€)')" class="w-full bg-yellow-400 text-black py-5 rounded-3xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">
+                REZERVO TANI
             </button>
         </section>
     </div>
 
     <div id="view-gallery" class="hidden p-6 text-center">
-        <h2 class="text-3xl font-black mb-8 italic uppercase text-pink-500 text-shadow-[0_0_10px_rgba(255,0,123,0.5)]">Galeria</h2>
+        <h2 class="text-3xl font-black mb-8 italic uppercase text-pink-500">Galeria</h2>
         <div class="grid grid-cols-2 gap-4 pb-10">
-            <img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400'" class="gallery-img" onclick="showImg(this.src)">
-            <img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400'" class="gallery-img" onclick="showImg(this.src)">
-            <img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1599351431247-f13b38466835?w=400'" class="gallery-img" onclick="showImg(this.src)">
-            <img src="foto4.jpg" onerror="this.src='https://images.unsplash.com/photo-1512690196236-d5a232933d44?w=400'" class="gallery-img" onclick="showImg(this.src)">
-            <img src="foto5.jpg" onerror="this.src='https://images.unsplash.com/photo-1599351431247-f13b38466835?q=80&w=400'" class="gallery-img" onclick="showImg(this.src)">
-            <img src="foto6.jpg" onerror="this.src='https://images.unsplash.com/photo-1512690196236-d5a232933d44?q=80&w=400'" class="gallery-img" onclick="showImg(this.src)">
+            <img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400'" class="img-card h-48 object-cover" onclick="showImg(this.src)">
+            <img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400'" class="img-card h-48 object-cover" onclick="showImg(this.src)">
+            <img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1599351431247-f13b38466835?w=400'" class="img-card h-48 object-cover" onclick="showImg(this.src)">
+            <img src="foto4.jpg" onerror="this.src='https://images.unsplash.com/photo-1512690196236-d5a232933d44?w=400'" class="img-card h-48 object-cover" onclick="showImg(this.src)">
+            <img src="foto5.jpg" onerror="this.src='https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=400'" class="img-card h-48 object-cover" onclick="showImg(this.src)">
+            <img src="foto6.jpg" onerror="this.src='https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=400'" class="img-card h-48 object-cover" onclick="showImg(this.src)">
         </div>
     </div>
 
     <div id="view-services" class="hidden p-6">
-        <h2 class="text-3xl font-black mb-8 italic uppercase text-emerald-400 text-center text-shadow-[0_0_10px_rgba(0,255,163,0.5)]">Çmimore</h2>
+        <h2 class="text-3xl font-black mb-8 italic uppercase text-emerald-400 text-center">Shërbimet</h2>
         <div class="space-y-3 pb-10">
             <div class="service-card flex justify-between items-center">
                 <div><p class="font-bold">Qethje</p><p class="text-emerald-400 font-black">5€</p></div>
@@ -162,42 +130,61 @@
                 <button onclick="openBooking('Ngjyrosje')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase shadow-lg shadow-emerald-500/20">Rezervo</button>
             </div>
             <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold text-xs uppercase">Pastrim Fytyre (Maskë)</p><p class="text-emerald-400 font-black">3€</p></div>
+                <div><p class="font-bold text-xs">Pastrim Fytyre</p><p class="text-emerald-400 font-black">3€</p></div>
                 <button onclick="openBooking('Maskë (3€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase shadow-lg shadow-emerald-500/20">Rezervo</button>
             </div>
         </div>
     </div>
 
     <div id="view-products" class="hidden p-6 text-center">
-        <h2 class="text-3xl font-black mb-10 italic uppercase text-purple-500 text-shadow-[0_0_10px_rgba(188,0,255,0.5)]">Produktet</h2>
-        <p class="text-white/30 italic">Duke u përgatitur...</p>
+        <h2 class="text-3xl font-black mb-10 italic uppercase text-purple-500">Produktet</h2>
+        <p class="text-white/30 italic">Së shpejti...</p>
     </div>
+
     <div id="view-license" class="hidden p-6 text-center">
-        <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-500 text-shadow-[0_0_10px_rgba(255,204,0,0.5)]">Licenca</h2>
-        <img src="Certificate1.jpg" class="w-full rounded-3xl border-2 border-yellow-500 shadow-2xl shadow-yellow-500/10">
+        <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-500">Licenca Profesionale</h2>
+        <div class="space-y-4 pb-20">
+            <img src="Certificate1.jpg" class="img-card" onclick="showImg(this.src)">
+            <img src="Certificate2.jpg" class="img-card" onclick="showImg(this.src)">
+        </div>
     </div>
 
     <div id="booking-modal">
-        <div class="bg-white text-black p-8 w-[95%] max-w-sm rounded-[45px] shadow-2xl relative overflow-y-auto max-h-[92vh]">
+        <div class="bg-white text-black p-8 w-full max-w-sm rounded-[45px] shadow-2xl relative overflow-y-auto max-h-[90vh]">
             <button onclick="closeBooking()" class="absolute top-5 right-5 text-gray-300"><i class="fa-solid fa-circle-xmark text-4xl"></i></button>
-            <h2 id="modal-title" class="text-xl font-black italic uppercase mb-1 mt-2">Rezervo</h2>
-            <p class="text-[9px] font-bold text-red-500 uppercase mb-4">Plotëso të dhënat</p>
+            <h2 id="modal-title" class="text-xl font-black italic uppercase mb-4">Rezervo</h2>
             
-            <input type="text" id="c-name" placeholder="Emri dhe Mbiemri" class="w-full bg-gray-100 p-4 rounded-2xl mb-2 font-bold text-sm outline-none">
-            <input type="tel" id="c-phone" placeholder="Numri telefonit" class="w-full bg-gray-100 p-4 rounded-2xl mb-4 font-bold text-sm outline-none">
-            
-            <div id="loc-section" class="mb-4">
-                <button onclick="getLoc()" id="loc-btn" class="w-full py-4 bg-blue-50 rounded-2xl text-[10px] font-bold text-blue-600 uppercase border border-blue-200">
-                    <i class="fa-solid fa-location-dot mr-2"></i> Konfirmo Lokacionin (Për shtëpi)
+            <p class="text-[10px] font-black mb-2 uppercase">Zgjidh Ditën:</p>
+            <div class="flex gap-2 mb-6">
+                <button id="day-sot" class="day-btn active-btn flex-1 py-3 rounded-2xl text-xs font-bold bg-gray-100 transition-all" onclick="selD('Sot')">Sot</button>
+                <button id="day-neser" class="day-btn flex-1 py-3 rounded-2xl text-xs font-bold bg-gray-100 transition-all" onclick="selD('Nesër')">Nesër</button>
+            </div>
+
+            <p class="text-[10px] font-black mb-2 uppercase">Zgjidh Orën:</p>
+            <div class="grid grid-cols-3 gap-2 mb-6" id="time-grid">
+                <button class="time-btn bg-gray-100 p-3 rounded-xl text-[10px] font-black transition-all" onclick="selT(this)">09:00</button>
+                <button class="time-btn bg-gray-100 p-3 rounded-xl text-[10px] font-black transition-all" onclick="selT(this)">11:00</button>
+                <button class="time-btn bg-gray-100 p-3 rounded-xl text-[10px] font-black transition-all" onclick="selT(this)">13:00</button>
+                <button class="time-btn bg-gray-100 p-3 rounded-xl text-[10px] font-black transition-all" onclick="selT(this)">15:00</button>
+                <button class="time-btn bg-gray-100 p-3 rounded-xl text-[10px] font-black transition-all" onclick="selT(this)">17:00</button>
+                <button class="time-btn bg-gray-100 p-3 rounded-xl text-[10px] font-black transition-all" onclick="selT(this)">19:00</button>
+            </div>
+
+            <div id="loc-section" class="mb-4 hidden">
+                <button onclick="getLoc()" id="loc-btn" class="w-full py-4 bg-blue-50 rounded-2xl text-[10px] font-bold text-blue-600 uppercase border border-blue-200 shadow-sm">
+                    <i class="fa-solid fa-location-dot mr-2"></i> Konfirmo Lokacionin
                 </button>
             </div>
 
-            <button onclick="sendOrder()" class="w-full bg-[#00c37b] text-white py-5 rounded-3xl font-black uppercase tracking-widest text-xs">DËRGO TERMININ</button>
+            <input type="text" id="c-name" placeholder="Emri dhe Mbiemri" class="w-full bg-gray-100 p-4 rounded-2xl mb-2 font-bold text-sm outline-none">
+            <input type="tel" id="c-phone" placeholder="Numri i telefonit" class="w-full bg-gray-100 p-4 rounded-2xl mb-6 font-bold text-sm outline-none">
+            
+            <button onclick="sendOrder()" class="w-full bg-[#00c37b] text-white py-5 rounded-3xl font-black uppercase tracking-widest text-xs shadow-xl active:scale-95 transition-all">DËRGO TERMININ</button>
         </div>
     </div>
 
     <nav class="bottom-nav">
-        <button onclick="switchP('home')" id="n-home" class="nav-item active"><div class="icon-box"><i class="fa-solid fa-house"></i></div><span class="nav-text">Ballina</span></button>
+        <button onclick="switchP('home')" id="n-home" class="nav-item active"><div class="icon-box"><i class="fa-solid fa-house"></i></div><span class="nav-text">Home</span></button>
         <button onclick="switchP('gallery')" id="n-gallery" class="nav-item"><div class="icon-box"><i class="fa-solid fa-camera"></i></div><span class="nav-text">Gallery</span></button>
         <button onclick="switchP('services')" id="n-services" class="nav-item"><div class="icon-box"><i class="fa-solid fa-cut"></i></div><span class="nav-text">Shërbimet</span></button>
         <button onclick="switchP('products')" id="n-products" class="nav-item"><div class="icon-box"><i class="fa-solid fa-droplet"></i></div><span class="nav-text">Produkte</span></button>
@@ -205,7 +192,7 @@
     </nav>
 
     <script>
-        let mU = ""; let currentService = "";
+        let sT = ""; let sD = "Sot"; let mU = ""; let currentService = "";
         const token = "8686495061:AAGBd8mahN4RNdzV3FZJHDEaJDQdfyXYaxs";
         const cid = "-1003852106267";
 
@@ -225,16 +212,29 @@
             currentService = service;
             document.getElementById('modal-title').innerText = service;
             document.getElementById('booking-modal').style.display = 'flex';
-            document.getElementById('loc-section').style.display = service.includes("VIP SHTËPI") ? 'block' : 'none';
-            if(!service.includes("VIP SHTËPI")) mU = "Në Dyqan";
+            const isHome = service.includes("VIP SHTËPI");
+            document.getElementById('loc-section').style.display = isHome ? 'block' : 'none';
+            mU = isHome ? "" : "Në Dyqan";
         }
 
         function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
+        
+        function selD(d) {
+            sD = d;
+            document.getElementById('day-sot').classList.toggle('active-btn', d === 'Sot');
+            document.getElementById('day-neser').classList.toggle('active-btn', d === 'Nesër');
+        }
+
+        function selT(btn) {
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active-time'));
+            btn.classList.add('active-time');
+            sT = btn.innerText;
+        }
 
         function getLoc() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(pos => {
-                    mU = `http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+                    mU = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
                     document.getElementById('loc-btn').innerText = "LOKACIONI OK ✅";
                 });
             }
@@ -243,14 +243,14 @@
         async function sendOrder() {
             const name = document.getElementById('c-name').value;
             const phone = document.getElementById('c-phone').value;
-            if(!name || !phone || (currentService.includes('VIP') && !mU)) { alert("Plotësoni të dhënat!"); return; }
-            const msg = `👑 REZERVIM I RI 👑\n\n✂️ Shërbimi: ${currentService}\n👤 Emri: ${name}\n📞 Tel: ${phone}\n📍 Harta: ${mU}`;
+            if(!name || !phone || !sT || (currentService.includes('VIP') && !mU)) { alert("Ju lutem plotësoni të gjitha fushave, përfshirë orën!"); return; }
+            const msg = `💈 REZERVIM I RI 💈\n\n✂️ Shërbimi: ${currentService}\n👤 Klienti: ${name}\n📞 Tel: ${phone}\n📅 Data: ${sD}\n⏰ Ora: ${sT}\n📍 Lokacioni: ${mU}`;
             await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ chat_id: cid, text: msg })
             });
-            alert("Rezervimi u dërgua me sukses!"); closeBooking();
+            alert("Rezervimi u dërgua me sukses në Telegram!"); closeBooking();
         }
     </script>
 </body>
