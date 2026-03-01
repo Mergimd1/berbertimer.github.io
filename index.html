@@ -9,8 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        body { background-color: #0f172a; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; overflow-x: hidden; }
+        body { 
+            background-color: #0f172a; 
+            font-family: 'Poppins', sans-serif; 
+            color: #fff; 
+            margin: 0; 
+        }
         
+        /* 3D Glass Effect */
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(15px);
@@ -19,13 +25,15 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        /* KETU ESHTE LIDHJA ME FOTON TENDE NE TELEFON/PC */
+        /* FOTOJA NE PRAPAVIJE - E RREGULLUAR */
         .hero-bg {
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.5), #0f172a), 
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.1), #0f172a), 
                         url('cover.jpg'); 
             background-size: cover;
-            background-position: center 20%;
-            height: 75vh;
+            background-position: center;
+            /* KJO E BEN FOTON TE QENDROJE GJITHMON ATY (FIXED) */
+            background-attachment: fixed; 
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -41,7 +49,7 @@
 
         .bottom-nav {
             position: fixed; bottom: 20px; left: 20px; right: 20px;
-            background: rgba(30, 41, 59, 0.95); backdrop-blur: 20px;
+            background: rgba(30, 41, 59, 0.95); backdrop-filter: blur(20px);
             display: flex; justify-content: space-around; padding: 15px;
             border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); z-index: 100;
         }
@@ -49,43 +57,79 @@
         .nav-btn { color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; text-transform: uppercase; }
         .nav-btn.active { color: #fbbf24; }
         .hidden { display: none; }
+
+        /* Stil per fotot e klienteve ne Galeri */
+        .client-photo {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 2px solid rgba(251, 191, 36, 0.3);
+        }
     </style>
 </head>
 <body class="pb-28">
 
     <div id="view-home">
         <section class="hero-bg">
-            <h1 class="text-6xl font-black italic uppercase leading-none tracking-tighter">AGONI<br><span class="text-yellow-400">BARBER</span></h1>
-            <p class="mt-4 bg-yellow-400 text-black px-6 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">10 Vite Eksperiencë</p>
+            <h1 class="text-7xl font-black italic uppercase leading-none tracking-tighter">AGONI<br><span class="text-yellow-400">BARBER</span></h1>
+            <div class="mt-4 bg-yellow-400 text-black px-6 py-1 rounded-full text-xs font-black uppercase tracking-widest shadow-lg shadow-yellow-400/20">
+                10 Vite Eksperiencë
+            </div>
+            
+            <div class="absolute bottom-10 animate-bounce text-yellow-400">
+                <i class="fa-solid fa-chevron-down text-2xl"></i>
+            </div>
         </section>
 
-        <section class="p-6">
-            <h2 class="section-title mb-4 italic">Biografia</h2>
-            <div class="glass-card p-6 text-gray-300 leading-relaxed border-l-4 border-yellow-400">
-                Unë jam Agoni, një berber me mbi 1 dekadë përvojë në artin e qethjes. Stili im ndërthur klasiken me modernen.
+        <section class="p-6 mt-10">
+            <h2 class="section-title mb-4 italic">Mbi Mua</h2>
+            <div class="glass-card p-6 text-gray-200 leading-relaxed border-l-4 border-yellow-400 text-lg">
+                Arti i qethjes i transformuar në eksperiencë premium. Me mbi 10 vite mjeshtëri, unë sigurohem që çdo stil të jetë unik dhe i përshtatur për ju.
             </div>
         </section>
 
         <section class="p-6">
-            <h2 class="section-title mb-6 italic">Shërbimet</h2>
+            <h2 class="section-title mb-6 italic">Çmimet</h2>
             <div class="grid gap-4">
-                <div class="glass-card p-5 flex justify-between items-center">
-                    <h3 class="font-bold uppercase">Qethje Klasike</h3>
-                    <span class="text-2xl font-black text-yellow-400">5€</span>
+                <div class="glass-card p-6 flex justify-between items-center bg-white/5">
+                    <div>
+                        <h3 class="font-black uppercase text-xl">Qethje</h3>
+                        <p class="text-[10px] text-gray-400 font-bold">STIL MODERN & KLASIK</p>
+                    </div>
+                    <span class="text-3xl font-black text-yellow-400">5€</span>
                 </div>
-                <div class="glass-card p-5 flex justify-between items-center border-yellow-400/20">
-                    <h3 class="font-bold uppercase text-yellow-400">Full Service VIP</h3>
-                    <span class="text-2xl font-black text-yellow-400">10€</span>
+                <div class="glass-card p-6 flex justify-between items-center border-yellow-400/30 bg-yellow-400/5">
+                    <div>
+                        <h3 class="font-black uppercase text-xl text-yellow-400">Full Service</h3>
+                        <p class="text-[10px] text-gray-300 font-bold">QETHJE + MJEKËRR + MASKË</p>
+                    </div>
+                    <span class="text-3xl font-black text-yellow-400">10€</span>
                 </div>
             </div>
         </section>
     </div>
 
     <div id="view-gallery" class="hidden p-6">
-        <h2 class="section-title text-center mb-10 italic">My Gallery</h2>
+        <h2 class="section-title text-center mb-10 italic">Klientët Tanë</h2>
+        
         <div class="grid grid-cols-2 gap-4">
-            <img src="cover.jpg" class="w-full h-64 object-cover rounded-2xl border border-white/10">
-            <div class="bg-white/5 rounded-2xl h-64 flex items-center justify-center text-gray-600 font-bold uppercase text-xs p-4 text-center">Shto foto të tjera këtu</div>
+            <div class="glass-card p-2">
+                <img src="https://via.placeholder.com/300x400" class="client-photo" alt="Klienti 1">
+                <p class="text-[10px] text-center mt-2 font-bold text-gray-500 uppercase">Skin Fade</p>
+            </div>
+            <div class="glass-card p-2">
+                <img src="https://via.placeholder.com/300x400" class="client-photo" alt="Klienti 2">
+                <p class="text-[10px] text-center mt-2 font-bold text-gray-500 uppercase">Classic Cut</p>
+            </div>
+            <div class="glass-card p-2">
+                <img src="https://via.placeholder.com/300x400" class="client-photo" alt="Klienti 3">
+                <p class="text-[10px] text-center mt-2 font-bold text-gray-500 uppercase">Beard Trim</p>
+            </div>
+            <div class="glass-card p-2">
+                <img src="https://via.placeholder.com/300x400" class="client-photo" alt="Klienti 4">
+                <p class="text-[10px] text-center mt-2 font-bold text-gray-500 uppercase">Taper Fade</p>
+            </div>
         </div>
     </div>
 
