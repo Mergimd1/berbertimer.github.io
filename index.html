@@ -18,11 +18,11 @@
             background-image: url('cover.jpg'); 
             background-size: cover; 
             background-position: center; 
-            filter: brightness(0.7) contrast(1.1); 
+            filter: brightness(0.65) contrast(1.1); 
         } 
         .light-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(2,6,23,0.1), #020617 95%); }
 
-        /* NAVIGIMI LUXURY 6K */
+        /* NAVIGIMI LUXURY */
         .bottom-nav {
             position: fixed; bottom: 15px; left: 8px; right: 8px; height: 90px;
             background: rgba(10, 15, 30, 0.9); backdrop-filter: blur(30px);
@@ -38,13 +38,6 @@
             border: 1px solid rgba(255,255,255,0.08);
         }
 
-        #n-home .icon-box { color: #0084ff; }
-        #n-gallery .icon-box { color: #ff007b; }
-        #n-services .icon-box { color: #00ff8c; }
-        #n-products .icon-box { color: #a600ff; }
-        #n-license .icon-box { color: #ffbb00; }
-        #n-insta .icon-box { color: #ff4d00; }
-
         .nav-item.active .icon-box { transform: translateY(-15px) scale(1.1); color: #fff !important; box-shadow: 0 10px 20px currentColor; }
         #n-home.active .icon-box { background: linear-gradient(135deg, #0084ff, #0044ff); }
         #n-gallery.active .icon-box { background: linear-gradient(135deg, #ff007b, #ff0040); }
@@ -54,6 +47,14 @@
 
         .nav-text { font-size: 7px; font-weight: 900; text-transform: uppercase; color: #64748b; }
         .nav-item.active .nav-text { color: #fff; transform: translateY(-8px); }
+
+        /* GALLERY STYLING */
+        .gallery-img {
+            width: 100%; height: 220px; object-fit: cover;
+            border-radius: 25px; border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+        .gallery-img:active { transform: scale(0.95); border-color: #ff007b; }
 
         /* MODAL */
         #booking-modal {
@@ -66,19 +67,10 @@
         .time-btn { background: #f1f5f9; color: #0f172a; padding: 10px 5px; border-radius: 12px; font-weight: 800; font-size: 11px; text-align: center; }
         .time-btn.active { background: #fbbf24; color: #000; }
 
-        .day-btn { background: #f1f5f9; color: #0f172a; padding: 8px 15px; border-radius: 12px; font-weight: bold; font-size: 11px; }
-        .day-btn.active { background: #020617; color: #fff; }
-
-        /* STILIMI I SHERBIMEVE */
         .service-card { 
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
             padding: 15px; border-radius: 25px; margin-bottom: 12px;
         }
-        .res-btn-small { 
-            background: #00ff8c; color: #000; font-size: 10px; font-weight: 900; 
-            padding: 6px 12px; border-radius: 10px; text-transform: uppercase;
-        }
-
         .hidden { display: none; }
     </style>
 </head>
@@ -103,10 +95,32 @@
     </div>
 
     <div id="view-gallery" class="hidden p-6 text-center">
-        <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400">Punimet</h2>
-        <div class="grid grid-cols-2 gap-4">
-            <img src="klienti1.jpg" class="w-full h-64 object-cover rounded-[30px] border border-white/10 shadow-2xl">
-            <img src="klienti2.jpg" class="w-full h-64 object-cover rounded-[30px] border border-white/10 shadow-2xl">
+        <h2 class="text-3xl font-black mb-6 italic uppercase text-yellow-400">Punimet</h2>
+        <div class="grid grid-cols-2 gap-4 pb-10">
+            <div class="relative">
+                <img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=500'" class="gallery-img">
+                <div class="absolute bottom-3 left-3 bg-black/50 px-2 py-1 rounded-lg text-[8px] font-bold uppercase tracking-widest">Skin Fade</div>
+            </div>
+            <div class="relative">
+                <img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=500'" class="gallery-img">
+                <div class="absolute bottom-3 left-3 bg-black/50 px-2 py-1 rounded-lg text-[8px] font-bold uppercase tracking-widest">Classic Cut</div>
+            </div>
+            <div class="relative">
+                <img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1599351431247-f13b38466835?q=80&w=500'" class="gallery-img">
+                <div class="absolute bottom-3 left-3 bg-black/50 px-2 py-1 rounded-lg text-[8px] font-bold uppercase tracking-widest">Beard Trim</div>
+            </div>
+            <div class="relative">
+                <img src="foto4.jpg" onerror="this.src='https://images.unsplash.com/photo-1512690196236-d5a232933d44?q=80&w=500'" class="gallery-img">
+                <div class="absolute bottom-3 left-3 bg-black/50 px-2 py-1 rounded-lg text-[8px] font-bold uppercase tracking-widest">Modern Style</div>
+            </div>
+            <div class="relative">
+                <img src="foto5.jpg" onerror="this.src='https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=500'" class="gallery-img">
+                <div class="absolute bottom-3 left-3 bg-black/50 px-2 py-1 rounded-lg text-[8px] font-bold uppercase tracking-widest">Hair Art</div>
+            </div>
+            <div class="relative">
+                <img src="foto6.jpg" onerror="this.src='https://images.unsplash.com/photo-1532710093739-9470acff878f?q=80&w=500'" class="gallery-img">
+                <div class="absolute bottom-3 left-3 bg-black/50 px-2 py-1 rounded-lg text-[8px] font-bold uppercase tracking-widest">Premium Look</div>
+            </div>
         </div>
     </div>
 
@@ -115,34 +129,22 @@
         <div class="space-y-3">
             <div class="service-card flex justify-between items-center">
                 <div><p class="font-bold">Qethje</p><p class="text-yellow-400 font-black">5€</p></div>
-                <button onclick="openBooking('Qethje (Dyqan)')" class="res-btn-small">Rezervo</button>
+                <button onclick="openBooking('Qethje (Dyqan)')" class="bg-[#00ff8c] text-black text-[10px] font-black px-4 py-2 rounded-xl">Rezervo</button>
             </div>
             <div class="service-card flex justify-between items-center">
                 <div><p class="font-bold">Qethje & Mjekërr</p><p class="text-yellow-400 font-black">7€</p></div>
-                <button onclick="openBooking('Qethje & Mjekërr (Dyqan)')" class="res-btn-small">Rezervo</button>
+                <button onclick="openBooking('Qethje & Mjekërr (Dyqan)')" class="bg-[#00ff8c] text-black text-[10px] font-black px-4 py-2 rounded-xl">Rezervo</button>
             </div>
             <div class="service-card flex justify-between items-center">
                 <div><p class="font-bold">Mjekërr</p><p class="text-yellow-400 font-black">3€</p></div>
-                <button onclick="openBooking('Mjekërr (Dyqan)')" class="res-btn-small">Rezervo</button>
-            </div>
-            <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold">Frizurë</p><p class="text-yellow-400 font-black">2€</p></div>
-                <button onclick="openBooking('Frizurë (Dyqan)')" class="res-btn-small">Rezervo</button>
-            </div>
-            <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold">Ngjyrosje</p><p class="text-yellow-400 font-black">10-30€</p></div>
-                <button onclick="openBooking('Ngjyrosje (Dyqan)')" class="res-btn-small">Rezervo</button>
-            </div>
-            <div class="service-card flex justify-between items-center">
-                <div><p class="font-bold">Pastrim Fytyre</p><p class="text-yellow-400 font-black">3€</p></div>
-                <button onclick="openBooking('Pastrim Fytyre (Dyqan)')" class="res-btn-small">Rezervo</button>
+                <button onclick="openBooking('Mjekërr (Dyqan)')" class="bg-[#00ff8c] text-black text-[10px] font-black px-4 py-2 rounded-xl">Rezervo</button>
             </div>
         </div>
     </div>
 
     <div id="view-products" class="hidden p-6 text-center">
         <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400">Produktet</h2>
-        <p class="text-white/40">Së shpejti...</p>
+        <p class="text-white/40 italic">Duke u përgatitur...</p>
     </div>
 
     <div id="view-license" class="hidden p-6 text-center">
@@ -182,7 +184,7 @@
             <div class="space-y-2">
                 <div id="loc-section">
                    <button onclick="getLoc()" id="loc-btn" class="w-full py-3 bg-blue-50 rounded-xl text-[11px] font-bold text-blue-600 uppercase border-2 border-dashed border-blue-200 mb-2">
-                    <i class="fa-solid fa-location-dot mr-2"></i> Kliko për Lokacionin (Vetem për Shtëpi)
+                    <i class="fa-solid fa-location-dot mr-2"></i> Kliko për Lokacionin
                    </button>
                 </div>
                 <input type="text" id="c-name" placeholder="Emri dhe Mbiemri" class="w-full bg-gray-100 p-4 rounded-2xl font-bold text-sm">
@@ -213,14 +215,13 @@
             document.getElementById('view-'+p).classList.remove('hidden');
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById('n-'+p).classList.add('active');
+            window.scrollTo(0,0);
         }
 
         function openBooking(service) { 
             currentService = service;
             document.getElementById('modal-title').innerText = service;
             document.getElementById('booking-modal').style.display = 'flex';
-            
-            // Fsheh butonin e lokacionit nese eshte rezervim dyqani
             if(service.includes("Dyqan")) {
                 document.getElementById('loc-section').style.display = 'none';
                 mU = "Rezervim në Dyqan";
@@ -236,7 +237,7 @@
 
         function getLoc() {
             if (navigator.geolocation) {
-                document.getElementById('loc-btn').innerText = "Duke gjetur lokacionin...";
+                document.getElementById('loc-btn').innerText = "Duke kërkuar lokacionin...";
                 navigator.geolocation.getCurrentPosition(pos => {
                     mU = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
                     document.getElementById('loc-btn').innerText = "LOKACIONI U RUAJT ✅";
@@ -248,9 +249,7 @@
             const name = document.getElementById('c-name').value;
             const phone = document.getElementById('c-phone').value;
             if(!sT || !name || !phone || (currentService === 'VIP SHTËPI' && !mU)) { alert("Plotësoni të gjitha fushët!"); return; }
-
             const msg = `💈 *REZERVIM I RI* 💈\n\n✂️ Shërbimi: ${currentService}\n👤 Emri: ${name}\n📞 Tel: ${phone}\n📅 Data: ${sD}\n⏰ Ora: ${sT}\n📍 Lokacioni: ${mU}`;
-
             await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -262,4 +261,3 @@
     </script>
 </body>
 </html>
-
