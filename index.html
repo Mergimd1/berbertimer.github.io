@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mergim Barber | Certified in Turkey</title>
+    <title>Mergim Barber | VIP Mobile Service</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        * { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+        * { -webkit-tap-highlight-color: transparent; }
         body { background-color: #0f172a; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; overflow-x: hidden; }
 
-        /* Performance Fix (GPU Acceleration) */
         .bg-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             transform: translateZ(0);
@@ -48,19 +47,19 @@
             border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); z-index: 100;
         }
 
-        .nav-btn { color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 9px; font-weight: bold; width: 25%; transition: 0.3s; }
-        .nav-btn.active { color: #fbbf24; transform: translateY(-3px); }
+        .nav-btn { color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 9px; font-weight: bold; width: 25%; }
+        .nav-btn.active { color: #fbbf24; }
         .hidden { display: none; }
 
-        /* License Photo Style */
-        .cert-img {
-            width: 100%;
-            border-radius: 15px;
-            border: 2px solid #fbbf24;
-            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.2);
+        .cert-img { width: 100%; border-radius: 15px; border: 2px solid #fbbf24; }
+        
+        /* Butoni i animuar per Rezervim Mobile */
+        .btn-mobile {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.3);
             transition: 0.3s;
         }
-        .cert-img:hover { transform: scale(1.02); }
+        .btn-mobile:active { transform: scale(0.95); }
     </style>
 </head>
 <body class="pb-28">
@@ -71,62 +70,55 @@
     </div>
 
     <div id="view-home">
-        <section class="h-[85vh] flex flex-col items-center justify-center text-center px-4">
-            <h1 class="text-7xl font-black italic uppercase leading-none tracking-tighter">
+        <section class="h-[75vh] flex flex-col items-center justify-center text-center px-4">
+            <h1 class="text-6xl font-black italic uppercase leading-tight tracking-tighter">
                 MERGIM<br><span class="text-yellow-400">BARBER</span>
             </h1>
-            <div class="mt-6 flex items-center gap-2 bg-black/40 border border-yellow-400/50 px-4 py-2 rounded-full">
-                <span class="text-yellow-400 text-xs font-black uppercase tracking-widest">10 Vite Eksperiencë</span>
-                <div class="w-1 h-1 bg-white rounded-full"></div>
-                <span class="text-white text-[10px] font-bold uppercase">Certified in Turkey 🇹🇷</span>
+            <p class="text-yellow-400 font-bold tracking-widest text-[10px] mt-2">MOBILE SERVICE 🚗💨</p>
+        </section>
+
+        <section class="p-6">
+            <div class="glass-card p-6 border-2 border-yellow-400/50 bg-yellow-400/5">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-black text-2xl">
+                        <i class="fa-solid fa-car-side"></i>
+                    </div>
+                    <h2 class="text-xl font-black uppercase italic">Berber në Shtëpi</h2>
+                </div>
+                <p class="text-gray-200 text-sm leading-relaxed mb-6">
+                    Nuk keni kohë të vini në sallon? Unë vij te ju! Shërbim profesional i qethjes në komoditetin e shtëpisë ose zyrës suaj. 
+                </p>
+                <a href="https://wa.me/383XXXXXXXXX" class="btn-mobile block text-center py-4 rounded-xl text-black font-black uppercase tracking-widest text-sm">
+                    Rezervo Lokacionin <i class="fa-solid fa-location-dot ml-2"></i>
+                </a>
             </div>
         </section>
 
         <section class="p-6">
             <div class="glass-card p-6 border-l-4 border-yellow-400">
-                <h2 class="text-yellow-400 font-black mb-2 italic">MISIONI</h2>
-                <p class="text-gray-200 text-sm leading-relaxed">
-                    Nuk bëjmë thjesht qethje, por krijojmë imazh. Eksperienca 10-vjeçare e ndërthurur me teknikat më moderne turke, garanton që çdo klient të dalë me vetëbesim maksimal.
-                </p>
+                <h2 class="text-yellow-400 font-black mb-2 italic uppercase">Pse të më zgjidhni mua?</h2>
+                <ul class="text-gray-300 text-sm space-y-2">
+                    <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i> 10 vite eksperiencë profesionale</li>
+                    <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i> Teknikat më të reja nga Turqia 🇹🇷</li>
+                    <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i> Vegla të sterilizuara dhe higjienë 100%</li>
+                </ul>
             </div>
         </section>
     </div>
 
-    <div id="view-gallery" class="hidden p-6 animate-fade-in">
+    <div id="view-gallery" class="hidden p-6">
         <h2 class="section-title text-center mb-10 italic">Punimet</h2>
         <div class="grid grid-cols-2 gap-4">
-            <div class="glass-card p-2"><img src="klienti1.jpg" class="w-full h-64 object-cover rounded-xl" alt="Klienti"></div>
-            <div class="glass-card p-2"><img src="klienti2.jpg" class="w-full h-64 object-cover rounded-xl" alt="Klienti"></div>
+            <div class="glass-card p-2"><img src="klienti1.jpg" class="w-full h-64 object-cover rounded-xl"></div>
+            <div class="glass-card p-2"><img src="klienti2.jpg" class="w-full h-64 object-cover rounded-xl"></div>
         </div>
     </div>
 
     <div id="view-license" class="hidden p-6">
-        <div class="text-center mb-8">
-            <h2 class="section-title italic">KUALIFIKIMET</h2>
-            <p class="text-yellow-400 text-[10px] font-bold uppercase tracking-widest mt-2">Specializuar në Turqi 🇹🇷</p>
-        </div>
-
-        <div class="glass-card p-6 mb-8 border-b-4 border-yellow-400">
-            <p class="text-gray-200 text-sm italic leading-relaxed text-center">
-                "Mjeshtëria e vërtetë vjen nga disiplina. I certifikuar në Turqi, djepin e berberisë botërore, zotëroj teknikat më precize të thikës, 'threading' dhe stilimeve orientale që bëjnë diferencën."
-            </p>
-        </div>
-
+        <h2 class="section-title text-center mb-10 italic uppercase">Kualifikimet</h2>
         <div class="grid grid-cols-1 gap-6">
-            <div class="space-y-2">
-                <p class="text-[10px] font-bold text-gray-400 uppercase ml-2">International Barber License</p>
-                <img src="Certificate1.jpg" class="cert-img" alt="Certifikata 1">
-            </div>
-            
-            <div class="space-y-2">
-                <p class="text-[10px] font-bold text-gray-400 uppercase ml-2">Advanced Styling Diploma</p>
-                <img src="Certificate2.jpg" class="cert-img" alt="Certifikata 2">
-            </div>
-        </div>
-
-        <div class="mt-10 text-center opacity-40">
-            <i class="fa-solid fa-award text-4xl text-yellow-400"></i>
-            <p class="text-[9px] mt-2 font-bold uppercase">Verified Professional Barber</p>
+            <img src="Certificate1.jpg" class="cert-img">
+            <img src="Certificate2.jpg" class="cert-img">
         </div>
     </div>
 
@@ -150,9 +142,7 @@
             document.getElementById('view-home').classList.add('hidden');
             document.getElementById('view-gallery').classList.add('hidden');
             document.getElementById('view-license').classList.add('hidden');
-            
             document.getElementById('view-' + pageId).classList.remove('hidden');
-            
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('btn-' + pageId).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'instant' });
@@ -160,4 +150,3 @@
     </script>
 </body>
 </html>
-
