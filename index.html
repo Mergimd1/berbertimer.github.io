@@ -18,7 +18,7 @@
             background-image: url('cover.jpg'); 
             background-size: cover; 
             background-position: center; 
-            filter: brightness(0.75) contrast(1.1); 
+            filter: brightness(0.7) contrast(1.1); 
         } 
         .light-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(2,6,23,0.1), #020617 95%); }
 
@@ -55,7 +55,7 @@
         .nav-text { font-size: 7px; font-weight: 900; text-transform: uppercase; color: #64748b; }
         .nav-item.active .nav-text { color: #fff; transform: translateY(-8px); }
 
-        /* MODAL DHE ELEMENTET E REZERVIMIT */
+        /* MODAL */
         #booking-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
@@ -63,13 +63,22 @@
         }
 
         .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 15px 0; }
-        .time-btn { background: #f1f5f9; color: #0f172a; padding: 10px 5px; border-radius: 12px; font-weight: 800; font-size: 11px; text-align: center; transition: 0.2s; }
-        .time-btn.active { background: #fbbf24; color: #000; transform: scale(1.05); }
+        .time-btn { background: #f1f5f9; color: #0f172a; padding: 10px 5px; border-radius: 12px; font-weight: 800; font-size: 11px; text-align: center; }
+        .time-btn.active { background: #fbbf24; color: #000; }
 
-        .day-btn { background: #f1f5f9; color: #0f172a; padding: 8px 15px; border-radius: 12px; font-weight: bold; font-size: 11px; min-width: 80px; }
+        .day-btn { background: #f1f5f9; color: #0f172a; padding: 8px 15px; border-radius: 12px; font-weight: bold; font-size: 11px; }
         .day-btn.active { background: #020617; color: #fff; }
 
-        .service-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 16px; border-radius: 20px; display: flex; justify-content: space-between; }
+        /* STILIMI I SHERBIMEVE */
+        .service-card { 
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
+            padding: 15px; border-radius: 25px; margin-bottom: 12px;
+        }
+        .res-btn-small { 
+            background: #00ff8c; color: #000; font-size: 10px; font-weight: 900; 
+            padding: 6px 12px; border-radius: 10px; text-transform: uppercase;
+        }
+
         .hidden { display: none; }
     </style>
 </head>
@@ -78,16 +87,16 @@
     <div class="bg-container"><div class="fixed-bg"></div><div class="light-overlay"></div></div>
 
     <div id="view-home" class="p-6">
-        <section class="h-[40vh] flex flex-col items-center justify-center text-center">
+        <section class="h-[35vh] flex flex-col items-center justify-center text-center">
             <h1 class="text-7xl font-black italic uppercase leading-none tracking-tighter">MERGIM<br><span class="text-yellow-400">BARBER</span></h1>
-            <p class="text-yellow-400 font-bold tracking-[5px] text-[10px] mt-4 italic uppercase bg-black/70 px-6 py-2 rounded-full border border-yellow-400/20">PREMIUM MOBILE SERVICE</p>
+            <p class="text-yellow-400 font-bold tracking-[5px] text-[10px] mt-4 italic uppercase bg-black/70 px-6 py-2 rounded-full">PREMIUM MOBILE SERVICE</p>
         </section>
 
         <section class="bg-white/10 backdrop-blur-xl p-8 text-center rounded-[45px] border border-white/20 shadow-2xl">
             <h2 class="text-2xl font-black mb-1 italic uppercase text-yellow-400">VIP Home Service</h2>
-            <p class="text-[10px] font-bold text-white/70 mb-4 uppercase tracking-widest">Unë vij të qethi në shtëpinë tuaj</p>
+            <p class="text-[10px] font-bold text-white/70 mb-4 uppercase tracking-widest">Përjetoni luksin në shtëpinë tuaj</p>
             <div class="text-6xl font-black text-white mb-6 italic">20€</div>
-            <button onclick="openBooking()" class="w-full bg-yellow-400 text-black py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">
+            <button onclick="openBooking('VIP SHTËPI')" class="w-full bg-yellow-400 text-black py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">
                 REZERVO TANI <i class="fa-solid fa-bolt-lightning ml-2"></i>
             </button>
         </section>
@@ -96,30 +105,44 @@
     <div id="view-gallery" class="hidden p-6 text-center">
         <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400">Punimet</h2>
         <div class="grid grid-cols-2 gap-4">
-            <img src="klienti1.jpg" class="w-full h-64 object-cover rounded-[30px] border border-white/10">
-            <img src="klienti2.jpg" class="w-full h-64 object-cover rounded-[30px] border border-white/10">
+            <img src="klienti1.jpg" class="w-full h-64 object-cover rounded-[30px] border border-white/10 shadow-2xl">
+            <img src="klienti2.jpg" class="w-full h-64 object-cover rounded-[30px] border border-white/10 shadow-2xl">
         </div>
     </div>
 
     <div id="view-services" class="hidden p-6">
-        <h2 class="text-3xl font-black mb-8 italic uppercase text-yellow-400 text-center">Çmimore</h2>
+        <h2 class="text-3xl font-black mb-8 italic uppercase text-yellow-400 text-center">Rezervo në Dyqan</h2>
         <div class="space-y-3">
-            <div class="service-card"><span>Qethje</span><span class="text-yellow-400 font-black">5€</span></div>
-            <div class="service-card"><span>Qethje dhe Mjekërr</span><span class="text-yellow-400 font-black">7€</span></div>
-            <div class="service-card"><span>Mjekërr</span><span class="text-yellow-400 font-black">3€</span></div>
-            <div class="service-card"><span>Frizurë</span><span class="text-yellow-400 font-black">2€</span></div>
-            <div class="service-card"><span>Ngjyrosje</span><span class="text-yellow-400 font-black">10-30€</span></div>
-            <div class="service-card"><span>Pastrim Fytyre</span><span class="text-yellow-400 font-black">3€</span></div>
-            <div class="service-card border-yellow-400/40 bg-yellow-400/5"><span>Sherbim në shtëpi</span><span class="text-yellow-400 font-black">20€</span></div>
+            <div class="service-card flex justify-between items-center">
+                <div><p class="font-bold">Qethje</p><p class="text-yellow-400 font-black">5€</p></div>
+                <button onclick="openBooking('Qethje (Dyqan)')" class="res-btn-small">Rezervo</button>
+            </div>
+            <div class="service-card flex justify-between items-center">
+                <div><p class="font-bold">Qethje & Mjekërr</p><p class="text-yellow-400 font-black">7€</p></div>
+                <button onclick="openBooking('Qethje & Mjekërr (Dyqan)')" class="res-btn-small">Rezervo</button>
+            </div>
+            <div class="service-card flex justify-between items-center">
+                <div><p class="font-bold">Mjekërr</p><p class="text-yellow-400 font-black">3€</p></div>
+                <button onclick="openBooking('Mjekërr (Dyqan)')" class="res-btn-small">Rezervo</button>
+            </div>
+            <div class="service-card flex justify-between items-center">
+                <div><p class="font-bold">Frizurë</p><p class="text-yellow-400 font-black">2€</p></div>
+                <button onclick="openBooking('Frizurë (Dyqan)')" class="res-btn-small">Rezervo</button>
+            </div>
+            <div class="service-card flex justify-between items-center">
+                <div><p class="font-bold">Ngjyrosje</p><p class="text-yellow-400 font-black">10-30€</p></div>
+                <button onclick="openBooking('Ngjyrosje (Dyqan)')" class="res-btn-small">Rezervo</button>
+            </div>
+            <div class="service-card flex justify-between items-center">
+                <div><p class="font-bold">Pastrim Fytyre</p><p class="text-yellow-400 font-black">3€</p></div>
+                <button onclick="openBooking('Pastrim Fytyre (Dyqan)')" class="res-btn-small">Rezervo</button>
+            </div>
         </div>
     </div>
 
     <div id="view-products" class="hidden p-6 text-center">
         <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-400">Produktet</h2>
-        <div class="bg-white/5 p-10 rounded-[40px] border border-dashed border-white/20">
-            <i class="fa-solid fa-box-open text-5xl mb-4 text-white/20"></i>
-            <p class="text-sm text-white/40">Së shpejti do të shtohen produktet...</p>
-        </div>
+        <p class="text-white/40">Së shpejti...</p>
     </div>
 
     <div id="view-license" class="hidden p-6 text-center">
@@ -131,13 +154,13 @@
         <div class="bg-white text-black p-6 w-[95%] max-w-sm rounded-[45px] shadow-2xl overflow-y-auto max-h-[92vh]">
             <div class="flex justify-between items-center mb-4">
                 <div>
-                    <h2 class="text-xl font-black italic uppercase">Rezervo</h2>
+                    <h2 class="text-xl font-black italic uppercase" id="modal-title">Rezervo</h2>
                     <p class="text-[9px] font-bold text-red-500 uppercase italic">Rezervo të paktën 1 orë më vonë</p>
                 </div>
                 <button onclick="closeBooking()"><i class="fa-solid fa-circle-xmark text-4xl text-gray-200"></i></button>
             </div>
             
-            <div class="flex gap-2 overflow-x-auto pb-3 mb-2">
+            <div class="flex gap-2 mb-4">
                 <button class="day-btn active" onclick="selD(this)">Sot</button>
                 <button class="day-btn" onclick="selD(this)">Nesër</button>
             </div>
@@ -157,13 +180,15 @@
             </div>
 
             <div class="space-y-2">
-                <button onclick="getLoc()" id="loc-btn" class="w-full py-3 bg-blue-50 rounded-xl text-[11px] font-bold text-blue-600 uppercase border-2 border-dashed border-blue-200 mb-2">
-                    <i class="fa-solid fa-location-dot mr-2"></i> Merr Lokacionin Tim
-                </button>
-                <input type="text" id="c-name" placeholder="Emri dhe Mbiemri" class="w-full bg-gray-100 p-4 rounded-2xl font-bold text-sm outline-none border border-transparent focus:border-yellow-400">
-                <input type="tel" id="c-phone" placeholder="Numri i Telefonit" class="w-full bg-gray-100 p-4 rounded-2xl font-bold text-sm outline-none border border-transparent focus:border-yellow-400">
+                <div id="loc-section">
+                   <button onclick="getLoc()" id="loc-btn" class="w-full py-3 bg-blue-50 rounded-xl text-[11px] font-bold text-blue-600 uppercase border-2 border-dashed border-blue-200 mb-2">
+                    <i class="fa-solid fa-location-dot mr-2"></i> Kliko për Lokacionin (Vetem për Shtëpi)
+                   </button>
+                </div>
+                <input type="text" id="c-name" placeholder="Emri dhe Mbiemri" class="w-full bg-gray-100 p-4 rounded-2xl font-bold text-sm">
+                <input type="tel" id="c-phone" placeholder="Numri i Telefonit" class="w-full bg-gray-100 p-4 rounded-2xl font-bold text-sm">
                 <button onclick="sendOrder()" class="w-full bg-[#00c37b] text-white py-4 rounded-3xl font-black uppercase tracking-widest shadow-lg mt-2">
-                    KONFIRMO <i class="fa-solid fa-check-double ml-2"></i>
+                    KONFIRMO REZERVIMIN <i class="fa-solid fa-check-double ml-2"></i>
                 </button>
             </div>
         </div>
@@ -179,7 +204,7 @@
     </nav>
 
     <script>
-        let sT = ""; let sD = "Sot"; let mU = "";
+        let sT = ""; let sD = "Sot"; let mU = "Në Dyqan"; let currentService = "";
         const token = "8686495061:AAGBd8mahN4RNdzV3FZJHDEaJDQdfyXYaxs";
         const cid = "-1003852106267";
 
@@ -188,19 +213,32 @@
             document.getElementById('view-'+p).classList.remove('hidden');
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById('n-'+p).classList.add('active');
-            window.scrollTo(0,0);
         }
 
-        function openBooking() { document.getElementById('booking-modal').style.display = 'flex'; }
+        function openBooking(service) { 
+            currentService = service;
+            document.getElementById('modal-title').innerText = service;
+            document.getElementById('booking-modal').style.display = 'flex';
+            
+            // Fsheh butonin e lokacionit nese eshte rezervim dyqani
+            if(service.includes("Dyqan")) {
+                document.getElementById('loc-section').style.display = 'none';
+                mU = "Rezervim në Dyqan";
+            } else {
+                document.getElementById('loc-section').style.display = 'block';
+                mU = "";
+            }
+        }
+
         function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
         function selT(b) { document.querySelectorAll('.time-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); sT = b.innerText; }
         function selD(b) { document.querySelectorAll('.day-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); sD = b.innerText; }
 
         function getLoc() {
             if (navigator.geolocation) {
-                document.getElementById('loc-btn').innerText = "Duke kërkuar lokacionin...";
+                document.getElementById('loc-btn').innerText = "Duke gjetur lokacionin...";
                 navigator.geolocation.getCurrentPosition(pos => {
-                    mU = `http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+                    mU = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
                     document.getElementById('loc-btn').innerText = "LOKACIONI U RUAJT ✅";
                 });
             }
@@ -209,9 +247,9 @@
         async function sendOrder() {
             const name = document.getElementById('c-name').value;
             const phone = document.getElementById('c-phone').value;
-            if(!sT || !name || !phone || !mU) { alert("Plotësoni të gjitha fushët!"); return; }
+            if(!sT || !name || !phone || (currentService === 'VIP SHTËPI' && !mU)) { alert("Plotësoni të gjitha fushët!"); return; }
 
-            const msg = `👑 *TERMIN VIP NË SHTËPI* 👑\n\n👤 Emri: ${name}\n📞 Tel: ${phone}\n📅 Data: ${sD}\n⏰ Ora: ${sT}\n📍 Harta: ${mU}`;
+            const msg = `💈 *REZERVIM I RI* 💈\n\n✂️ Shërbimi: ${currentService}\n👤 Emri: ${name}\n📞 Tel: ${phone}\n📅 Data: ${sD}\n⏰ Ora: ${sT}\n📍 Lokacioni: ${mU}`;
 
             await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                 method: 'POST',
@@ -224,3 +262,4 @@
     </script>
 </body>
 </html>
+
