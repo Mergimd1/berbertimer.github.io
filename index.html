@@ -2,7 +2,7 @@
 <html lang="sq">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mergim Barber | Pro Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -13,7 +13,7 @@
 
     <style>
         * { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; box-sizing: border-box; }
-        body { background-color: #01040a; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; padding-bottom: 140px; }
+        body { background-color: #01040a; font-family: 'Poppins', sans-serif; color: #fff; margin: 0; padding-bottom: 120px; }
 
         .bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         .fixed-bg { 
@@ -23,7 +23,7 @@
             filter: brightness(0.3) contrast(1.1); 
         } 
 
-        /* NAVIGIMI (Përshtatur për 5 ikona) */
+        /* NAVIGIMI */
         .bottom-nav {
             position: fixed; bottom: 15px; left: 8px; right: 8px; height: 95px;
             background: rgba(10, 15, 30, 0.95); backdrop-filter: blur(25px);
@@ -31,7 +31,6 @@
             align-items: center; border: 1px solid rgba(255, 255, 255, 0.1); 
             box-shadow: 0 0 40px rgba(0,0,0,0.8); z-index: 1000;
         }
-
         .nav-item { display: flex; flex-direction: column; align-items: center; width: 18%; transition: 0.4s; border: none; background: none; }
         .icon-box { 
             width: 45px; height: 45px; border-radius: 15px; display: flex; 
@@ -44,7 +43,7 @@
         #n-gallery { --neon: #ff007b; }
         #n-services { --neon: #00ffa3; }
         #n-license { --neon: #ffcc00; }
-        #n-contact { --neon: #ff4500; } /* Ngjyra e re për kontakt */
+        #n-contact { --neon: #ff4500; }
 
         .nav-item.active .icon-box { 
             color: #fff !important; 
@@ -53,20 +52,34 @@
             box-shadow: 0 0 25px var(--neon);
             border: 1px solid var(--neon);
         }
-
         .nav-text { font-size: 6px; font-weight: 900; text-transform: uppercase; color: #64748b; }
         .nav-item.active .nav-text { color: var(--neon); transform: translateY(-10px); }
 
+        /* MODAL & CALENDAR (RREGULLUAR DITËT TË MOS THYHEN) */
+        #booking-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.92); 
+            z-index: 2000; display: none; align-items: center; justify-content: center; padding: 15px;
+        }
+
+        .scroll-x { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .scroll-x::-webkit-scrollbar { display: none; }
+        
+        .day-card { 
+            flex: 0 0 auto; padding: 12px 20px; border-radius: 15px; 
+            background: #f3f4f6; color: #000; font-weight: 800; font-size: 12px; 
+            white-space: nowrap; /* KJO NDALON THYERJEN E TEKSTIT */
+            border: 2px solid transparent; cursor: pointer;
+        }
+        .selected-item { background: #000 !important; color: #fff !important; border: 2px solid #eab308; }
+        
+        .time-card { background: #f3f4f6; color: #000; font-weight: 800; padding: 10px; border-radius: 12px; font-size: 11px; text-align: center; cursor: pointer; }
+        .selected-time { background: #eab308 !important; color: #000 !important; }
+        .busy { background: #ef4444 !important; color: #fff !important; opacity: 0.6; pointer-events: none; }
+
         /* LED CARDS STYLE */
         .led-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px;
-            padding: 25px;
-            margin-bottom: 20px;
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px; padding: 25px; margin-bottom: 15px; position: relative; overflow: hidden;
         }
         .led-card::after {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
@@ -75,21 +88,10 @@
         }
         @keyframes led-flow { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
-        .btn-3d {
-            transform: perspective(1px) translateZ(0);
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
+        .btn-3d { transform: perspective(1px) translateZ(0); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
         .btn-3d:active { transform: scale(0.95); box-shadow: 0 5px 10px rgba(0,0,0,0.3); }
 
-        .img-card { width: 100%; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); object-fit: cover; }
         .hidden { display: none; }
-        
-        /* Modal Style */
-        #booking-modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.92); 
-            z-index: 2000; display: none; align-items: center; justify-content: center; padding: 15px;
-        }
     </style>
 </head>
 <body>
@@ -114,41 +116,39 @@
     <div id="view-gallery" class="hidden p-6 text-center">
         <h2 class="text-3xl font-black mb-8 italic uppercase text-pink-500">Galeria</h2>
         <div class="grid grid-cols-2 gap-4 pb-10">
-            <img src="foto1.jpg" class="img-card h-48">
-            <img src="foto2.jpg" class="img-card h-48">
-            <img src="foto3.jpg" class="img-card h-48">
-            <img src="foto4.jpg" class="img-card h-48">
-            <img src="foto5.jpg" class="img-card h-48">
-            <img src="foto6.jpg" class="img-card h-48">
+            <img src="foto1.jpg" class="w-full h-48 rounded-2xl border border-white/10 object-cover">
+            <img src="foto2.jpg" class="w-full h-48 rounded-2xl border border-white/10 object-cover">
+            <img src="foto3.jpg" class="w-full h-48 rounded-2xl border border-white/10 object-cover">
+            <img src="foto4.jpg" class="w-full h-48 rounded-2xl border border-white/10 object-cover">
         </div>
     </div>
 
     <div id="view-services" class="hidden p-6">
         <h2 class="text-3xl font-black mb-8 italic uppercase text-emerald-400 text-center">Shërbimet</h2>
         <div class="space-y-3 pb-20">
-            <div class="led-card flex justify-between items-center" style="--l-color: #10b981;">
+            <div class="led-card flex justify-between items-center" style="--l-color: #10b981; padding: 20px;">
                 <div><p class="font-bold text-sm">Qethje</p><p class="text-emerald-400 font-black">5€</p></div>
                 <button onclick="openBooking('Qethje (5€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
-            <div class="led-card flex justify-between items-center" style="--l-color: #10b981;">
+            <div class="led-card flex justify-between items-center" style="--l-color: #10b981; padding: 20px;">
                 <div><p class="font-bold text-sm">Qethje dhe Mjekër</p><p class="text-emerald-400 font-black">7€</p></div>
                 <button onclick="openBooking('Q&M (7€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
-            <div class="led-card flex justify-between items-center" style="--l-color: #10b981;">
+            <div class="led-card flex justify-between items-center" style="--l-color: #10b981; padding: 20px;">
                 <div><p class="font-bold text-sm">Mjekër</p><p class="text-emerald-400 font-black">3€</p></div>
                 <button onclick="openBooking('Mjekër (3€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
-            <div class="led-card flex justify-between items-center" style="--l-color: #10b981;">
+            <div class="led-card flex justify-between items-center" style="--l-color: #10b981; padding: 20px;">
                 <div><p class="font-bold text-sm">Frizurë</p><p class="text-emerald-400 font-black">2€</p></div>
                 <button onclick="openBooking('Frizurë (2€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
-            <div class="led-card flex justify-between items-center" style="--l-color: #10b981;">
+            <div class="led-card flex justify-between items-center" style="--l-color: #10b981; padding: 20px;">
                 <div><p class="font-bold text-sm">Ngjyrosje</p><p class="text-emerald-400 font-black">10-30€</p></div>
                 <button onclick="openBooking('Ngjyrosje (10-30€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
-            <div class="led-card flex justify-between items-center" style="--l-color: #10b981;">
-                <div><p class="font-bold text-xs">Pedrit ftyre mask mast</p><p class="text-emerald-400 font-black">3€</p></div>
-                <button onclick="openBooking('Pedrit ftyre (3€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
+            <div class="led-card flex justify-between items-center" style="--l-color: #10b981; padding: 20px;">
+                <div><p class="font-bold text-xs">Mask e zez pastrim fytyre</p><p class="text-emerald-400 font-black">3€</p></div>
+                <button onclick="openBooking('Mask e zez (3€)')" class="bg-emerald-500 text-black text-[9px] font-black px-5 py-2 rounded-xl uppercase">Rezervo</button>
             </div>
         </div>
     </div>
@@ -156,48 +156,30 @@
     <div id="view-license" class="hidden p-6 text-center">
         <h2 class="text-3xl font-black mb-10 italic uppercase text-yellow-500">Certifikatat</h2>
         <div class="space-y-4 pb-20">
-            <img src="Certificate1.jpg" class="img-card">
-            <img src="Certificate2.jpg" class="img-card">
+            <img src="Certificate1.jpg" class="w-full rounded-2xl border border-white/10">
+            <img src="Certificate2.jpg" class="w-full rounded-2xl border border-white/10">
         </div>
     </div>
 
     <div id="view-contact" class="hidden p-6">
         <h2 class="text-3xl font-black mb-8 italic uppercase text-orange-500 text-center">Na Kontaktoni</h2>
-        
         <div class="space-y-4">
             <a href="https://maps.app.goo.gl/9t25L4LVGv57dbb56" target="_blank" class="led-card block btn-3d" style="--l-color: #ff4500;">
                 <div class="flex items-center gap-6">
-                    <div class="w-14 h-14 bg-orange-500/20 rounded-2xl flex items-center justify-center text-orange-500 text-2xl">
-                        <i class="fa-solid fa-map-location-dot"></i>
-                    </div>
-                    <div>
-                        <p class="font-black uppercase text-sm">Gjej Lokacionin</p>
-                        <p class="text-[10px] text-gray-400">Kliko për tu hapur në Maps</p>
-                    </div>
+                    <div class="w-14 h-14 bg-orange-500/20 rounded-2xl flex items-center justify-center text-orange-500 text-2xl"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <div><p class="font-black uppercase text-sm">Gjej Lokacionin</p><p class="text-[10px] text-gray-400">Kliko për tu hapur në Maps</p></div>
                 </div>
             </a>
-
             <a href="https://instagram.com/Mergimd1" target="_blank" class="led-card block btn-3d" style="--l-color: #e1306c;">
                 <div class="flex items-center gap-6">
-                    <div class="w-14 h-14 bg-pink-500/20 rounded-2xl flex items-center justify-center text-pink-500 text-2xl">
-                        <i class="fa-brands fa-instagram"></i>
-                    </div>
-                    <div>
-                        <p class="font-black uppercase text-sm">Instagram</p>
-                        <p class="text-[10px] text-gray-400">@Mergimd1</p>
-                    </div>
+                    <div class="w-14 h-14 bg-pink-500/20 rounded-2xl flex items-center justify-center text-pink-500 text-2xl"><i class="fa-brands fa-instagram"></i></div>
+                    <div><p class="font-black uppercase text-sm">Instagram</p><p class="text-[10px] text-gray-400">@Mergimd1</p></div>
                 </div>
             </a>
-
             <a href="tel:049474840" class="led-card block btn-3d" style="--l-color: #00ffa3;">
                 <div class="flex items-center gap-6">
-                    <div class="w-14 h-14 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-500 text-2xl">
-                        <i class="fa-solid fa-phone-volume"></i>
-                    </div>
-                    <div>
-                        <p class="font-black uppercase text-sm">Thirr Tani</p>
-                        <p class="text-[10px] text-gray-400">049 474 840</p>
-                    </div>
+                    <div class="w-14 h-14 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-500 text-2xl"><i class="fa-solid fa-phone-volume"></i></div>
+                    <div><p class="font-black uppercase text-sm">Thirr Tani</p><p class="text-[10px] text-gray-400">049 474 840</p></div>
                 </div>
             </a>
         </div>
@@ -209,7 +191,7 @@
             <h2 id="modal-title" class="text-xl font-black italic uppercase mb-4 text-center">Rezervo</h2>
             
             <p class="text-[10px] font-black mb-2">ZGJIDH DITËN:</p>
-            <div class="scroll-x mb-6 flex overflow-x-auto gap-2 pb-2">
+            <div class="scroll-x mb-6">
                 <div class="day-card selected-item" onclick="selD(this, 'E Hene')">E Hënë</div>
                 <div class="day-card" onclick="selD(this, 'E Marte')">E Martë</div>
                 <div class="day-card" onclick="selD(this, 'E Merkure')">E Mërkurë</div>
@@ -221,6 +203,12 @@
 
             <p class="text-[10px] font-black mb-2">ZGJIDH ORËN:</p>
             <div class="grid grid-cols-4 gap-2 mb-6" id="time-grid"></div>
+
+            <div id="loc-section" class="mb-4 hidden">
+                <button onclick="getLoc()" id="loc-btn" class="w-full py-4 bg-blue-50 rounded-2xl text-[10px] font-bold text-blue-600 uppercase border border-blue-200">
+                    <i class="fa-solid fa-location-dot mr-2"></i> Konfirmo Lokacionin (GPS)
+                </button>
+            </div>
 
             <input type="text" id="c-name" placeholder="Emri juaj" class="w-full bg-gray-100 p-4 rounded-2xl mb-2 font-bold outline-none">
             <input type="tel" id="c-phone" placeholder="Numri telefonit" class="w-full bg-gray-100 p-4 rounded-2xl mb-6 font-bold outline-none">
@@ -249,7 +237,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        let sT = ""; let sD = "E Hene"; let currentS = "";
+        let sT = ""; let sD = "E Hene"; let currentS = ""; let mU = "";
         const token = "8686495061:AAGBd8mahN4RNdzV3FZJHDEaJDQdfyXYaxs";
         const cid = "-1003852106267";
 
@@ -274,16 +262,14 @@
                         let t = `${h < 10 ? '0'+h : h}:${m}`;
                         let tID = t.replace(':', '-');
                         let btn = document.createElement('button');
-                        btn.className = "time-card bg-gray-100 text-black font-bold p-2 rounded-xl text-[10px]";
+                        btn.className = "time-card";
                         if(reserved[tID]) {
-                            btn.style.background = "#ef4444"; btn.style.color = "#fff"; btn.innerText = "Zënë"; btn.disabled = true;
+                            btn.classList.add('busy'); btn.innerText = "Zënë"; btn.disabled = true;
                         } else {
                             btn.innerText = t;
                             btn.onclick = function() {
-                                document.querySelectorAll('.time-card').forEach(b => {
-                                    if(b.innerText !== "Zënë") { b.style.background = "#f3f4f6"; b.style.color = "#000"; }
-                                });
-                                this.style.background = "#eab308"; this.style.color = "#000"; sT = t;
+                                document.querySelectorAll('.time-card').forEach(b => b.classList.remove('selected-time'));
+                                this.classList.add('selected-time'); sT = t;
                             };
                         }
                         grid.appendChild(btn);
@@ -292,29 +278,66 @@
             });
         }
 
-        function openBooking(s) { currentS = s; document.getElementById('modal-title').innerText = s; document.getElementById('booking-modal').style.display = 'flex'; loadTimes(); }
-        function closeBooking() { document.getElementById('booking-modal').style.display = 'none'; }
+        function openBooking(s) { 
+            currentS = s; 
+            document.getElementById('modal-title').innerText = s; 
+            document.getElementById('booking-modal').style.display = 'flex'; 
+            // SHFAQ LOKACIONIN VETEM PER VIP
+            document.getElementById('loc-section').style.display = s.includes("VIP") ? 'block' : 'none';
+            loadTimes(); 
+        }
+
+        function closeBooking() { 
+            document.getElementById('booking-modal').style.display = 'none'; 
+            sT = ""; mU = "";
+            document.getElementById('loc-btn').innerText = "📍 Konfirmo Lokacionin (GPS)";
+            document.getElementById('loc-btn').style.background = "#eff6ff";
+        }
+
         function selD(el, d) { 
             document.querySelectorAll('.day-card').forEach(b => b.classList.remove('selected-item'));
             el.classList.add('selected-item'); sD = d; sT = ""; loadTimes(); 
         }
 
+        function getLoc() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    // RREGULLUAR LINKU I MAPS QË TË HAPET SAKTË
+                    mU = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+                    document.getElementById('loc-btn').innerText = "LOKACIONI U MOR ✅";
+                    document.getElementById('loc-btn').style.background = "#dcfce7";
+                });
+            } else {
+                alert("Telefoni juaj nuk suporton lokacionin!");
+            }
+        }
+
         async function sendOrder() {
             const name = document.getElementById('c-name').value;
             const phone = document.getElementById('c-phone').value;
-            if(!name || !phone || !sT) return alert("Plotëso fushave!");
+            if(!name || !phone || !sT) return alert("Plotëso emrin, numrin dhe zgjedh orën!");
+            
             const submitBtn = document.getElementById('btn-submit');
             submitBtn.disabled = true; submitBtn.innerText = "Duke u dërguar...";
+            
             try {
-                await db.collection("rezervimet").doc(sD).collection("ora").doc(sT.replace(':', '-')).set({ klienti: name, tel: phone });
-                const msg = `👑 REZERVIM I RI 👑\n👤: ${name}\n📞: ${phone}\n✂️: ${currentS}\n📅: ${sD}\n⏰: ${sT}`;
+                await db.collection("rezervimet").doc(sD).collection("ora").doc(sT.replace(':', '-')).set({ 
+                    klienti: name, tel: phone, shërbimi: currentS 
+                });
+                const msg = `👑 REZERVIM I RI 👑\n👤: ${name}\n📞: ${phone}\n✂️: ${currentS}\n📅: ${sD}\n⏰: ${sT}\n📍: ${mU || 'Në Dyqan'}`;
                 await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: cid, text: msg })
                 });
-                alert("U rezervua!"); closeBooking();
-            } catch (e) { alert("Gabim!"); } finally { submitBtn.disabled = false; submitBtn.innerText = "DËRGO TERMININ"; }
+                alert("U rezervua me sukses!"); 
+                closeBooking();
+            } catch (e) { 
+                alert("Gabim në dërgim!"); 
+            } finally { 
+                submitBtn.disabled = false; submitBtn.innerText = "DËRGO TERMININ"; 
+            }
         }
+
         window.onload = loadTimes;
     </script>
 </body>
